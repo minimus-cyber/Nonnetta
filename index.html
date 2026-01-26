@@ -16,35 +16,106 @@
         <main>
             <section class="exercise-menu" id="menu">
                 <div class="button-grid">
+                    <!-- Row 1: Buongiorno, Memory, Colori, Abbina, Scrivi -->
+                    <button class="exercise-btn" onclick="startOrientationGame()" aria-label="Start Orientation Game">
+                        <span class="icon">☀️</span>
+                        <span class="btn-text" data-i18n="orientationGame">Good Morning</span>
+                    </button>
                     <button class="exercise-btn" onclick="startMemoryGame()" aria-label="Start Memory Game">
                         <span class="icon">🎴</span>
-                        <span class="btn-text" data-i18n="memoryMatch">Memory Match</span>
-                    </button>
-                    <button class="exercise-btn" onclick="startPatternGame()" aria-label="Start Pattern Recognition">
-                        <span class="icon">🔷</span>
-                        <span class="btn-text" data-i18n="patternRecognition">Pattern Recognition</span>
+                        <span class="btn-text" data-i18n="memoryMatch">Memory</span>
                     </button>
                     <button class="exercise-btn" onclick="startColorGame()" aria-label="Start Color Matching">
                         <span class="icon">🎨</span>
-                        <span class="btn-text" data-i18n="colorMatch">Color Match</span>
+                        <span class="btn-text" data-i18n="colorMatch">Colors</span>
                     </button>
-                    <button class="exercise-btn" onclick="startSequenceGame()" aria-label="Start Sequence Memory">
-                        <span class="icon">🔢</span>
-                        <span class="btn-text" data-i18n="sequenceMemory">Sequence Memory</span>
+                    <button class="exercise-btn" onclick="startMatchingGame()" aria-label="Start Word-Image Matching">
+                        <span class="icon">🖼️</span>
+                        <span class="btn-text" data-i18n="wordImageMatch">Match</span>
                     </button>
                     <button class="exercise-btn" onclick="startTypingGame()" aria-label="Start Typing Game">
                         <span class="icon">⌨️</span>
-                        <span class="btn-text" data-i18n="typingGame">Typing</span>
+                        <span class="btn-text" data-i18n="typingGame">Type</span>
+                    </button>
+                    <!-- Row 2: Calcoli, Sequenze, Percorsi, Suoni, Diario -->
+                    <button class="exercise-btn" onclick="startMathGame()" aria-label="Start Math Game">
+                        <span class="icon">🔢</span>
+                        <span class="btn-text" data-i18n="mathGame">Math</span>
+                    </button>
+                    <button class="exercise-btn" onclick="startSequenceGame()" aria-label="Start Sequence Memory">
+                        <span class="icon">🔄</span>
+                        <span class="btn-text" data-i18n="sequenceMemory">Sequences</span>
+                    </button>
+                    <button class="exercise-btn" onclick="startPatternGame()" aria-label="Start Pattern Recognition">
+                        <span class="icon">🔷</span>
+                        <span class="btn-text" data-i18n="patternRecognition">Patterns</span>
                     </button>
                     <button class="exercise-btn" onclick="startBilateralGame()" aria-label="Start Bilateral Stimulation">
                         <span class="icon">🎧</span>
-                        <span class="btn-text" data-i18n="bilateralStimulation">Bilateral Stimulation</span>
+                        <span class="btn-text" data-i18n="bilateralStimulation">Sounds</span>
                     </button>
                     <button class="exercise-btn" onclick="openDiary()" aria-label="Open Activity Diary">
                         <span class="icon">📔</span>
-                        <span class="btn-text" data-i18n="activityDiary">Activity Diary</span>
+                        <span class="btn-text" data-i18n="activityDiary">Diary</span>
                     </button>
                 </div>
+            </section>
+
+            <!-- Orientation Game (Buongiorno) -->
+            <section class="game-section hidden" id="orientation-game">
+                <h2 data-i18n="orientationGame">Good Morning</h2>
+                <p class="instructions" data-i18n="orientationInstructions">Answer the questions about today!</p>
+                <div class="game-controls">
+                    <button class="control-btn" onclick="backToMenu()" aria-label="Back to menu">
+                        <span class="icon">🏠</span> <span data-i18n="menu">Menu</span>
+                    </button>
+                </div>
+                <div class="score-display">
+                    <span class="score-label" data-i18n="correct">Correct:</span>
+                    <span id="orientation-score">0</span>
+                </div>
+                <div class="orientation-question" id="orientation-question"></div>
+                <div class="orientation-options" id="orientation-options"></div>
+            </section>
+
+            <!-- Math Game (Calcoli) -->
+            <section class="game-section hidden" id="math-game">
+                <h2 data-i18n="mathGame">Math</h2>
+                <p class="instructions" data-i18n="mathInstructions">Solve the arithmetic problem!</p>
+                <div class="game-controls">
+                    <button class="control-btn" onclick="nextMathProblem()" aria-label="Next problem">
+                        <span class="icon">➡️</span> <span data-i18n="next">Next</span>
+                    </button>
+                    <button class="control-btn" onclick="backToMenu()" aria-label="Back to menu">
+                        <span class="icon">🏠</span> <span data-i18n="menu">Menu</span>
+                    </button>
+                </div>
+                <div class="score-display">
+                    <span class="score-label" data-i18n="correct">Correct:</span>
+                    <span id="math-score">0</span>
+                </div>
+                <div class="math-problem" id="math-problem"></div>
+                <div class="math-options" id="math-options"></div>
+            </section>
+
+            <!-- Word-Image Matching Game (Abbina) -->
+            <section class="game-section hidden" id="matching-game">
+                <h2 data-i18n="wordImageMatch">Match Word to Image</h2>
+                <p class="instructions" data-i18n="matchingInstructions">Click the image that matches the word!</p>
+                <div class="game-controls">
+                    <button class="control-btn" onclick="nextMatchingChallenge()" aria-label="Next challenge">
+                        <span class="icon">➡️</span> <span data-i18n="next">Next</span>
+                    </button>
+                    <button class="control-btn" onclick="backToMenu()" aria-label="Back to menu">
+                        <span class="icon">🏠</span> <span data-i18n="menu">Menu</span>
+                    </button>
+                </div>
+                <div class="score-display">
+                    <span class="score-label" data-i18n="correct">Correct:</span>
+                    <span id="matching-score">0</span>
+                </div>
+                <div class="matching-word" id="matching-word"></div>
+                <div class="matching-images" id="matching-images"></div>
             </section>
 
             <!-- Memory Game -->

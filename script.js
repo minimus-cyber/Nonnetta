@@ -3,13 +3,16 @@ const translations = {
     en: {
         subtitle: "Neurocognitive Stimulation Exercises",
         chooseExercise: "Choose an Exercise",
-        memoryMatch: "Memory Match",
-        patternRecognition: "Pattern Recognition",
-        colorMatch: "Color Match",
-        sequenceMemory: "Sequence Memory",
-        typingGame: "Typing",
-        bilateralStimulation: "Bilateral Stimulation",
-        activityDiary: "Activity Diary",
+        memoryMatch: "Memory",
+        patternRecognition: "Patterns",
+        colorMatch: "Colors",
+        sequenceMemory: "Sequences",
+        typingGame: "Type",
+        bilateralStimulation: "Sounds",
+        orientationGame: "Good Morning",
+        mathGame: "Math",
+        wordImageMatch: "Match",
+        activityDiary: "Diary",
         menu: "Menu",
         next: "Next",
         correct: "Correct",
@@ -23,18 +26,66 @@ const translations = {
         print: "Print",
         activityLog: "Activity Log",
         typingInstructions: "Type the word shown below as fast as you can!",
-        bilateralInstructions: "Follow the sound from left to right with your eyes closed. Use headphones or stereo speakers."
+        bilateralInstructions: "Follow the sound from left to right with your eyes closed. Use headphones or stereo speakers.",
+        orientationInstructions: "Answer the questions about today!",
+        mathInstructions: "Solve the arithmetic problem!",
+        matchingInstructions: "Click the image that matches the word!",
+        timeOfDay: "What time of day is it?",
+        dayOfWeek: "What day of the week is it?",
+        monthOfYear: "What month is it?",
+        season: "What season is it?",
+        year: "What year is it?",
+        morning: "Morning",
+        afternoon: "Afternoon",
+        evening: "Evening",
+        night: "Night",
+        spring: "Spring",
+        summer: "Summer",
+        autumn: "Autumn",
+        winter: "Winter",
+        sun: "Sun",
+        tree: "Tree",
+        cat: "Cat",
+        dog: "Dog",
+        house: "House",
+        car: "Car",
+        flower: "Flower",
+        star: "Star",
+        heart: "Heart",
+        book: "Book",
+        Monday: "Monday",
+        Tuesday: "Tuesday",
+        Wednesday: "Wednesday",
+        Thursday: "Thursday",
+        Friday: "Friday",
+        Saturday: "Saturday",
+        Sunday: "Sunday",
+        January: "January",
+        February: "February",
+        March: "March",
+        April: "April",
+        May: "May",
+        June: "June",
+        July: "July",
+        August: "August",
+        September: "September",
+        October: "October",
+        November: "November",
+        December: "December"
     },
     it: {
         subtitle: "Esercizi di Stimolazione Neurocognitiva",
         chooseExercise: "Scegli un Esercizio",
         memoryMatch: "Memoria",
-        patternRecognition: "Riconoscimento Pattern",
+        patternRecognition: "Pattern",
         colorMatch: "Colori",
-        sequenceMemory: "Sequenza",
-        typingGame: "Dattilografia",
-        bilateralStimulation: "Stimolazione Bilaterale",
-        activityDiary: "Diario Attività",
+        sequenceMemory: "Sequenze",
+        typingGame: "Scrivi",
+        bilateralStimulation: "Suoni",
+        orientationGame: "Buongiorno",
+        mathGame: "Calcoli",
+        wordImageMatch: "Abbina",
+        activityDiary: "Diario",
         menu: "Menu",
         next: "Avanti",
         correct: "Corrette",
@@ -48,18 +99,66 @@ const translations = {
         print: "Stampa",
         activityLog: "Registro Attività",
         typingInstructions: "Digita la parola mostrata il più velocemente possibile!",
-        bilateralInstructions: "Segui il suono da sinistra a destra con gli occhi chiusi. Usa cuffie o casse stereo."
+        bilateralInstructions: "Segui il suono da sinistra a destra con gli occhi chiusi. Usa cuffie o casse stereo.",
+        orientationInstructions: "Rispondi alle domande su oggi!",
+        mathInstructions: "Risolvi il problema aritmetico!",
+        matchingInstructions: "Clicca sull'immagine che corrisponde alla parola!",
+        timeOfDay: "Che momento della giornata è?",
+        dayOfWeek: "Che giorno della settimana è?",
+        monthOfYear: "Che mese è?",
+        season: "Che stagione è?",
+        year: "Che anno è?",
+        morning: "Mattina",
+        afternoon: "Pomeriggio",
+        evening: "Sera",
+        night: "Notte",
+        spring: "Primavera",
+        summer: "Estate",
+        autumn: "Autunno",
+        winter: "Inverno",
+        sun: "Sole",
+        tree: "Albero",
+        cat: "Gatto",
+        dog: "Cane",
+        house: "Casa",
+        car: "Auto",
+        flower: "Fiore",
+        star: "Stella",
+        heart: "Cuore",
+        book: "Libro",
+        Monday: "Lunedì",
+        Tuesday: "Martedì",
+        Wednesday: "Mercoledì",
+        Thursday: "Giovedì",
+        Friday: "Venerdì",
+        Saturday: "Sabato",
+        Sunday: "Domenica",
+        January: "Gennaio",
+        February: "Febbraio",
+        March: "Marzo",
+        April: "Aprile",
+        May: "Maggio",
+        June: "Giugno",
+        July: "Luglio",
+        August: "Agosto",
+        September: "Settembre",
+        October: "Ottobre",
+        November: "Novembre",
+        December: "Dicembre"
     },
     es: {
         subtitle: "Ejercicios de Estimulación Neurocognitiva",
         chooseExercise: "Elige un Ejercicio",
         memoryMatch: "Memoria",
-        patternRecognition: "Reconocimiento de Patrones",
+        patternRecognition: "Patrones",
         colorMatch: "Colores",
-        sequenceMemory: "Secuencia",
-        typingGame: "Mecanografía",
-        bilateralStimulation: "Estimulación Bilateral",
-        activityDiary: "Diario de Actividades",
+        sequenceMemory: "Secuencias",
+        typingGame: "Escribir",
+        bilateralStimulation: "Sonidos",
+        orientationGame: "Buenos Días",
+        mathGame: "Matemáticas",
+        wordImageMatch: "Emparejar",
+        activityDiary: "Diario",
         menu: "Menú",
         next: "Siguiente",
         correct: "Correctas",
@@ -73,18 +172,66 @@ const translations = {
         print: "Imprimir",
         activityLog: "Registro de Actividades",
         typingInstructions: "¡Escribe la palabra mostrada lo más rápido que puedas!",
-        bilateralInstructions: "Sigue el sonido de izquierda a derecha con los ojos cerrados. Usa auriculares o altavoces estéreo."
+        bilateralInstructions: "Sigue el sonido de izquierda a derecha con los ojos cerrados. Usa auriculares o altavoces estéreo.",
+        orientationInstructions: "¡Responde las preguntas sobre hoy!",
+        mathInstructions: "¡Resuelve el problema aritmético!",
+        matchingInstructions: "¡Haz clic en la imagen que coincida con la palabra!",
+        timeOfDay: "¿Qué momento del día es?",
+        dayOfWeek: "¿Qué día de la semana es?",
+        monthOfYear: "¿Qué mes es?",
+        season: "¿Qué estación es?",
+        year: "¿Qué año es?",
+        morning: "Mañana",
+        afternoon: "Tarde",
+        evening: "Atardecer",
+        night: "Noche",
+        spring: "Primavera",
+        summer: "Verano",
+        autumn: "Otoño",
+        winter: "Invierno",
+        sun: "Sol",
+        tree: "Árbol",
+        cat: "Gato",
+        dog: "Perro",
+        house: "Casa",
+        car: "Coche",
+        flower: "Flor",
+        star: "Estrella",
+        heart: "Corazón",
+        book: "Libro",
+        Monday: "Lunes",
+        Tuesday: "Martes",
+        Wednesday: "Miércoles",
+        Thursday: "Jueves",
+        Friday: "Viernes",
+        Saturday: "Sábado",
+        Sunday: "Domingo",
+        January: "Enero",
+        February: "Febrero",
+        March: "Marzo",
+        April: "Abril",
+        May: "Mayo",
+        June: "Junio",
+        July: "Julio",
+        August: "Agosto",
+        September: "Septiembre",
+        October: "Octubre",
+        November: "Noviembre",
+        December: "Diciembre"
     },
     fr: {
         subtitle: "Exercices de Stimulation Neurocognitive",
         chooseExercise: "Choisissez un Exercice",
         memoryMatch: "Mémoire",
-        patternRecognition: "Reconnaissance de Motifs",
+        patternRecognition: "Motifs",
         colorMatch: "Couleurs",
-        sequenceMemory: "Séquence",
-        typingGame: "Dactylographie",
-        bilateralStimulation: "Stimulation Bilatérale",
-        activityDiary: "Journal d'Activités",
+        sequenceMemory: "Séquences",
+        typingGame: "Écrire",
+        bilateralStimulation: "Sons",
+        orientationGame: "Bonjour",
+        mathGame: "Calcul",
+        wordImageMatch: "Associer",
+        activityDiary: "Journal",
         menu: "Menu",
         next: "Suivant",
         correct: "Correctes",
@@ -98,18 +245,66 @@ const translations = {
         print: "Imprimer",
         activityLog: "Journal des Activités",
         typingInstructions: "Tapez le mot affiché aussi vite que possible!",
-        bilateralInstructions: "Suivez le son de gauche à droite les yeux fermés. Utilisez des écouteurs ou des haut-parleurs stéréo."
+        bilateralInstructions: "Suivez le son de gauche à droite les yeux fermés. Utilisez des écouteurs ou des haut-parleurs stéréo.",
+        orientationInstructions: "Répondez aux questions sur aujourd'hui!",
+        mathInstructions: "Résolvez le problème arithmétique!",
+        matchingInstructions: "Cliquez sur l'image qui correspond au mot!",
+        timeOfDay: "Quel moment de la journée est-il?",
+        dayOfWeek: "Quel jour de la semaine sommes-nous?",
+        monthOfYear: "Quel mois sommes-nous?",
+        season: "Quelle saison sommes-nous?",
+        year: "Quelle année sommes-nous?",
+        morning: "Matin",
+        afternoon: "Après-midi",
+        evening: "Soir",
+        night: "Nuit",
+        spring: "Printemps",
+        summer: "Été",
+        autumn: "Automne",
+        winter: "Hiver",
+        sun: "Soleil",
+        tree: "Arbre",
+        cat: "Chat",
+        dog: "Chien",
+        house: "Maison",
+        car: "Voiture",
+        flower: "Fleur",
+        star: "Étoile",
+        heart: "Cœur",
+        book: "Livre",
+        Monday: "Lundi",
+        Tuesday: "Mardi",
+        Wednesday: "Mercredi",
+        Thursday: "Jeudi",
+        Friday: "Vendredi",
+        Saturday: "Samedi",
+        Sunday: "Dimanche",
+        January: "Janvier",
+        February: "Février",
+        March: "Mars",
+        April: "Avril",
+        May: "Mai",
+        June: "Juin",
+        July: "Juillet",
+        August: "Août",
+        September: "Septembre",
+        October: "Octobre",
+        November: "Novembre",
+        December: "Décembre"
     },
     de: {
         subtitle: "Neurokognitive Stimulationsübungen",
         chooseExercise: "Wähle eine Übung",
         memoryMatch: "Gedächtnis",
-        patternRecognition: "Mustererkennung",
+        patternRecognition: "Muster",
         colorMatch: "Farben",
-        sequenceMemory: "Sequenz",
-        typingGame: "Tippen",
-        bilateralStimulation: "Bilaterale Stimulation",
-        activityDiary: "Aktivitätstagebuch",
+        sequenceMemory: "Sequenzen",
+        typingGame: "Schreiben",
+        bilateralStimulation: "Töne",
+        orientationGame: "Guten Morgen",
+        mathGame: "Rechnen",
+        wordImageMatch: "Zuordnen",
+        activityDiary: "Tagebuch",
         menu: "Menü",
         next: "Weiter",
         correct: "Richtig",
@@ -123,7 +318,52 @@ const translations = {
         print: "Drucken",
         activityLog: "Aktivitätsprotokoll",
         typingInstructions: "Tippe das angezeigte Wort so schnell wie möglich!",
-        bilateralInstructions: "Folge dem Klang von links nach rechts mit geschlossenen Augen. Verwende Kopfhörer oder Stereolautsprecher."
+        bilateralInstructions: "Folge dem Klang von links nach rechts mit geschlossenen Augen. Verwende Kopfhörer oder Stereolautsprecher.",
+        orientationInstructions: "Beantworte die Fragen über heute!",
+        mathInstructions: "Löse das arithmetische Problem!",
+        matchingInstructions: "Klicke auf das Bild, das zum Wort passt!",
+        timeOfDay: "Welche Tageszeit ist es?",
+        dayOfWeek: "Welcher Wochentag ist heute?",
+        monthOfYear: "Welcher Monat ist es?",
+        season: "Welche Jahreszeit ist es?",
+        year: "Welches Jahr haben wir?",
+        morning: "Morgen",
+        afternoon: "Nachmittag",
+        evening: "Abend",
+        night: "Nacht",
+        spring: "Frühling",
+        summer: "Sommer",
+        autumn: "Herbst",
+        winter: "Winter",
+        sun: "Sonne",
+        tree: "Baum",
+        cat: "Katze",
+        dog: "Hund",
+        house: "Haus",
+        car: "Auto",
+        flower: "Blume",
+        star: "Stern",
+        heart: "Herz",
+        book: "Buch",
+        Monday: "Montag",
+        Tuesday: "Dienstag",
+        Wednesday: "Mittwoch",
+        Thursday: "Donnerstag",
+        Friday: "Freitag",
+        Saturday: "Samstag",
+        Sunday: "Sonntag",
+        January: "Januar",
+        February: "Februar",
+        March: "März",
+        April: "April",
+        May: "Mai",
+        June: "Juni",
+        July: "Juli",
+        August: "August",
+        September: "September",
+        October: "Oktober",
+        November: "November",
+        December: "Dezember"
     }
 };
 
@@ -195,6 +435,9 @@ let patternScore = 0;
 let colorScore = 0;
 let sequenceLevel = 1;
 let typingScore = 0;
+let orientationScore = 0;
+let mathScore = 0;
+let matchingScore = 0;
 
 // Memory Game Variables
 let memoryCards = [];
@@ -224,6 +467,29 @@ const typingWords = {
     fr: ['BONJOUR', 'MONDE', 'CERVEAU', 'INTELLIGENT', 'HEUREUX', 'LUMIÈRE', 'JOUER', 'PENSER', 'APPRENDRE', 'FOCUS'],
     de: ['HALLO', 'WELT', 'GEHIRN', 'KLUG', 'GLÜCKLICH', 'LICHT', 'SPIELEN', 'DENKEN', 'LERNEN', 'FOKUS']
 };
+
+// Orientation Game Variables
+let orientationQuestions = [];
+let currentOrientationIndex = 0;
+
+// Math Game Variables
+let currentMathProblem = null;
+let currentMathAnswer = 0;
+
+// Matching Game Variables
+const matchingItems = [
+    { word: 'sun', emoji: '☀️' },
+    { word: 'tree', emoji: '🌳' },
+    { word: 'cat', emoji: '🐱' },
+    { word: 'dog', emoji: '🐶' },
+    { word: 'house', emoji: '🏠' },
+    { word: 'car', emoji: '🚗' },
+    { word: 'flower', emoji: '🌸' },
+    { word: 'star', emoji: '⭐' },
+    { word: 'heart', emoji: '❤️' },
+    { word: 'book', emoji: '📚' }
+];
+let currentMatchingItem = null;
 
 // Bilateral Stimulation Variables
 let bilateralInterval = null;
@@ -695,6 +961,308 @@ function stopBilateralStimulation() {
         document.getElementById('bilateral-left').classList.remove('active');
         document.getElementById('bilateral-right').classList.remove('active');
     }
+}
+
+// Orientation Game (Buongiorno)
+function startOrientationGame() {
+    currentGame = 'orientation';
+    orientationScore = 0;
+    currentOrientationIndex = 0;
+    
+    showSection('orientation-game');
+    document.getElementById('orientation-score').textContent = orientationScore;
+    
+    // Generate questions based on current date/time
+    generateOrientationQuestions();
+    showOrientationQuestion();
+}
+
+function generateOrientationQuestions() {
+    const now = new Date();
+    const hour = now.getHours();
+    const dayOfWeek = now.getDay();
+    const month = now.getMonth();
+    const year = now.getFullYear();
+    
+    // Determine time of day
+    let timeOfDay = 'morning';
+    if (hour >= 12 && hour < 17) timeOfDay = 'afternoon';
+    else if (hour >= 17 && hour < 21) timeOfDay = 'evening';
+    else if (hour >= 21 || hour < 6) timeOfDay = 'night';
+    
+    // Determine season (Northern Hemisphere)
+    let season = 'spring';
+    if (month >= 2 && month <= 4) season = 'spring';
+    else if (month >= 5 && month <= 7) season = 'summer';
+    else if (month >= 8 && month <= 10) season = 'autumn';
+    else season = 'winter';
+    
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                        'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    orientationQuestions = [
+        {
+            key: 'timeOfDay',
+            correctAnswer: timeOfDay,
+            options: ['morning', 'afternoon', 'evening', 'night']
+        },
+        {
+            key: 'dayOfWeek',
+            correctAnswer: daysOfWeek[dayOfWeek],
+            options: shuffleArray(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']).slice(0, 4)
+        },
+        {
+            key: 'monthOfYear',
+            correctAnswer: monthNames[month],
+            options: shuffleArray([...monthNames]).slice(0, 4)
+        },
+        {
+            key: 'season',
+            correctAnswer: season,
+            options: ['spring', 'summer', 'autumn', 'winter']
+        },
+        {
+            key: 'year',
+            correctAnswer: year.toString(),
+            options: [year.toString(), (year - 1).toString(), (year + 1).toString(), (year - 2).toString()]
+        }
+    ];
+    
+    // Ensure correct answer is in options
+    orientationQuestions.forEach(q => {
+        if (!q.options.includes(q.correctAnswer)) {
+            q.options[0] = q.correctAnswer;
+        }
+        q.options = shuffleArray(q.options);
+    });
+}
+
+function showOrientationQuestion() {
+    if (currentOrientationIndex >= orientationQuestions.length) {
+        setTimeout(() => {
+            playCorrectSound();
+            alert(`🎉 Well done! You scored ${orientationScore}/${orientationQuestions.length}!`);
+            currentOrientationIndex = 0;
+            startOrientationGame();
+        }, 500);
+        return;
+    }
+    
+    const question = orientationQuestions[currentOrientationIndex];
+    const questionDiv = document.getElementById('orientation-question');
+    const optionsDiv = document.getElementById('orientation-options');
+    
+    // Display question
+    const questionText = translations[currentLanguage][question.key] || question.key;
+    questionDiv.innerHTML = `<h3>${questionText}</h3>`;
+    
+    // Display options
+    optionsDiv.innerHTML = '';
+    question.options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.className = 'orientation-option';
+        
+        // Translate option if it's a key
+        const optionText = translations[currentLanguage][option] || option;
+        btn.textContent = optionText;
+        btn.setAttribute('aria-label', `Option ${optionText}`);
+        btn.onclick = () => checkOrientationAnswer(btn, option, question.correctAnswer);
+        optionsDiv.appendChild(btn);
+    });
+}
+
+function checkOrientationAnswer(btn, selected, correct) {
+    const allButtons = document.querySelectorAll('.orientation-option');
+    allButtons.forEach(b => b.disabled = true);
+    
+    if (selected === correct) {
+        playCorrectSound();
+        btn.classList.add('correct');
+        orientationScore++;
+        document.getElementById('orientation-score').textContent = orientationScore;
+    } else {
+        playWrongSound();
+        btn.classList.add('wrong');
+        // Highlight correct answer
+        allButtons.forEach(b => {
+            const btnText = b.textContent;
+            const correctText = translations[currentLanguage][correct] || correct;
+            if (btnText === correctText) {
+                b.classList.add('correct');
+            }
+        });
+    }
+    
+    currentOrientationIndex++;
+    setTimeout(() => {
+        showOrientationQuestion();
+    }, 1500);
+}
+
+// Math Game (Calcoli)
+function startMathGame() {
+    currentGame = 'math';
+    mathScore = 0;
+    
+    showSection('math-game');
+    document.getElementById('math-score').textContent = mathScore;
+    
+    generateMathProblem();
+}
+
+function generateMathProblem() {
+    const operations = ['+', '-', '×'];
+    const operation = operations[Math.floor(Math.random() * operations.length)];
+    
+    let num1, num2, answer;
+    
+    if (operation === '+') {
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
+        answer = num1 + num2;
+    } else if (operation === '-') {
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * num1) + 1;
+        answer = num1 - num2;
+    } else { // multiplication
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
+        answer = num1 * num2;
+    }
+    
+    currentMathProblem = { num1, num2, operation, answer };
+    currentMathAnswer = answer;
+    
+    // Display problem
+    const problemDiv = document.getElementById('math-problem');
+    problemDiv.innerHTML = `<h3>${num1} ${operation} ${num2} = ?</h3>`;
+    
+    // Generate options (1 correct + 3 wrong)
+    const wrongAnswers = [];
+    while (wrongAnswers.length < 3) {
+        const offset = Math.floor(Math.random() * 10) - 5;
+        const wrongAnswer = answer + offset;
+        if (wrongAnswer !== answer && wrongAnswer > 0 && !wrongAnswers.includes(wrongAnswer)) {
+            wrongAnswers.push(wrongAnswer);
+        }
+    }
+    
+    const options = [answer, ...wrongAnswers].sort(() => Math.random() - 0.5);
+    
+    const optionsDiv = document.getElementById('math-options');
+    optionsDiv.innerHTML = '';
+    
+    options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.className = 'math-option';
+        btn.textContent = option;
+        btn.setAttribute('aria-label', `Answer ${option}`);
+        btn.onclick = () => checkMathAnswer(btn, option);
+        optionsDiv.appendChild(btn);
+    });
+}
+
+function checkMathAnswer(btn, selected) {
+    const allButtons = document.querySelectorAll('.math-option');
+    allButtons.forEach(b => b.disabled = true);
+    
+    if (selected === currentMathAnswer) {
+        playCorrectSound();
+        btn.classList.add('correct');
+        mathScore++;
+        document.getElementById('math-score').textContent = mathScore;
+        setTimeout(() => {
+            generateMathProblem();
+        }, 1000);
+    } else {
+        playWrongSound();
+        btn.classList.add('wrong');
+        setTimeout(() => {
+            btn.classList.remove('wrong');
+            allButtons.forEach(b => b.disabled = false);
+        }, 500);
+    }
+}
+
+function nextMathProblem() {
+    generateMathProblem();
+}
+
+// Word-Image Matching Game (Abbina)
+function startMatchingGame() {
+    currentGame = 'matching';
+    matchingScore = 0;
+    
+    showSection('matching-game');
+    document.getElementById('matching-score').textContent = matchingScore;
+    
+    generateMatchingChallenge();
+}
+
+function generateMatchingChallenge() {
+    // Select a random word
+    currentMatchingItem = matchingItems[Math.floor(Math.random() * matchingItems.length)];
+    
+    // Display word
+    const wordDiv = document.getElementById('matching-word');
+    const translatedWord = translations[currentLanguage][currentMatchingItem.word] || currentMatchingItem.word;
+    wordDiv.innerHTML = `<h3>${translatedWord}</h3>`;
+    
+    // Create options (1 correct + 3 wrong)
+    const wrongItems = matchingItems.filter(item => item.emoji !== currentMatchingItem.emoji)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3);
+    
+    const options = [currentMatchingItem, ...wrongItems].sort(() => Math.random() - 0.5);
+    
+    const imagesDiv = document.getElementById('matching-images');
+    imagesDiv.innerHTML = '';
+    
+    options.forEach(item => {
+        const btn = document.createElement('button');
+        btn.className = 'matching-image';
+        btn.textContent = item.emoji;
+        btn.setAttribute('aria-label', `Image option`);
+        btn.onclick = () => checkMatchingAnswer(btn, item.emoji);
+        imagesDiv.appendChild(btn);
+    });
+}
+
+function checkMatchingAnswer(btn, selectedEmoji) {
+    const allButtons = document.querySelectorAll('.matching-image');
+    allButtons.forEach(b => b.disabled = true);
+    
+    if (selectedEmoji === currentMatchingItem.emoji) {
+        playCorrectSound();
+        btn.classList.add('correct');
+        matchingScore++;
+        document.getElementById('matching-score').textContent = matchingScore;
+        setTimeout(() => {
+            generateMatchingChallenge();
+        }, 1000);
+    } else {
+        playWrongSound();
+        btn.classList.add('wrong');
+        setTimeout(() => {
+            btn.classList.remove('wrong');
+            allButtons.forEach(b => b.disabled = false);
+        }, 500);
+    }
+}
+
+function nextMatchingChallenge() {
+    generateMatchingChallenge();
+}
+
+// Helper function for shuffling arrays
+function shuffleArray(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
 }
 
 // Activity Diary Functions
