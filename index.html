@@ -38,6 +38,14 @@
                         <span class="icon">⌨️</span>
                         <span class="btn-text" data-i18n="typingGame">Typing</span>
                     </button>
+                    <button class="exercise-btn" onclick="startBilateralGame()" aria-label="Start Bilateral Stimulation">
+                        <span class="icon">🎧</span>
+                        <span class="btn-text" data-i18n="bilateralStimulation">Bilateral Stimulation</span>
+                    </button>
+                    <button class="exercise-btn" onclick="openDiary()" aria-label="Open Activity Diary">
+                        <span class="icon">📔</span>
+                        <span class="btn-text" data-i18n="activityDiary">Activity Diary</span>
+                    </button>
                 </div>
             </section>
 
@@ -137,6 +145,65 @@
                 </div>
                 <div class="typing-word" id="typing-word"></div>
                 <input type="text" id="typing-input" class="typing-input" placeholder="Type here..." autocomplete="off">
+            </section>
+
+            <!-- Bilateral Stimulation Game -->
+            <section class="game-section hidden" id="bilateral-game">
+                <h2 data-i18n="bilateralStimulation">Bilateral Stimulation</h2>
+                <p class="instructions" data-i18n="bilateralInstructions">Follow the sound from left to right with your eyes closed. Use headphones or stereo speakers.</p>
+                <div class="game-controls">
+                    <button class="control-btn" onclick="startBilateralStimulation()" aria-label="Start stimulation" id="start-bilateral-btn">
+                        <span class="icon">▶️</span> <span data-i18n="start">Start</span>
+                    </button>
+                    <button class="control-btn" onclick="stopBilateralStimulation()" aria-label="Stop stimulation">
+                        <span class="icon">⏹️</span> <span data-i18n="stop">Stop</span>
+                    </button>
+                    <button class="control-btn" onclick="backToMenu()" aria-label="Back to menu">
+                        <span class="icon">🏠</span> <span data-i18n="menu">Menu</span>
+                    </button>
+                </div>
+                <div class="bilateral-visual">
+                    <div class="bilateral-indicator" id="bilateral-left">L</div>
+                    <div class="bilateral-indicator" id="bilateral-right">R</div>
+                </div>
+                <div class="bilateral-controls">
+                    <label for="bilateral-speed" data-i18n="speed">Speed:</label>
+                    <input type="range" id="bilateral-speed" min="300" max="2000" value="800" step="100">
+                    <span id="bilateral-speed-value">800ms</span>
+                </div>
+            </section>
+
+            <!-- Activity Diary -->
+            <section class="game-section hidden" id="diary-section">
+                <h2 data-i18n="activityDiary">Activity Diary</h2>
+                <div class="diary-user-info" id="diary-user-info">
+                    <div class="diary-input-group">
+                        <label for="user-first-name" data-i18n="firstName">First Name:</label>
+                        <input type="text" id="user-first-name" class="diary-input" placeholder="First Name">
+                    </div>
+                    <div class="diary-input-group">
+                        <label for="user-last-name" data-i18n="lastName">Last Name:</label>
+                        <input type="text" id="user-last-name" class="diary-input" placeholder="Last Name">
+                    </div>
+                    <button class="control-btn" onclick="saveUserInfo()" aria-label="Save user info">
+                        <span class="icon">💾</span> <span data-i18n="save">Save</span>
+                    </button>
+                </div>
+                <div class="game-controls">
+                    <button class="control-btn" onclick="downloadDiary()" aria-label="Download diary">
+                        <span class="icon">⬇️</span> <span data-i18n="download">Download</span>
+                    </button>
+                    <button class="control-btn" onclick="printDiary()" aria-label="Print diary">
+                        <span class="icon">🖨️</span> <span data-i18n="print">Print</span>
+                    </button>
+                    <button class="control-btn" onclick="backToMenu()" aria-label="Back to menu">
+                        <span class="icon">🏠</span> <span data-i18n="menu">Menu</span>
+                    </button>
+                </div>
+                <div class="diary-content" id="diary-content">
+                    <h3 data-i18n="activityLog">Activity Log</h3>
+                    <div id="diary-entries"></div>
+                </div>
             </section>
         </main>
 

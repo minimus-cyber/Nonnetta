@@ -476,6 +476,156 @@ footer {
     box-shadow: 0 0 0 4px rgba(123, 198, 123, 0.2);
 }
 
+/* Bilateral Stimulation Game */
+.bilateral-visual {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 40px 0;
+    gap: 40px;
+}
+
+.bilateral-indicator {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: var(--pastel-pink);
+    border: 4px solid var(--dark-pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+.bilateral-indicator.active {
+    background: var(--dark-green);
+    border-color: var(--pastel-green);
+    transform: scale(1.2);
+    box-shadow: 0 0 30px rgba(123, 198, 123, 0.6);
+}
+
+.bilateral-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    font-size: 20px;
+}
+
+.bilateral-controls input[type="range"] {
+    width: 300px;
+    height: 8px;
+    cursor: pointer;
+}
+
+.bilateral-controls label {
+    font-weight: bold;
+}
+
+#bilateral-speed-value {
+    min-width: 70px;
+    font-weight: bold;
+    color: var(--dark-green);
+}
+
+/* Activity Diary */
+.diary-user-info {
+    background: var(--pastel-green);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: end;
+}
+
+.diary-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.diary-input-group label {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.diary-input {
+    font-size: 20px;
+    padding: 15px;
+    border: 3px solid var(--dark-green);
+    border-radius: 15px;
+    font-family: inherit;
+    color: var(--text-dark);
+}
+
+.diary-input:focus {
+    outline: none;
+    border-color: var(--dark-pink);
+    box-shadow: 0 0 0 3px rgba(255, 180, 212, 0.3);
+}
+
+.diary-content {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 20px;
+    border: 3px solid var(--pastel-green);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.diary-content h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+    text-align: center;
+}
+
+#diary-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.diary-entry {
+    background: var(--pastel-pink);
+    padding: 15px;
+    border-radius: 15px;
+    border-left: 5px solid var(--dark-pink);
+}
+
+.diary-entry-date {
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.diary-entry-activity {
+    color: var(--text-dark);
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.diary-user-name {
+    background: var(--pastel-green);
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     body {

@@ -8,10 +8,22 @@ const translations = {
         colorMatch: "Color Match",
         sequenceMemory: "Sequence Memory",
         typingGame: "Typing",
+        bilateralStimulation: "Bilateral Stimulation",
+        activityDiary: "Activity Diary",
         menu: "Menu",
         next: "Next",
         correct: "Correct",
-        typingInstructions: "Type the word shown below as fast as you can!"
+        start: "Start",
+        stop: "Stop",
+        speed: "Speed",
+        firstName: "First Name",
+        lastName: "Last Name",
+        save: "Save",
+        download: "Download",
+        print: "Print",
+        activityLog: "Activity Log",
+        typingInstructions: "Type the word shown below as fast as you can!",
+        bilateralInstructions: "Follow the sound from left to right with your eyes closed. Use headphones or stereo speakers."
     },
     it: {
         subtitle: "Esercizi di Stimolazione Neurocognitiva",
@@ -21,10 +33,22 @@ const translations = {
         colorMatch: "Colori",
         sequenceMemory: "Sequenza",
         typingGame: "Dattilografia",
+        bilateralStimulation: "Stimolazione Bilaterale",
+        activityDiary: "Diario Attività",
         menu: "Menu",
         next: "Avanti",
         correct: "Corrette",
-        typingInstructions: "Digita la parola mostrata il più velocemente possibile!"
+        start: "Inizia",
+        stop: "Ferma",
+        speed: "Velocità",
+        firstName: "Nome",
+        lastName: "Cognome",
+        save: "Salva",
+        download: "Scarica",
+        print: "Stampa",
+        activityLog: "Registro Attività",
+        typingInstructions: "Digita la parola mostrata il più velocemente possibile!",
+        bilateralInstructions: "Segui il suono da sinistra a destra con gli occhi chiusi. Usa cuffie o casse stereo."
     },
     es: {
         subtitle: "Ejercicios de Estimulación Neurocognitiva",
@@ -34,10 +58,22 @@ const translations = {
         colorMatch: "Colores",
         sequenceMemory: "Secuencia",
         typingGame: "Mecanografía",
+        bilateralStimulation: "Estimulación Bilateral",
+        activityDiary: "Diario de Actividades",
         menu: "Menú",
         next: "Siguiente",
         correct: "Correctas",
-        typingInstructions: "¡Escribe la palabra mostrada lo más rápido que puedas!"
+        start: "Iniciar",
+        stop: "Detener",
+        speed: "Velocidad",
+        firstName: "Nombre",
+        lastName: "Apellido",
+        save: "Guardar",
+        download: "Descargar",
+        print: "Imprimir",
+        activityLog: "Registro de Actividades",
+        typingInstructions: "¡Escribe la palabra mostrada lo más rápido que puedas!",
+        bilateralInstructions: "Sigue el sonido de izquierda a derecha con los ojos cerrados. Usa auriculares o altavoces estéreo."
     },
     fr: {
         subtitle: "Exercices de Stimulation Neurocognitive",
@@ -47,10 +83,22 @@ const translations = {
         colorMatch: "Couleurs",
         sequenceMemory: "Séquence",
         typingGame: "Dactylographie",
+        bilateralStimulation: "Stimulation Bilatérale",
+        activityDiary: "Journal d'Activités",
         menu: "Menu",
         next: "Suivant",
         correct: "Correctes",
-        typingInstructions: "Tapez le mot affiché aussi vite que possible!"
+        start: "Démarrer",
+        stop: "Arrêter",
+        speed: "Vitesse",
+        firstName: "Prénom",
+        lastName: "Nom",
+        save: "Sauvegarder",
+        download: "Télécharger",
+        print: "Imprimer",
+        activityLog: "Journal des Activités",
+        typingInstructions: "Tapez le mot affiché aussi vite que possible!",
+        bilateralInstructions: "Suivez le son de gauche à droite les yeux fermés. Utilisez des écouteurs ou des haut-parleurs stéréo."
     },
     de: {
         subtitle: "Neurokognitive Stimulationsübungen",
@@ -60,12 +108,67 @@ const translations = {
         colorMatch: "Farben",
         sequenceMemory: "Sequenz",
         typingGame: "Tippen",
+        bilateralStimulation: "Bilaterale Stimulation",
+        activityDiary: "Aktivitätstagebuch",
         menu: "Menü",
         next: "Weiter",
         correct: "Richtig",
-        typingInstructions: "Tippe das angezeigte Wort so schnell wie möglich!"
+        start: "Start",
+        stop: "Stopp",
+        speed: "Geschwindigkeit",
+        firstName: "Vorname",
+        lastName: "Nachname",
+        save: "Speichern",
+        download: "Herunterladen",
+        print: "Drucken",
+        activityLog: "Aktivitätsprotokoll",
+        typingInstructions: "Tippe das angezeigte Wort so schnell wie möglich!",
+        bilateralInstructions: "Folge dem Klang von links nach rechts mit geschlossenen Augen. Verwende Kopfhörer oder Stereolautsprecher."
     }
 };
+
+// Audio System
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+let audioContext = null;
+
+function initAudio() {
+    if (!audioContext) {
+        audioContext = new AudioContext();
+    }
+    return audioContext;
+}
+
+function playSound(frequency, duration, volume = 0.3, panValue = 0) {
+    const ctx = initAudio();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    const panner = ctx.createStereoPanner();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(panner);
+    panner.connect(ctx.destination);
+    
+    oscillator.frequency.value = frequency;
+    oscillator.type = 'sine';
+    gainNode.gain.value = volume;
+    panner.pan.value = panValue; // -1 (left) to 1 (right)
+    
+    oscillator.start(ctx.currentTime);
+    oscillator.stop(ctx.currentTime + duration);
+}
+
+function playCorrectSound() {
+    playSound(800, 0.15, 0.3);
+    setTimeout(() => playSound(1000, 0.15, 0.3), 100);
+}
+
+function playWrongSound() {
+    playSound(200, 0.3, 0.3);
+}
+
+function playClickSound() {
+    playSound(600, 0.05, 0.2);
+}
 
 let currentLanguage = 'en';
 
@@ -121,6 +224,14 @@ const typingWords = {
     de: ['HALLO', 'WELT', 'GEHIRN', 'KLUG', 'GLÜCKLICH', 'LICHT', 'SPIELEN', 'DENKEN', 'LERNEN', 'FOKUS']
 };
 
+// Bilateral Stimulation Variables
+let bilateralInterval = null;
+let bilateralSpeed = 800;
+
+// Diary Variables
+let userName = { firstName: '', lastName: '' };
+let activityLog = [];
+
 // Emojis for games
 const memoryEmojis = ['🌸', '🌺', '🌻', '🌷', '🌹', '🌼', '💐', '🏵️'];
 const patternShapes = ['🔷', '🔶', '⭐', '❤️', '🌙', '☀️'];
@@ -135,11 +246,19 @@ function showSection(sectionId) {
     
     // Show selected section
     document.getElementById(sectionId).classList.remove('hidden');
+    
+    // Log activity
+    logActivity(sectionId);
 }
 
 function backToMenu() {
     showSection('menu');
     currentGame = null;
+    
+    // Stop bilateral stimulation if running
+    if (bilateralInterval) {
+        stopBilateralStimulation();
+    }
 }
 
 // Memory Match Game
@@ -179,6 +298,7 @@ function flipCard(card, emoji, index) {
     }
     
     // Flip card
+    playClickSound();
     card.classList.add('flipped');
     card.textContent = emoji;
     flippedCards.push({ card, emoji, index });
@@ -194,6 +314,7 @@ function checkMatch() {
     
     if (card1.emoji === card2.emoji && card1.index !== card2.index) {
         // Match found
+        playCorrectSound();
         card1.card.classList.add('matched');
         card2.card.classList.add('matched');
         matchedPairs++;
@@ -203,11 +324,13 @@ function checkMatch() {
         // Check if game is complete
         if (matchedPairs === 6) {
             setTimeout(() => {
+                playCorrectSound();
                 alert('🎉 Congratulations! You matched all pairs!');
             }, 500);
         }
     } else {
         // No match
+        playWrongSound();
         card1.card.classList.remove('flipped');
         card2.card.classList.remove('flipped');
         card1.card.textContent = '?';
@@ -273,6 +396,7 @@ function generatePattern() {
 
 function checkPattern(btn, selected) {
     if (selected === correctAnswer) {
+        playCorrectSound();
         btn.classList.add('correct');
         patternScore++;
         document.getElementById('pattern-score').textContent = patternScore;
@@ -280,6 +404,7 @@ function checkPattern(btn, selected) {
             generatePattern();
         }, 1000);
     } else {
+        playWrongSound();
         btn.classList.add('wrong');
         setTimeout(() => {
             btn.classList.remove('wrong');
@@ -343,6 +468,7 @@ function generateColorChallenge() {
 
 function checkColor(btn, selected) {
     if (selected === targetColor) {
+        playCorrectSound();
         btn.classList.add('correct');
         colorScore++;
         document.getElementById('color-score').textContent = colorScore;
@@ -350,6 +476,7 @@ function checkColor(btn, selected) {
             generateColorChallenge();
         }, 1000);
     } else {
+        playWrongSound();
         btn.classList.add('wrong');
         setTimeout(() => {
             btn.classList.remove('wrong');
@@ -434,6 +561,7 @@ function handleSequenceInput(index) {
     
     if (playerSequence[currentIndex] !== sequence[currentIndex]) {
         // Wrong! Reset
+        playWrongSound();
         alert('❌ Oops! Try again from level 1.');
         sequenceLevel = 1;
         sequence = [];
@@ -445,6 +573,7 @@ function handleSequenceInput(index) {
     // Check if sequence complete
     if (playerSequence.length === sequence.length) {
         // Correct! Next level
+        playCorrectSound();
         sequenceLevel++;
         document.getElementById('sequence-level').textContent = sequenceLevel;
         setTimeout(() => {
@@ -491,6 +620,7 @@ function checkTyping(event) {
     }
     
     if (typed === currentTypingWord) {
+        playCorrectSound();
         typingScore++;
         document.getElementById('typing-score').textContent = typingScore;
         
@@ -500,11 +630,250 @@ function checkTyping(event) {
             input.style.borderColor = '';
             generateTypingWord();
         }, 500);
+    } else if (typed.length > currentTypingWord.length) {
+        playWrongSound();
     }
 }
 
 function nextTypingWord() {
     generateTypingWord();
+}
+
+// Bilateral Stimulation Game
+function startBilateralGame() {
+    currentGame = 'bilateral';
+    showSection('bilateral-game');
+    
+    // Setup speed control
+    const speedInput = document.getElementById('bilateral-speed');
+    speedInput.value = bilateralSpeed;
+    speedInput.oninput = (e) => {
+        bilateralSpeed = parseInt(e.target.value);
+        document.getElementById('bilateral-speed-value').textContent = bilateralSpeed + 'ms';
+        if (bilateralInterval) {
+            stopBilateralStimulation();
+            startBilateralStimulation();
+        }
+    };
+}
+
+function startBilateralStimulation() {
+    if (bilateralInterval) return;
+    
+    const leftIndicator = document.getElementById('bilateral-left');
+    const rightIndicator = document.getElementById('bilateral-right');
+    let isLeft = true;
+    
+    bilateralInterval = setInterval(() => {
+        // Remove active from both
+        leftIndicator.classList.remove('active');
+        rightIndicator.classList.remove('active');
+        
+        // Toggle side
+        if (isLeft) {
+            leftIndicator.classList.add('active');
+            playSound(440, 0.2, 0.3, -0.8); // Play sound on left
+        } else {
+            rightIndicator.classList.add('active');
+            playSound(440, 0.2, 0.3, 0.8); // Play sound on right
+        }
+        
+        isLeft = !isLeft;
+    }, bilateralSpeed);
+}
+
+function stopBilateralStimulation() {
+    if (bilateralInterval) {
+        clearInterval(bilateralInterval);
+        bilateralInterval = null;
+        
+        // Remove active states
+        document.getElementById('bilateral-left').classList.remove('active');
+        document.getElementById('bilateral-right').classList.remove('active');
+    }
+}
+
+// Activity Diary Functions
+function openDiary() {
+    showSection('diary-section');
+    loadUserInfo();
+    loadActivityLog();
+}
+
+function loadUserInfo() {
+    const saved = localStorage.getItem('rosetta_user');
+    if (saved) {
+        userName = JSON.parse(saved);
+        document.getElementById('user-first-name').value = userName.firstName || '';
+        document.getElementById('user-last-name').value = userName.lastName || '';
+    }
+}
+
+function saveUserInfo() {
+    userName.firstName = document.getElementById('user-first-name').value.trim();
+    userName.lastName = document.getElementById('user-last-name').value.trim();
+    
+    if (userName.firstName && userName.lastName) {
+        localStorage.setItem('rosetta_user', JSON.stringify(userName));
+        playCorrectSound();
+        alert('✅ User information saved!');
+    } else {
+        playWrongSound();
+        alert('⚠️ Please enter both first and last name.');
+    }
+}
+
+function logActivity(sectionId) {
+    const activityNames = {
+        'memory-game': 'Memory Match',
+        'pattern-game': 'Pattern Recognition',
+        'color-game': 'Color Match',
+        'sequence-game': 'Sequence Memory',
+        'typing-game': 'Typing Game',
+        'bilateral-game': 'Bilateral Stimulation'
+    };
+    
+    if (activityNames[sectionId]) {
+        const activity = {
+            date: new Date().toISOString(),
+            activity: activityNames[sectionId]
+        };
+        
+        // Load existing log
+        const savedLog = localStorage.getItem('rosetta_activity_log');
+        activityLog = savedLog ? JSON.parse(savedLog) : [];
+        
+        // Add new activity
+        activityLog.push(activity);
+        
+        // Save to localStorage
+        localStorage.setItem('rosetta_activity_log', JSON.stringify(activityLog));
+    }
+}
+
+function loadActivityLog() {
+    const savedLog = localStorage.getItem('rosetta_activity_log');
+    activityLog = savedLog ? JSON.parse(savedLog) : [];
+    
+    const entriesDiv = document.getElementById('diary-entries');
+    entriesDiv.innerHTML = '';
+    
+    if (activityLog.length === 0) {
+        entriesDiv.innerHTML = '<p style="text-align: center; color: var(--text-dark);">No activities recorded yet.</p>';
+        return;
+    }
+    
+    // Display in reverse order (newest first)
+    activityLog.slice().reverse().forEach(entry => {
+        const date = new Date(entry.date);
+        const dateStr = date.toLocaleDateString(currentLanguage, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        
+        const entryDiv = document.createElement('div');
+        entryDiv.className = 'diary-entry';
+        entryDiv.innerHTML = `
+            <div class="diary-entry-date">${dateStr}</div>
+            <div class="diary-entry-activity">📝 ${entry.activity}</div>
+        `;
+        entriesDiv.appendChild(entryDiv);
+    });
+}
+
+function downloadDiary() {
+    if (!userName.firstName || !userName.lastName) {
+        playWrongSound();
+        alert('⚠️ Please enter your name first.');
+        return;
+    }
+    
+    let content = `Activity Diary - ${userName.firstName} ${userName.lastName}\n`;
+    content += `Generated on: ${new Date().toLocaleString(currentLanguage)}\n`;
+    content += `${'='.repeat(50)}\n\n`;
+    
+    activityLog.forEach(entry => {
+        const date = new Date(entry.date).toLocaleString(currentLanguage);
+        content += `${date} - ${entry.activity}\n`;
+    });
+    
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `rosetta_diary_${userName.firstName}_${userName.lastName}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    playCorrectSound();
+}
+
+function printDiary() {
+    if (!userName.firstName || !userName.lastName) {
+        playWrongSound();
+        alert('⚠️ Please enter your name first.');
+        return;
+    }
+    
+    const printWindow = window.open('', '_blank');
+    let content = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Activity Diary - ${userName.firstName} ${userName.lastName}</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 40px;
+                    max-width: 800px;
+                    margin: 0 auto;
+                }
+                h1 {
+                    color: #2C3E2C;
+                    border-bottom: 3px solid #B8E6B8;
+                    padding-bottom: 10px;
+                }
+                .entry {
+                    margin: 20px 0;
+                    padding: 15px;
+                    background: #FFD6E8;
+                    border-left: 5px solid #FFB4D4;
+                    border-radius: 8px;
+                }
+                .date {
+                    font-weight: bold;
+                    color: #2C3E2C;
+                }
+                .activity {
+                    margin-top: 5px;
+                    color: #2C3E2C;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>💡 Rosetta - Activity Diary</h1>
+            <h2>${userName.firstName} ${userName.lastName}</h2>
+            <p><strong>Generated:</strong> ${new Date().toLocaleString(currentLanguage)}</p>
+            <hr>
+    `;
+    
+    activityLog.slice().reverse().forEach(entry => {
+        const date = new Date(entry.date).toLocaleString(currentLanguage);
+        content += `
+            <div class="entry">
+                <div class="date">${date}</div>
+                <div class="activity">📝 ${entry.activity}</div>
+            </div>
+        `;
+    });
+    
+    content += '</body></html>';
+    printWindow.document.write(content);
+    printWindow.document.close();
+    printWindow.print();
 }
 
 // Initialize
