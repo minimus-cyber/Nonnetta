@@ -216,6 +216,7 @@ let isShowingSequence = false;
 
 // Typing Game Variables
 let currentTypingWord = '';
+let typingWrongSoundPlayed = false;
 const typingWords = {
     en: ['HELLO', 'WORLD', 'BRAIN', 'SMART', 'HAPPY', 'LIGHT', 'PLAY', 'THINK', 'LEARN', 'FOCUS'],
     it: ['CIAO', 'MONDO', 'CERVELLO', 'INTELLIGENTE', 'FELICE', 'LUCE', 'GIOCA', 'PENSA', 'IMPARA', 'CONCENTRA'],
@@ -608,6 +609,7 @@ function generateTypingWord() {
     document.getElementById('typing-word').textContent = currentTypingWord;
     document.getElementById('typing-input').value = '';
     document.getElementById('typing-input').focus();
+    typingWrongSoundPlayed = false; // Reset wrong sound flag
 }
 
 function checkTyping(event) {
@@ -616,6 +618,7 @@ function checkTyping(event) {
     
     // Early return if word is not complete yet
     if (typed.length < currentTypingWord.length) {
+        typingWrongSoundPlayed = false; // Reset if typing is still in progress
         return;
     }
     
@@ -630,8 +633,9 @@ function checkTyping(event) {
             input.style.borderColor = '';
             generateTypingWord();
         }, 500);
-    } else if (typed.length > currentTypingWord.length) {
+    } else if (typed.length > currentTypingWord.length && !typingWrongSoundPlayed) {
         playWrongSound();
+        typingWrongSoundPlayed = true; // Only play once per wrong attempt
     }
 }
 
@@ -701,11 +705,16 @@ function openDiary() {
 }
 
 function loadUserInfo() {
-    const saved = localStorage.getItem('rosetta_user');
-    if (saved) {
-        userName = JSON.parse(saved);
-        document.getElementById('user-first-name').value = userName.firstName || '';
-        document.getElementById('user-last-name').value = userName.lastName || '';
+    try {
+        const saved = localStorage.getItem('rosetta_user');
+        if (saved) {
+            userName = JSON.parse(saved);
+            document.getElementById('user-first-name').value = userName.firstName || '';
+            document.getElementById('user-last-name').value = userName.lastName || '';
+        }
+    } catch (e) {
+        console.error('Error loading user info:', e);
+        userName = { firstName: '', lastName: '' };
     }
 }
 
@@ -739,21 +748,31 @@ function logActivity(sectionId) {
             activity: activityNames[sectionId]
         };
         
-        // Load existing log
-        const savedLog = localStorage.getItem('rosetta_activity_log');
-        activityLog = savedLog ? JSON.parse(savedLog) : [];
-        
-        // Add new activity
-        activityLog.push(activity);
-        
-        // Save to localStorage
-        localStorage.setItem('rosetta_activity_log', JSON.stringify(activityLog));
+        try {
+            // Load existing log
+            const savedLog = localStorage.getItem('rosetta_activity_log');
+            activityLog = savedLog ? JSON.parse(savedLog) : [];
+            
+            // Add new activity
+            activityLog.push(activity);
+            
+            // Save to localStorage
+            localStorage.setItem('rosetta_activity_log', JSON.stringify(activityLog));
+        } catch (e) {
+            console.error('Error logging activity:', e);
+            activityLog = [activity];
+        }
     }
 }
 
 function loadActivityLog() {
-    const savedLog = localStorage.getItem('rosetta_activity_log');
-    activityLog = savedLog ? JSON.parse(savedLog) : [];
+    try {
+        const savedLog = localStorage.getItem('rosetta_activity_log');
+        activityLog = savedLog ? JSON.parse(savedLog) : [];
+    } catch (e) {
+        console.error('Error loading activity log:', e);
+        activityLog = [];
+    }
     
     const entriesDiv = document.getElementById('diary-entries');
     entriesDiv.innerHTML = '';
