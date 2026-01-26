@@ -209,7 +209,7 @@
             per l'allenamento cognitivo personalizzato.
         </p>
 
-        <button class="cta" onclick="alert('Funzionalità in arrivo! Grazie per il tuo interesse.')">
+        <button class="cta" id="ctaButton">
             Inizia Subito
         </button>
 
@@ -221,12 +221,20 @@
         </p>
 
         <footer>
-            <p>&copy; 2026 Nonnetta - Stimolazione Neurocognitiva Accessibile</p>
+            <p>&copy; <span id="copyright-year"></span> Nonnetta - Stimolazione Neurocognitiva Accessibile</p>
             <p>Hosted on GitHub Pages | <a href="https://github.com/minimus-cyber/Nonnetta" style="color: #667eea;">Repository GitHub</a></p>
         </footer>
     </div>
 
     <script>
+        // Set dynamic copyright year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+        // CTA button event handler
+        document.getElementById('ctaButton').addEventListener('click', function() {
+            alert('Funzionalità in arrivo! Grazie per il tuo interesse.');
+        });
+
         // Simple accessibility enhancement: keyboard navigation
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
