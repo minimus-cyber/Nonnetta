@@ -485,6 +485,11 @@ function checkTyping(event) {
     const input = document.getElementById('typing-input');
     const typed = input.value.toUpperCase().trim();
     
+    // Early return if word is not complete yet
+    if (typed.length < currentTypingWord.length) {
+        return;
+    }
+    
     if (typed === currentTypingWord) {
         typingScore++;
         document.getElementById('typing-score').textContent = typingScore;
