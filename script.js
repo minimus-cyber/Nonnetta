@@ -873,7 +873,7 @@ function printDiary() {
             </style>
         </head>
         <body>
-            <h1>💡 Rosetta - Activity Diary</h1>
+            <h1>💡 Nonnetta NSE - Activity Diary</h1>
             <h2>${userName.firstName} ${userName.lastName}</h2>
             <p><strong>Generated:</strong> ${new Date().toLocaleString(currentLanguage)}</p>
             <hr>
@@ -897,7 +897,7 @@ function printDiary() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Rosetta Neurocognitive Stimulation App Loaded');
+    console.log('Nonnetta NSE - Neurocognitive Stimulation App Loaded');
     
     // Set language based on browser
     const detectedLang = detectLanguage();
