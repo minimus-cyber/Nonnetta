@@ -1,9 +1,97 @@
+// Multilingual Support
+const translations = {
+    en: {
+        subtitle: "Neurocognitive Stimulation Exercises",
+        chooseExercise: "Choose an Exercise",
+        memoryMatch: "Memory Match",
+        patternRecognition: "Pattern Recognition",
+        colorMatch: "Color Match",
+        sequenceMemory: "Sequence Memory",
+        typingGame: "Typing",
+        menu: "Menu",
+        next: "Next",
+        correct: "Correct",
+        typingInstructions: "Type the word shown below as fast as you can!"
+    },
+    it: {
+        subtitle: "Esercizi di Stimolazione Neurocognitiva",
+        chooseExercise: "Scegli un Esercizio",
+        memoryMatch: "Memoria",
+        patternRecognition: "Riconoscimento Pattern",
+        colorMatch: "Colori",
+        sequenceMemory: "Sequenza",
+        typingGame: "Dattilografia",
+        menu: "Menu",
+        next: "Avanti",
+        correct: "Corrette",
+        typingInstructions: "Digita la parola mostrata il più velocemente possibile!"
+    },
+    es: {
+        subtitle: "Ejercicios de Estimulación Neurocognitiva",
+        chooseExercise: "Elige un Ejercicio",
+        memoryMatch: "Memoria",
+        patternRecognition: "Reconocimiento de Patrones",
+        colorMatch: "Colores",
+        sequenceMemory: "Secuencia",
+        typingGame: "Mecanografía",
+        menu: "Menú",
+        next: "Siguiente",
+        correct: "Correctas",
+        typingInstructions: "¡Escribe la palabra mostrada lo más rápido que puedas!"
+    },
+    fr: {
+        subtitle: "Exercices de Stimulation Neurocognitive",
+        chooseExercise: "Choisissez un Exercice",
+        memoryMatch: "Mémoire",
+        patternRecognition: "Reconnaissance de Motifs",
+        colorMatch: "Couleurs",
+        sequenceMemory: "Séquence",
+        typingGame: "Dactylographie",
+        menu: "Menu",
+        next: "Suivant",
+        correct: "Correctes",
+        typingInstructions: "Tapez le mot affiché aussi vite que possible!"
+    },
+    de: {
+        subtitle: "Neurokognitive Stimulationsübungen",
+        chooseExercise: "Wähle eine Übung",
+        memoryMatch: "Gedächtnis",
+        patternRecognition: "Mustererkennung",
+        colorMatch: "Farben",
+        sequenceMemory: "Sequenz",
+        typingGame: "Tippen",
+        menu: "Menü",
+        next: "Weiter",
+        correct: "Richtig",
+        typingInstructions: "Tippe das angezeigte Wort so schnell wie möglich!"
+    }
+};
+
+let currentLanguage = 'en';
+
+function detectLanguage() {
+    const browserLang = navigator.language || navigator.userLanguage;
+    const langCode = browserLang.split('-')[0].toLowerCase();
+    return translations[langCode] ? langCode : 'en';
+}
+
+function setLanguage(lang) {
+    currentLanguage = lang;
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            element.textContent = translations[lang][key];
+        }
+    });
+}
+
 // Game State Management
 let currentGame = null;
 let memoryScore = 0;
 let patternScore = 0;
 let colorScore = 0;
 let sequenceLevel = 1;
+let typingScore = 0;
 
 // Memory Game Variables
 let memoryCards = [];
@@ -22,6 +110,16 @@ let colorOptions = [];
 let sequence = [];
 let playerSequence = [];
 let isShowingSequence = false;
+
+// Typing Game Variables
+let currentTypingWord = '';
+const typingWords = {
+    en: ['HELLO', 'WORLD', 'BRAIN', 'SMART', 'HAPPY', 'LIGHT', 'PLAY', 'THINK', 'LEARN', 'FOCUS'],
+    it: ['CIAO', 'MONDO', 'CERVELLO', 'INTELLIGENTE', 'FELICE', 'LUCE', 'GIOCA', 'PENSA', 'IMPARA', 'CONCENTRA'],
+    es: ['HOLA', 'MUNDO', 'CEREBRO', 'INTELIGENTE', 'FELIZ', 'LUZ', 'JUGAR', 'PENSAR', 'APRENDER', 'ENFOQUE'],
+    fr: ['BONJOUR', 'MONDE', 'CERVEAU', 'INTELLIGENT', 'HEUREUX', 'LUMIÈRE', 'JOUER', 'PENSER', 'APPRENDRE', 'FOCUS'],
+    de: ['HALLO', 'WELT', 'GEHIRN', 'KLUG', 'GLÜCKLICH', 'LICHT', 'SPIELEN', 'DENKEN', 'LERNEN', 'FOKUS']
+};
 
 // Emojis for games
 const memoryEmojis = ['🌸', '🌺', '🌻', '🌷', '🌹', '🌼', '💐', '🏵️'];
@@ -356,7 +454,59 @@ function handleSequenceInput(index) {
     }
 }
 
+// Typing Game
+function startTypingGame() {
+    currentGame = 'typing';
+    typingScore = 0;
+    
+    showSection('typing-game');
+    document.getElementById('typing-score').textContent = typingScore;
+    
+    generateTypingWord();
+    
+    // Setup input handler
+    const input = document.getElementById('typing-input');
+    input.value = '';
+    input.focus();
+    
+    input.onkeyup = checkTyping;
+}
+
+function generateTypingWord() {
+    const words = typingWords[currentLanguage] || typingWords['en'];
+    currentTypingWord = words[Math.floor(Math.random() * words.length)];
+    
+    document.getElementById('typing-word').textContent = currentTypingWord;
+    document.getElementById('typing-input').value = '';
+    document.getElementById('typing-input').focus();
+}
+
+function checkTyping(event) {
+    const input = document.getElementById('typing-input');
+    const typed = input.value.toUpperCase().trim();
+    
+    if (typed === currentTypingWord) {
+        typingScore++;
+        document.getElementById('typing-score').textContent = typingScore;
+        
+        // Animate success
+        input.style.borderColor = 'var(--dark-green)';
+        setTimeout(() => {
+            input.style.borderColor = '';
+            generateTypingWord();
+        }, 500);
+    }
+}
+
+function nextTypingWord() {
+    generateTypingWord();
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Rosetta Neurocognitive Stimulation App Loaded');
+    
+    // Set language based on browser
+    const detectedLang = detectLanguage();
+    setLanguage(detectedLang);
 });

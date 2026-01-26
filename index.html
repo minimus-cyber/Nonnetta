@@ -10,29 +10,33 @@
 <body>
     <div class="container">
         <header>
-            <h1>🧠 Rosetta</h1>
-            <p class="subtitle">Neurocognitive Stimulation Exercises</p>
+            <h1>💡 Rosetta</h1>
+            <p class="subtitle" data-i18n="subtitle">Neurocognitive Stimulation Exercises</p>
         </header>
 
         <main>
             <section class="exercise-menu" id="menu">
-                <h2>Choose an Exercise</h2>
+                <h2 data-i18n="chooseExercise">Choose an Exercise</h2>
                 <div class="button-grid">
                     <button class="exercise-btn" onclick="startMemoryGame()" aria-label="Start Memory Game">
                         <span class="icon">🎴</span>
-                        <span class="btn-text">Memory Match</span>
+                        <span class="btn-text" data-i18n="memoryMatch">Memory Match</span>
                     </button>
                     <button class="exercise-btn" onclick="startPatternGame()" aria-label="Start Pattern Recognition">
                         <span class="icon">🔷</span>
-                        <span class="btn-text">Pattern Recognition</span>
+                        <span class="btn-text" data-i18n="patternRecognition">Pattern Recognition</span>
                     </button>
                     <button class="exercise-btn" onclick="startColorGame()" aria-label="Start Color Matching">
                         <span class="icon">🎨</span>
-                        <span class="btn-text">Color Match</span>
+                        <span class="btn-text" data-i18n="colorMatch">Color Match</span>
                     </button>
                     <button class="exercise-btn" onclick="startSequenceGame()" aria-label="Start Sequence Memory">
                         <span class="icon">🔢</span>
-                        <span class="btn-text">Sequence Memory</span>
+                        <span class="btn-text" data-i18n="sequenceMemory">Sequence Memory</span>
+                    </button>
+                    <button class="exercise-btn" onclick="startTypingGame()" aria-label="Start Typing Game">
+                        <span class="icon">⌨️</span>
+                        <span class="btn-text" data-i18n="typingGame">Typing</span>
                     </button>
                 </div>
             </section>
@@ -113,6 +117,26 @@
                     <span id="sequence-level">1</span>
                 </div>
                 <div class="sequence-grid" id="sequence-grid"></div>
+            </section>
+
+            <!-- Typing Game -->
+            <section class="game-section hidden" id="typing-game">
+                <h2 data-i18n="typingGame">Typing</h2>
+                <p class="instructions" data-i18n="typingInstructions">Type the word shown below as fast as you can!</p>
+                <div class="game-controls">
+                    <button class="control-btn" onclick="nextTypingWord()" aria-label="Next word">
+                        <span class="icon">➡️</span> <span data-i18n="next">Next</span>
+                    </button>
+                    <button class="control-btn" onclick="backToMenu()" aria-label="Back to menu">
+                        <span class="icon">🏠</span> <span data-i18n="menu">Menu</span>
+                    </button>
+                </div>
+                <div class="score-display">
+                    <span class="score-label" data-i18n="correct">Correct:</span>
+                    <span id="typing-score">0</span>
+                </div>
+                <div class="typing-word" id="typing-word"></div>
+                <input type="text" id="typing-input" class="typing-input" placeholder="Type here..." autocomplete="off">
             </section>
         </main>
 

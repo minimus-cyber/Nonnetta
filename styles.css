@@ -21,53 +21,68 @@ body {
     line-height: 1.6;
     background: linear-gradient(135deg, var(--pastel-green) 0%, var(--pastel-pink) 100%);
     min-height: 100vh;
+    height: 100vh;
     color: var(--text-dark);
-    padding: 20px;
+    padding: 10px;
+    overflow: hidden;
 }
 
 .container {
     max-width: 1200px;
+    height: calc(100vh - 20px);
     margin: 0 auto;
     background: var(--white);
     border-radius: 30px;
-    padding: 40px;
+    padding: 20px;
     box-shadow: 0 10px 40px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 /* Header Styles */
 header {
     text-align: center;
-    margin-bottom: 40px;
-    padding-bottom: 30px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
     border-bottom: 4px solid var(--pastel-green);
+    flex-shrink: 0;
 }
 
 h1 {
-    font-size: 56px;
+    font-size: 42px;
     font-weight: bold;
     color: var(--text-dark);
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     letter-spacing: 2px;
 }
 
 .subtitle {
-    font-size: 28px;
+    font-size: 22px;
     color: var(--text-dark);
     font-weight: 300;
 }
 
+main {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
 h2 {
-    font-size: 42px;
+    font-size: 36px;
     font-weight: bold;
     color: var(--text-dark);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: center;
 }
 
 .instructions {
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: var(--text-dark);
     font-weight: 500;
 }
@@ -75,17 +90,17 @@ h2 {
 /* Button Styles - Large and Accessible */
 .button-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin: 40px 0;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
 }
 
 .exercise-btn {
     background: linear-gradient(135deg, var(--pastel-green) 0%, var(--dark-green) 100%);
     border: none;
-    border-radius: 25px;
-    padding: 40px 30px;
-    font-size: 28px;
+    border-radius: 20px;
+    padding: 25px 20px;
+    font-size: 24px;
     font-weight: bold;
     color: var(--text-dark);
     cursor: pointer;
@@ -94,8 +109,8 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    min-height: 200px;
+    gap: 10px;
+    min-height: 140px;
     justify-content: center;
 }
 
@@ -115,29 +130,29 @@ h2 {
 }
 
 .exercise-btn .icon {
-    font-size: 72px;
+    font-size: 56px;
     display: block;
 }
 
 .exercise-btn .btn-text {
-    font-size: 28px;
+    font-size: 22px;
 }
 
 /* Control Buttons */
 .game-controls {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
 .control-btn {
     background: var(--pastel-pink);
     border: none;
-    border-radius: 20px;
-    padding: 20px 40px;
-    font-size: 24px;
+    border-radius: 15px;
+    padding: 15px 30px;
+    font-size: 20px;
     font-weight: bold;
     color: var(--text-dark);
     cursor: pointer;
@@ -145,7 +160,7 @@ h2 {
     box-shadow: 0 4px 15px var(--shadow);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .control-btn:hover {
@@ -417,42 +432,100 @@ h2 {
 /* Footer */
 footer {
     text-align: center;
-    margin-top: 50px;
-    padding-top: 30px;
+    margin-top: 20px;
+    padding-top: 15px;
     border-top: 4px solid var(--pastel-pink);
-    font-size: 22px;
+    font-size: 18px;
     color: var(--text-dark);
+    flex-shrink: 0;
+}
+
+/* Typing Game */
+.typing-word {
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px 0;
+    color: var(--text-dark);
+    padding: 30px;
+    background: var(--pastel-green);
+    border-radius: 20px;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.typing-input {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: block;
+    font-size: 32px;
+    padding: 20px;
+    border: 4px solid var(--pastel-pink);
+    border-radius: 20px;
+    text-align: center;
+    font-family: inherit;
+    color: var(--text-dark);
+    background: var(--white);
+}
+
+.typing-input:focus {
+    outline: none;
+    border-color: var(--dark-green);
+    box-shadow: 0 0 0 4px rgba(123, 198, 123, 0.2);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     body {
         font-size: 18px;
-        padding: 10px;
+        padding: 5px;
     }
     
     .container {
-        padding: 20px;
+        padding: 15px;
+        height: calc(100vh - 10px);
+    }
+    
+    header {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
     }
     
     h1 {
-        font-size: 40px;
-    }
-    
-    .subtitle {
-        font-size: 22px;
-    }
-    
-    h2 {
         font-size: 32px;
     }
     
+    .subtitle {
+        font-size: 18px;
+    }
+    
+    h2 {
+        font-size: 28px;
+    }
+    
     .instructions {
-        font-size: 20px;
+        font-size: 18px;
     }
     
     .button-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .exercise-btn {
+        min-height: 100px;
+        padding: 15px 10px;
+    }
+    
+    .exercise-btn .icon {
+        font-size: 40px;
+    }
+    
+    .exercise-btn .btn-text {
+        font-size: 16px;
     }
     
     .memory-grid {
