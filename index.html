@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Accessible neurocognitive stimulation exercises with soothing pastel colors">
+    <title>Rosetta - Neurocognitive Stimulation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Rosetta</h1>
+            <p class="subtitle">Neurocognitive Stimulation Exercises</p>
+        </header>
+
+        <main>
+            <section class="exercise-menu" id="menu">
+                <h2>Choose an Exercise</h2>
+                <div class="button-grid">
+                    <button class="exercise-btn" onclick="startMemoryGame()" aria-label="Start Memory Game">
+                        <span class="icon">🎴</span>
+                        <span class="btn-text">Memory Match</span>
+                    </button>
+                    <button class="exercise-btn" onclick="startPatternGame()" aria-label="Start Pattern Recognition">
+                        <span class="icon">🔷</span>
+                        <span class="btn-text">Pattern Recognition</span>
+                    </button>
+                    <button class="exercise-btn" onclick="startColorGame()" aria-label="Start Color Matching">
+                        <span class="icon">🎨</span>
+                        <span class="btn-text">Color Match</span>
+                    </button>
+                    <button class="exercise-btn" onclick="startSequenceGame()" aria-label="Start Sequence Memory">
+                        <span class="icon">🔢</span>
+                        <span class="btn-text">Sequence Memory</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Memory Game -->
+            <section class="game-section hidden" id="memory-game">
+                <h2>Memory Match</h2>
+                <p class="instructions">Click cards to find matching pairs!</p>
+                <div class="game-controls">
+                    <button class="control-btn" onclick="resetMemoryGame()" aria-label="Reset game">
+                        <span class="icon">🔄</span> Reset
+                    </button>
+                    <button class="control-btn" onclick="backToMenu()" aria-label="Back to menu">
+                        <span class="icon">🏠</span> Menu
+                    </button>
+                </div>
+                <div class="score-display">
+                    <span class="score-label">Matches:</span>
+                    <span id="memory-score">0</span>
+                </div>
+                <div class="memory-grid" id="memory-grid"></div>
+            </section>
+
+            <!-- Pattern Game -->
+            <section class="game-section hidden" id="pattern-game">
+                <h2>Pattern Recognition</h2>
+                <p class="instructions">Find the pattern and select the next shape!</p>
+                <div class="game-controls">
+                    <button class="control-btn" onclick="nextPattern()" aria-label="Next pattern">
+                        <span class="icon">➡️</span> Next
+                    </button>
+                    <button class="control-btn" onclick="backToMenu()" aria-label="Back to menu">
+                        <span class="icon">🏠</span> Menu
+                    </button>
+                </div>
+                <div class="score-display">
+                    <span class="score-label">Correct:</span>
+                    <span id="pattern-score">0</span>
+                </div>
+                <div class="pattern-display" id="pattern-display"></div>
+                <div class="pattern-options" id="pattern-options"></div>
+            </section>
+
+            <!-- Color Game -->
+            <section class="game-section hidden" id="color-game">
+                <h2>Color Match</h2>
+                <p class="instructions">Match the color shown above!</p>
+                <div class="game-controls">
+                    <button class="control-btn" onclick="nextColor()" aria-label="Next color">
+                        <span class="icon">➡️</span> Next
+                    </button>
+                    <button class="control-btn" onclick="backToMenu()" aria-label="Back to menu">
+                        <span class="icon">🏠</span> Menu
+                    </button>
+                </div>
+                <div class="score-display">
+                    <span class="score-label">Correct:</span>
+                    <span id="color-score">0</span>
+                </div>
+                <div class="color-target" id="color-target"></div>
+                <div class="color-options" id="color-options"></div>
+            </section>
+
+            <!-- Sequence Game -->
+            <section class="game-section hidden" id="sequence-game">
+                <h2>Sequence Memory</h2>
+                <p class="instructions">Watch the sequence and repeat it!</p>
+                <div class="game-controls">
+                    <button class="control-btn" onclick="startSequence()" aria-label="Start sequence" id="start-sequence-btn">
+                        <span class="icon">▶️</span> Start
+                    </button>
+                    <button class="control-btn" onclick="backToMenu()" aria-label="Back to menu">
+                        <span class="icon">🏠</span> Menu
+                    </button>
+                </div>
+                <div class="score-display">
+                    <span class="score-label">Level:</span>
+                    <span id="sequence-level">1</span>
+                </div>
+                <div class="sequence-grid" id="sequence-grid"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>🌸 Designed for accessible neurocognitive stimulation 🌸</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

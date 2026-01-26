@@ -1,0 +1,496 @@
+/* Global Styles with Accessibility Focus */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pastel-green: #B8E6B8;
+    --pastel-pink: #FFD6E8;
+    --dark-green: #7BC67B;
+    --dark-pink: #FFB4D4;
+    --white: #FFFFFF;
+    --text-dark: #2C3E2C;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-size: 20px;
+    line-height: 1.6;
+    background: linear-gradient(135deg, var(--pastel-green) 0%, var(--pastel-pink) 100%);
+    min-height: 100vh;
+    color: var(--text-dark);
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 10px 40px var(--shadow);
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 4px solid var(--pastel-green);
+}
+
+h1 {
+    font-size: 56px;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 28px;
+    color: var(--text-dark);
+    font-weight: 300;
+}
+
+h2 {
+    font-size: 42px;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.instructions {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* Button Styles - Large and Accessible */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.exercise-btn {
+    background: linear-gradient(135deg, var(--pastel-green) 0%, var(--dark-green) 100%);
+    border: none;
+    border-radius: 25px;
+    padding: 40px 30px;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    min-height: 200px;
+    justify-content: center;
+}
+
+.exercise-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, var(--dark-green) 0%, var(--pastel-green) 100%);
+}
+
+.exercise-btn:active {
+    transform: translateY(-2px);
+}
+
+.exercise-btn:focus {
+    outline: 4px solid var(--dark-pink);
+    outline-offset: 4px;
+}
+
+.exercise-btn .icon {
+    font-size: 72px;
+    display: block;
+}
+
+.exercise-btn .btn-text {
+    font-size: 28px;
+}
+
+/* Control Buttons */
+.game-controls {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    background: var(--pastel-pink);
+    border: none;
+    border-radius: 20px;
+    padding: 20px 40px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-btn:hover {
+    background: var(--dark-pink);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn:focus {
+    outline: 4px solid var(--dark-green);
+    outline-offset: 4px;
+}
+
+.control-btn .icon {
+    font-size: 28px;
+}
+
+/* Score Display */
+.score-display {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--pastel-green);
+    border-radius: 20px;
+    color: var(--text-dark);
+}
+
+.score-label {
+    margin-right: 10px;
+}
+
+/* Game Sections */
+.game-section {
+    animation: fadeIn 0.5s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Memory Game Grid */
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.memory-card {
+    aspect-ratio: 1;
+    background: var(--pastel-pink);
+    border: 4px solid var(--dark-pink);
+    border-radius: 20px;
+    font-size: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 120px;
+}
+
+.memory-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px var(--shadow);
+}
+
+.memory-card:focus {
+    outline: 4px solid var(--dark-green);
+    outline-offset: 4px;
+}
+
+.memory-card.flipped {
+    background: var(--pastel-green);
+    border-color: var(--dark-green);
+}
+
+.memory-card.matched {
+    background: var(--dark-green);
+    border-color: var(--pastel-green);
+    opacity: 0.7;
+    cursor: default;
+}
+
+/* Pattern Game */
+.pattern-display {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.pattern-shape {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    background: var(--pastel-green);
+    border-radius: 20px;
+    border: 4px solid var(--dark-green);
+}
+
+.pattern-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.pattern-option {
+    aspect-ratio: 1;
+    background: var(--pastel-pink);
+    border: 4px solid var(--dark-pink);
+    border-radius: 20px;
+    font-size: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 120px;
+}
+
+.pattern-option:hover {
+    transform: scale(1.05);
+    background: var(--dark-pink);
+}
+
+.pattern-option:focus {
+    outline: 4px solid var(--dark-green);
+    outline-offset: 4px;
+}
+
+.pattern-option.correct {
+    background: var(--dark-green);
+    animation: pulse 0.5s ease;
+}
+
+.pattern-option.wrong {
+    background: #FFB4B4;
+    animation: shake 0.5s ease;
+}
+
+/* Color Game */
+.color-target {
+    width: 200px;
+    height: 200px;
+    margin: 30px auto;
+    border-radius: 25px;
+    border: 6px solid var(--text-dark);
+    box-shadow: 0 6px 20px var(--shadow);
+}
+
+.color-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.color-option {
+    aspect-ratio: 1;
+    border-radius: 20px;
+    border: 4px solid var(--text-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 120px;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px var(--shadow);
+}
+
+.color-option:focus {
+    outline: 4px solid var(--dark-green);
+    outline-offset: 4px;
+}
+
+.color-option.correct {
+    border-width: 8px;
+    border-color: var(--dark-green);
+    animation: pulse 0.5s ease;
+}
+
+.color-option.wrong {
+    animation: shake 0.5s ease;
+}
+
+/* Sequence Game */
+.sequence-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.sequence-btn {
+    aspect-ratio: 1;
+    background: var(--pastel-pink);
+    border: 4px solid var(--dark-pink);
+    border-radius: 20px;
+    font-size: 48px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sequence-btn:hover {
+    background: var(--dark-pink);
+}
+
+.sequence-btn:focus {
+    outline: 4px solid var(--dark-green);
+    outline-offset: 4px;
+}
+
+.sequence-btn.active {
+    background: var(--dark-green);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px var(--shadow);
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px);
+    }
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 4px solid var(--pastel-pink);
+    font-size: 22px;
+    color: var(--text-dark);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        font-size: 18px;
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 40px;
+    }
+    
+    .subtitle {
+        font-size: 22px;
+    }
+    
+    h2 {
+        font-size: 32px;
+    }
+    
+    .instructions {
+        font-size: 20px;
+    }
+    
+    .button-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .memory-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    
+    .memory-card {
+        font-size: 48px;
+        min-height: 100px;
+    }
+    
+    .sequence-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .exercise-btn {
+        min-height: 160px;
+        padding: 30px 20px;
+    }
+    
+    .exercise-btn .icon {
+        font-size: 56px;
+    }
+    
+    .exercise-btn .btn-text {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .memory-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .pattern-options,
+    .color-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
