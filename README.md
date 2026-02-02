@@ -1,6 +1,22 @@
 # Nonnetta
 
-This repository is the foundation for an accessible neurocognitive stimulation web app hosted on GitHub Pages.
+Applicazione web accessibile per la stimolazione neurocognitiva degli anziani, conforme GDPR e alle normative italiane ed europee.
+
+**🌐 Sito web**: [www.nonnetta.eu](https://www.nonnetta.eu)
+
+---
+
+## 🚨 VEDI ANCORA LA VECCHIA VERSIONE?
+
+**➡️ Leggi [LEGGIMI-PRIMA.md](LEGGIMI-PRIMA.md)** per le istruzioni rapide (2 minuti)
+
+**➡️ Oppure [PUBBLICAZIONE.md](PUBBLICAZIONE.md)** per la guida completa passo-passo
+
+---
+
+## Accessible Neurocognitive Stimulation Web App
+
+This repository contains an accessible web application for elderly users, hosted on GitHub Pages.
 
 ## 🎯 Features
 
@@ -36,10 +52,22 @@ This repository is the foundation for an accessible neurocognitive stimulation w
 
 ## 🚀 Quick Start
 
-1. Open `index.html` in a modern web browser
+### For Users - Visit the Website
+1. Go to [www.nonnetta.eu](https://www.nonnetta.eu)
 2. Accept the cookie consent banner
 3. Register with your email and password
 4. Start tracking your daily activities
+
+### For Developers - Local Testing
+1. Clone the repository
+2. Open `index.html` in a modern web browser
+3. No build step required - it's a static website!
+
+### For Deployment - Publishing to nonnetta.eu
+**📖 See deployment guides**:
+- **Italian**: [LEGGIMI-PRIMA.md](LEGGIMI-PRIMA.md) - Guida rapida (2 min)
+- **Italian**: [PUBBLICAZIONE.md](PUBBLICAZIONE.md) - Guida completa
+- **English**: [DEPLOYMENT.md](DEPLOYMENT.md) - Technical guide
 
 ## 🎹 Keyboard Navigation
 
