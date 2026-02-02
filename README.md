@@ -8,9 +8,18 @@ Applicazione web accessibile per la stimolazione neurocognitiva degli anziani, c
 
 ## 🚨 VEDI ANCORA LA VECCHIA VERSIONE?
 
-**➡️ Leggi [LEGGIMI-PRIMA.md](LEGGIMI-PRIMA.md)** per le istruzioni rapide (2 minuti)
+### 🆘 SOLUZIONI RAPIDE:
 
-**➡️ Oppure [PUBBLICAZIONE.md](PUBBLICAZIONE.md)** per la guida completa passo-passo
+1. **⚡ [FAI-SUBITO.md](FAI-SUBITO.md)** ← INIZIA QUI! (5 minuti)
+2. **🛠️ [MANUALE.md](MANUALE.md)** ← Guida passo-passo completa
+3. **🌐 [troubleshooting.html](troubleshooting.html)** ← Flowchart interattivo
+4. **📚 [PUBBLICAZIONE.md](PUBBLICAZIONE.md)** ← Guida dettagliata con DNS
+
+### 💡 IN BREVE:
+1. Merge PR: https://github.com/minimus-cyber/Nonnetta/pulls
+2. Attiva GitHub Pages: https://github.com/minimus-cyber/Nonnetta/settings/pages
+3. Svuota cache: `Ctrl+Shift+R`
+4. Aspetta 10-15 minuti ☕
 
 ---
 

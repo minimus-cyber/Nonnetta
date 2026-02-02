@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting - Nonnetta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #d32f2f;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .flowchart {
+            margin: 30px 0;
+        }
+        .step {
+            background: #e3f2fd;
+            border-left: 5px solid #1976d2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+        .step.check {
+            background: #fff3e0;
+            border-left-color: #f57c00;
+        }
+        .step.action {
+            background: #e8f5e9;
+            border-left-color: #388e3c;
+        }
+        .step.error {
+            background: #ffebee;
+            border-left-color: #d32f2f;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        .step.check h3 { color: #f57c00; }
+        .step.action h3 { color: #388e3c; }
+        .step.error h3 { color: #d32f2f; }
+        .arrow {
+            text-align: center;
+            font-size: 2em;
+            color: #1976d2;
+            margin: 10px 0;
+        }
+        .decision {
+            background: #fff9c4;
+            border: 3px solid #fbc02d;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .decision h3 {
+            margin-top: 0;
+            color: #f57f17;
+        }
+        .branches {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .branch {
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .branch.yes {
+            background: #c8e6c9;
+            border: 2px solid #4caf50;
+        }
+        .branch.no {
+            background: #ffcdd2;
+            border: 2px solid #f44336;
+        }
+        .solution {
+            background: #c8e6c9;
+            border: 3px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        .solution h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .link-button {
+            display: inline-block;
+            background: #1976d2;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .link-button:hover {
+            background: #1565c0;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 RISOLUZIONE PROBLEMI</h1>
+        <p class="subtitle">Flowchart Interattivo per Risolvere il Problema "Vedo ancora il vecchio sito"</p>
+
+        <div class="flowchart">
+            <!-- START -->
+            <div class="step check">
+                <h3>📋 START: Hai fatto il MERGE del Pull Request?</h3>
+                <p>Verifica su: <a href="https://github.com/minimus-cyber/Nonnetta/pulls" target="_blank">GitHub Pull Requests</a></p>
+            </div>
+
+            <div class="decision">
+                <h3>❓ C'è un Pull Request aperto?</h3>
+            </div>
+
+            <div class="branches">
+                <div class="branch yes">
+                    <strong>✅ SÌ</strong>
+                    <p>Clicca "Merge pull request"</p>
+                    <p>Poi "Confirm merge"</p>
+                    <p><strong>ASPETTA 2 minuti</strong></p>
+                </div>
+                <div class="branch no">
+                    <strong>❌ NO</strong>
+                    <p>Il merge è già fatto!</p>
+                    <p>Vai al passo successivo →</p>
+                </div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- GITHUB PAGES -->
+            <div class="step action">
+                <h3>⚙️ PASSO 1: Configura GitHub Pages</h3>
+                <p>Vai su: <a href="https://github.com/minimus-cyber/Nonnetta/settings/pages" target="_blank" class="link-button">GitHub Pages Settings</a></p>
+                <ol>
+                    <li><strong>Source</strong> → Branch: <code>main</code>, Folder: <code>/ (root)</code> → Save</li>
+                    <li><strong>Custom domain</strong> → Scrivi: <code>nonnetta.eu</code> → Save</li>
+                    <li>Aspetta 1 minuto e ricarica la pagina (F5)</li>
+                    <li>Attiva <strong>"Enforce HTTPS"</strong> ✅</li>
+                </ol>
+            </div>
+
+            <div class="decision">
+                <h3>❓ Vedi "Your site is live at https://nonnetta.eu"?</h3>
+            </div>
+
+            <div class="branches">
+                <div class="branch yes">
+                    <strong>✅ SÌ</strong>
+                    <p>Ottimo! Vai al passo successivo →</p>
+                </div>
+                <div class="branch no">
+                    <strong>❌ NO - Vedi un errore</strong>
+                    <p>Aspetta 3-5 minuti</p>
+                    <p>Ricarica la pagina (F5)</p>
+                    <p>Riprova</p>
+                </div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- CACHE -->
+            <div class="step action">
+                <h3>🔄 PASSO 2: Svuota la Cache del Browser</h3>
+                <p><strong>Metodo Veloce:</strong></p>
+                <ul>
+                    <li>Windows/Linux: <code>Ctrl + Shift + R</code></li>
+                    <li>Mac: <code>Cmd + Shift + R</code></li>
+                </ul>
+                <p><strong>Metodo Alternativo:</strong> Apri in modalità incognito (<code>Ctrl + Shift + N</code>)</p>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- WAIT -->
+            <div class="step check">
+                <h3>⏱️ PASSO 3: ASPETTA 10-15 minuti</h3>
+                <p>GitHub deve pubblicare il sito e aggiornare il CDN.</p>
+                <p>☕ Fai una pausa caffè e torna tra 10-15 minuti.</p>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- VERIFY -->
+            <div class="step check">
+                <h3>🌐 PASSO 4: Verifica il Sito</h3>
+                <p>Apri: <a href="https://nonnetta.eu" target="_blank" class="link-button">https://nonnetta.eu</a></p>
+            </div>
+
+            <div class="decision">
+                <h3>❓ Cosa vedi?</h3>
+            </div>
+
+            <div class="branches">
+                <div class="branch yes">
+                    <strong>✅ NUOVO SITO</strong>
+                    <p>Sfondo NERO</p>
+                    <p>Testo GIALLO</p>
+                    <p>Banner cookie</p>
+                    <p>Form login</p>
+                    <p><strong>→ PERFETTO! 🎉</strong></p>
+                </div>
+                <div class="branch no">
+                    <strong>❌ VECCHIO SITO</strong>
+                    <p>Sfondo bianco</p>
+                    <p>Testo normale</p>
+                    <p>Nessun login</p>
+                    <p><strong>→ Continua sotto</strong></p>
+                </div>
+            </div>
+
+            <!-- SUCCESS -->
+            <div class="success">
+                <h2>🎉 SUCCESSO!</h2>
+                <p>Se vedi il nuovo sito, hai finito!</p>
+                <p>Altrimenti, continua con il troubleshooting qui sotto ↓</p>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- TROUBLESHOOTING -->
+            <div class="step error">
+                <h3>🔴 PROBLEMA: Vedo ancora il vecchio sito</h3>
+                <p><strong>Possibili Cause e Soluzioni:</strong></p>
+            </div>
+
+            <!-- DNS Check -->
+            <div class="step check">
+                <h3>🔍 Controlla il DNS</h3>
+                <p>Vai su: <a href="https://dnschecker.org/" target="_blank" class="link-button">DNS Checker</a></p>
+                <p>Cerca: <code>nonnetta.eu</code></p>
+                <p>Tipo: <code>A</code></p>
+            </div>
+
+            <div class="decision">
+                <h3>❓ Vedi questi IP?</h3>
+                <p><code>185.199.108.153</code><br>
+                   <code>185.199.109.153</code><br>
+                   <code>185.199.110.153</code><br>
+                   <code>185.199.111.153</code></p>
+            </div>
+
+            <div class="branches">
+                <div class="branch yes">
+                    <strong>✅ SÌ - DNS OK</strong>
+                    <p>Il problema è la cache</p>
+                    <p>Vai sotto per altre soluzioni →</p>
+                </div>
+                <div class="branch no">
+                    <strong>❌ NO - DNS Sbagliato</strong>
+                    <p><strong>DEVI CONFIGURARE IL DNS!</strong></p>
+                    <p>Leggi <strong>MANUALE.md → PASSO 2</strong></p>
+                    <p>Vai al tuo provider DNS (GoDaddy, Aruba, ecc.)</p>
+                    <p>Aggiungi i 4 record A sopra</p>
+                    <p><strong>Aspetta 1-2 ore per propagazione</strong></p>
+                </div>
+            </div>
+
+            <!-- More Cache Solutions -->
+            <div class="step action">
+                <h3>💪 Soluzioni Cache Avanzate</h3>
+                <ol>
+                    <li><strong>Hard Refresh Multiplo</strong>: Premi <code>Ctrl+Shift+R</code> 5 volte (aspetta 3 secondi tra una volta e l'altra)</li>
+                    <li><strong>Cancella TUTTA la cache</strong>:
+                        <ul>
+                            <li>Chrome: <code>chrome://settings/clearBrowserData</code></li>
+                            <li>Firefox: <code>about:preferences#privacy</code></li>
+                            <li>Seleziona "Tutto il periodo"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Prova altro browser</strong>: Se usi Chrome, prova Firefox (o viceversa)</li>
+                    <li><strong>Prova altro dispositivo</strong>: Smartphone, tablet</li>
+                    <li><strong>Disabilita cache nella console</strong>:
+                        <ul>
+                            <li>Premi F12</li>
+                            <li>Tab "Network"</li>
+                            <li>Attiva "Disable cache"</li>
+                            <li>Ricarica la pagina</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Wait More -->
+            <div class="warning">
+                <h3>⏰ Ultima Risorsa: ASPETTA</h3>
+                <p>A volte il CDN di GitHub impiega fino a 30-60 minuti per aggiornarsi completamente.</p>
+                <p>Se hai fatto TUTTI i passaggi sopra:</p>
+                <ul>
+                    <li>✅ Merge fatto</li>
+                    <li>✅ GitHub Pages configurato</li>
+                    <li>✅ DNS verificato</li>
+                    <li>✅ Cache svuotata</li>
+                </ul>
+                <p><strong>Allora ASPETTA 30-60 minuti e riprova.</strong></p>
+            </div>
+
+            <!-- GitHub Direct -->
+            <div class="step action">
+                <h3>🔗 Test Alternativo: URL GitHub Diretto</h3>
+                <p>Prova ad accedere direttamente via GitHub Pages:</p>
+                <p><a href="https://minimus-cyber.github.io/Nonnetta/" target="_blank" class="link-button">https://minimus-cyber.github.io/Nonnetta/</a></p>
+                <p><strong>Se funziona qui ma non su nonnetta.eu → È un problema DNS</strong></p>
+                <p><strong>Se non funziona neanche qui → Ricontrolla la configurazione GitHub Pages</strong></p>
+            </div>
+
+            <!-- Final Help -->
+            <div class="step error">
+                <h3>🆘 Serve Ancora Aiuto?</h3>
+                <ol>
+                    <li><strong>Leggi la guida completa</strong>: <a href="MANUALE.md">MANUALE.md</a></li>
+                    <li><strong>Controlla GitHub Status</strong>: <a href="https://www.githubstatus.com/" target="_blank">githubstatus.com</a></li>
+                    <li><strong>Verifica i log</strong>: <a href="https://github.com/minimus-cyber/Nonnetta/actions" target="_blank">GitHub Actions</a></li>
+                    <li><strong>Aspetta 24 ore</strong>: In casi estremi, la propagazione DNS può richiedere fino a 48 ore</li>
+                </ol>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success">
+                <h2>💡 RICORDA</h2>
+                <p>La pubblicazione di un sito può richiedere tempo!</p>
+                <p><strong>Tempo tipico: 15-30 minuti</strong></p>
+                <p><strong>Tempo massimo (con DNS): 2-48 ore</strong></p>
+                <p>Sii paziente! ☕</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #ddd; text-align: center; color: #666;">
+            <p><strong>Guide Disponibili:</strong></p>
+            <p>
+                <a href="FAI-SUBITO.md">FAI-SUBITO.md</a> | 
+                <a href="MANUALE.md">MANUALE.md</a> | 
+                <a href="PUBBLICAZIONE.md">PUBBLICAZIONE.md</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9em;">Creato: 2 Febbraio 2026 | Per: www.nonnetta.eu</p>
+        </div>
+    </div>
+</body>
+</html>
