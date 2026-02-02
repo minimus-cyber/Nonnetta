@@ -4,25 +4,25 @@
 
 /* ========== ROOT VARIABLES ========== */
 :root {
-    /* High Contrast Colors for Elderly Users */
-    --bg-primary: #000000;
-    --bg-secondary: #1a1a1a;
-    --bg-card: #2d2d2d;
-    --text-primary: #ffffff;
-    --text-secondary: #f0f0f0;
-    --accent-primary: #ffcc00;
-    --accent-secondary: #ff9900;
-    --border-color: #ffcc00;
-    --focus-color: #00ff00;
-    --danger-color: #ff3333;
-    --success-color: #00ff00;
+    /* Pleasant Pastel Colors with High Contrast for Neurocognitive Stimulation */
+    --bg-primary: #ffffff;
+    --bg-secondary: #d4f1d4;
+    --bg-card: #fce4ec;
+    --text-primary: #2d5016;
+    --text-secondary: #6a1b4d;
+    --accent-primary: #81c784;
+    --accent-secondary: #f48fb1;
+    --border-color: #66bb6a;
+    --focus-color: #4caf50;
+    --danger-color: #e91e63;
+    --success-color: #66bb6a;
     
-    /* Spacing */
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
+    /* Spacing - Reduced by 1/3 */
+    --spacing-xs: 0.33rem;
+    --spacing-sm: 0.67rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.33rem;
+    --spacing-xl: 2rem;
     
     /* Font sizes (extra large for elderly) */
     --font-xs: 1.2rem;
@@ -30,6 +30,9 @@
     --font-md: 1.8rem;
     --font-lg: 2.2rem;
     --font-xl: 2.8rem;
+    
+    /* Legal text sizing */
+    --font-legal: 0.9rem;
 }
 
 /* ========== CUSTOM LARGE CURSOR ========== */
@@ -37,8 +40,9 @@
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="white" stroke="black" stroke-width="2" d="M2 2 L2 28 L12 22 L16 30 L20 28 L16 20 L26 20 Z"/></svg>') 4 4, auto !important;
 }
 
+/* Animated pointing hand cursor for clickable elements */
 button, a, input, select, textarea, [tabindex] {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path fill="yellow" stroke="black" stroke-width="3" d="M20 2 L20 38 M2 20 L38 20"/></svg>') 20 20, pointer !important;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><g transform="translate(5,2)"><path fill="%23FFE0B2" stroke="%23795548" stroke-width="1.5" d="M10 20 L10 8 Q10 6 11.5 6 Q13 6 13 8 L13 6 Q13 4 14.5 4 Q16 4 16 6 L16 5 Q16 3 17.5 3 Q19 3 19 5 L19 7 Q19 5 20.5 5 Q22 5 22 7 L22 18 Q22 25 18 28 Q14 30 10 28 Q8 26 8 24 L8 20 Z"/><circle cx="11.5" cy="7" r="1" fill="%23FFF"/><animateTransform attributeName="transform" type="rotate" from="0 16 16" to="10 16 16" dur="0.5s" repeatCount="indefinite"/></g></svg>') 20 20, pointer !important;
 }
 
 /* ========== BASE RESET ========== */
@@ -63,7 +67,7 @@ h1 {
     font-size: var(--font-xl);
     margin-bottom: var(--spacing-md);
     color: var(--accent-primary);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
@@ -91,9 +95,10 @@ header {
     text-align: center;
     margin-bottom: var(--spacing-lg);
     padding: var(--spacing-lg);
-    background-color: var(--bg-secondary);
-    border: 4px solid var(--border-color);
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+    border: 3px solid var(--border-color);
     border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .subtitle {
@@ -115,9 +120,9 @@ nav {
     padding: var(--spacing-sm) var(--spacing-md);
     font-size: var(--font-md);
     font-weight: bold;
-    background-color: var(--bg-card);
+    background-color: white;
     color: var(--text-primary);
-    border: 3px solid var(--accent-secondary);
+    border: 2px solid var(--accent-primary);
     border-radius: 8px;
     text-decoration: none;
     display: inline-block;
@@ -127,25 +132,26 @@ nav {
 .nav-btn:hover,
 .nav-btn:focus {
     background-color: var(--accent-primary);
-    color: var(--bg-primary);
+    color: white;
     border-color: var(--focus-color);
-    outline: 4px solid var(--focus-color);
+    outline: 3px solid var(--focus-color);
     outline-offset: 2px;
     transform: scale(1.05);
 }
 
 .nav-btn.active {
     background-color: var(--accent-primary);
-    color: var(--bg-primary);
+    color: white;
 }
 
 /* ========== CARDS ========== */
 .card {
     background-color: var(--bg-card);
-    border: 4px solid var(--border-color);
+    border: 3px solid var(--border-color);
     border-radius: 8px;
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* ========== FORMS ========== */
@@ -172,16 +178,16 @@ input[type="email"],
 input[type="password"] {
     padding: var(--spacing-sm);
     font-size: var(--font-md);
-    background-color: var(--bg-primary);
+    background-color: white;
     color: var(--text-primary);
-    border: 3px solid var(--accent-secondary);
+    border: 2px solid var(--accent-primary);
     border-radius: 4px;
     outline: none;
 }
 
 input:focus {
     border-color: var(--focus-color);
-    outline: 4px solid var(--focus-color);
+    outline: 3px solid var(--focus-color);
     outline-offset: 2px;
 }
 
@@ -200,10 +206,10 @@ input[type="checkbox"] {
 
 /* ========== BUTTONS ========== */
 .btn {
-    padding: var(--spacing-sm) var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
     font-size: var(--font-md);
     font-weight: bold;
-    border: 3px solid transparent;
+    border: 2px solid transparent;
     border-radius: 8px;
     transition: all 0.2s ease;
     text-decoration: none;
@@ -213,46 +219,45 @@ input[type="checkbox"] {
 
 .btn-primary {
     background-color: var(--accent-primary);
-    color: var(--bg-primary);
+    color: white;
     border-color: var(--accent-primary);
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-    background-color: var(--accent-secondary);
+    background-color: #66bb6a;
     border-color: var(--focus-color);
-    outline: 4px solid var(--focus-color);
+    outline: 3px solid var(--focus-color);
     outline-offset: 2px;
     transform: scale(1.05);
 }
 
 .btn-secondary {
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
+    background-color: var(--accent-secondary);
+    color: white;
     border-color: var(--accent-secondary);
 }
 
 .btn-secondary:hover,
 .btn-secondary:focus {
-    background-color: var(--accent-secondary);
-    color: var(--bg-primary);
+    background-color: #f06292;
     border-color: var(--focus-color);
-    outline: 4px solid var(--focus-color);
+    outline: 3px solid var(--focus-color);
     outline-offset: 2px;
     transform: scale(1.05);
 }
 
 .btn-danger {
     background-color: var(--danger-color);
-    color: var(--text-primary);
+    color: white;
     border-color: var(--danger-color);
 }
 
 .btn-danger:hover,
 .btn-danger:focus {
-    background-color: #cc0000;
+    background-color: #c2185b;
     border-color: var(--focus-color);
-    outline: 4px solid var(--focus-color);
+    outline: 3px solid var(--focus-color);
     outline-offset: 2px;
     transform: scale(1.05);
 }
@@ -340,10 +345,12 @@ input[type="checkbox"] {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: var(--bg-card);
-    border-top: 4px solid var(--accent-primary);
-    padding: var(--spacing-lg);
+    background-color: #f5f5f5;
+    border-top: 2px solid var(--border-color);
+    padding: var(--spacing-sm);
     z-index: 1000;
+    font-size: var(--font-legal);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .cookie-content {
@@ -351,11 +358,22 @@ input[type="checkbox"] {
     margin: 0 auto;
 }
 
+.cookie-content p {
+    font-size: var(--font-legal);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
 .cookie-buttons {
     display: flex;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-md);
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-xs);
     flex-wrap: wrap;
+}
+
+.cookie-buttons .btn {
+    font-size: var(--font-legal);
+    padding: var(--spacing-xs) var(--spacing-sm);
 }
 
 /* ========== ADMIN SPECIFIC ========== */
@@ -427,14 +445,22 @@ input[type="checkbox"] {
 footer {
     text-align: center;
     margin-top: var(--spacing-xl);
-    padding: var(--spacing-lg);
-    border-top: 4px solid var(--border-color);
+    padding: var(--spacing-sm);
+    border-top: 2px solid var(--border-color);
+    font-size: var(--font-legal);
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+footer p {
+    margin-bottom: 0.25rem;
 }
 
 footer a {
-    color: var(--accent-primary);
+    color: var(--text-secondary);
     text-decoration: none;
-    border-bottom: 2px solid var(--accent-primary);
+    border-bottom: 1px solid var(--text-secondary);
+    font-size: var(--font-legal);
 }
 
 footer a:hover,
