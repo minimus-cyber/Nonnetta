@@ -2,7 +2,7 @@
 // NONNETTA - ADMIN PANEL JAVASCRIPT
 // ============================================
 
-// Default admin credentials
+// Default admin credentials (will be hashed on first initialization)
 const DEFAULT_ADMIN = {
     username: 'fraverderosa',
     password: 'Rosa@5791'
@@ -19,11 +19,24 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAdminSession();
 });
 
+// Simple hash function for password storage
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 // ========== ADMIN CREDENTIALS SETUP ==========
-function initializeAdminCredentials() {
+async function initializeAdminCredentials() {
     // Set default credentials if not exist
     if (!localStorage.getItem('adminCredentials')) {
-        localStorage.setItem('adminCredentials', JSON.stringify(DEFAULT_ADMIN));
+        const passwordHash = await hashPassword(DEFAULT_ADMIN.password);
+        localStorage.setItem('adminCredentials', JSON.stringify({
+            username: DEFAULT_ADMIN.username,
+            passwordHash: passwordHash
+        }));
     }
 }
 
@@ -32,12 +45,12 @@ function initializeAdminAuth() {
     const loginForm = document.getElementById('adminLoginForm');
     const logoutBtn = document.getElementById('admin-logout-btn');
     
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const username = document.getElementById('admin-username').value;
         const password = document.getElementById('admin-password').value;
         
-        if (authenticateAdmin(username, password)) {
+        if (await authenticateAdmin(username, password)) {
             currentAdmin = username;
             isAdminLoggedIn = true;
             showAdminDashboard();
@@ -52,15 +65,16 @@ function initializeAdminAuth() {
     
     // Initialize credential change form
     const changeCredsForm = document.getElementById('changeCredentialsForm');
-    changeCredsForm.addEventListener('submit', (e) => {
+    changeCredsForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        changeAdminCredentials();
+        await changeAdminCredentials();
     });
 }
 
-function authenticateAdmin(username, password) {
+async function authenticateAdmin(username, password) {
     const adminCreds = JSON.parse(localStorage.getItem('adminCredentials'));
-    return adminCreds.username === username && adminCreds.password === password;
+    const passwordHash = await hashPassword(password);
+    return adminCreds.username === username && adminCreds.passwordHash === passwordHash;
 }
 
 function loadAdminSession() {
@@ -111,7 +125,7 @@ function showSuccess(message) {
 }
 
 // ========== CREDENTIAL MANAGEMENT ==========
-function changeAdminCredentials() {
+async function changeAdminCredentials() {
     const newUsername = document.getElementById('new-username').value;
     const newPassword = document.getElementById('new-password').value;
     const newPasswordConfirm = document.getElementById('new-password-confirm').value;
@@ -131,7 +145,8 @@ function changeAdminCredentials() {
     }
     
     if (newPassword) {
-        adminCreds.password = newPassword;
+        const passwordHash = await hashPassword(newPassword);
+        adminCreds.passwordHash = passwordHash;
     }
     
     localStorage.setItem('adminCredentials', JSON.stringify(adminCreds));

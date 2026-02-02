@@ -52,12 +52,12 @@ function initializeAuth() {
     });
     
     // Handle login
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
         
-        if (authenticateUser(email, password)) {
+        if (await authenticateUser(email, password)) {
             currentUser = email;
             showMainContent();
         } else {
@@ -66,7 +66,7 @@ function initializeAuth() {
     });
     
     // Handle registration
-    registerForm.addEventListener('submit', (e) => {
+    registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById('register-email').value;
         const password = document.getElementById('register-password').value;
@@ -83,7 +83,7 @@ function initializeAuth() {
             return;
         }
         
-        if (registerUser(email, password)) {
+        if (await registerUser(email, password)) {
             alert('Registrazione completata! Ora puoi accedere.');
             document.getElementById('login-form').style.display = 'block';
             document.getElementById('register-form').style.display = 'none';
@@ -99,20 +99,33 @@ function initializeAuth() {
     });
 }
 
-function authenticateUser(email, password) {
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    return users[email] && users[email].password === password;
+// Simple hash function for password storage
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-function registerUser(email, password) {
+async function authenticateUser(email, password) {
+    const users = JSON.parse(localStorage.getItem('users') || '{}');
+    if (!users[email]) return false;
+    
+    const passwordHash = await hashPassword(password);
+    return users[email].passwordHash === passwordHash;
+}
+
+async function registerUser(email, password) {
     const users = JSON.parse(localStorage.getItem('users') || '{}');
     
     if (users[email]) {
         return false; // User already exists
     }
     
+    const passwordHash = await hashPassword(password);
     users[email] = {
-        password: password,
+        passwordHash: passwordHash,
         registeredAt: new Date().toISOString(),
         activities: []
     };
