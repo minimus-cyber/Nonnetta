@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Come Pubblicare il Sito - Nonnetta.eu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+        }
+        .step {
+            background: #ecf0f1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border-left: 5px solid #3498db;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .button {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+            font-weight: bold;
+        }
+        .button:hover {
+            background: #2980b9;
+        }
+        ul {
+            margin: 10px 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .checklist {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .checklist li {
+            list-style: none;
+            padding: 5px;
+        }
+        .checklist input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Come Pubblicare Nonnetta.eu</h1>
+        
+        <div class="warning">
+            <h3>⚠️ Problema Attuale</h3>
+            <p>Stai vedendo la <strong>vecchia versione</strong> su www.nonnetta.eu perché la nuova versione non è ancora stata pubblicata.</p>
+        </div>
+
+        <div class="success">
+            <h3>✅ Soluzione</h3>
+            <p>Segui questi 3 semplici passaggi per pubblicare la nuova versione (tempo stimato: <strong>10-15 minuti</strong>)</p>
+        </div>
+
+        <div class="step">
+            <h3>📋 PASSO 1: Unire il Pull Request (Merge)</h3>
+            <p><strong>Tempo: 1 minuto</strong></p>
+            <ol>
+                <li>Vai alla pagina dei Pull Request:</li>
+                <a href="https://github.com/minimus-cyber/Nonnetta/pulls" class="button" target="_blank">
+                    🔗 Apri Pull Requests
+                </a>
+                <li>Trova il Pull Request chiamato: <code>Implement accessible neurocognitive stimulation web app</code></li>
+                <li>Clicca il pulsante verde <strong>"Merge pull request"</strong></li>
+                <li>Clicca <strong>"Confirm merge"</strong></li>
+            </ol>
+            <p>✅ Questo copia tutti i nuovi file nel branch principale</p>
+        </div>
+
+        <div class="step">
+            <h3>⚙️ PASSO 2: Configurare GitHub Pages</h3>
+            <p><strong>Tempo: 2-3 minuti</strong></p>
+            <ol>
+                <li>Vai alle impostazioni di GitHub Pages:</li>
+                <a href="https://github.com/minimus-cyber/Nonnetta/settings/pages" class="button" target="_blank">
+                    🔗 Apri GitHub Pages Settings
+                </a>
+                <li>In <strong>"Source"</strong>:
+                    <ul>
+                        <li>Branch: Seleziona <code>main</code></li>
+                        <li>Folder: Seleziona <code>/ (root)</code></li>
+                        <li>Clicca <strong>"Save"</strong></li>
+                    </ul>
+                </li>
+                <li>In <strong>"Custom domain"</strong>:
+                    <ul>
+                        <li>Scrivi: <code>nonnetta.eu</code></li>
+                        <li>Clicca <strong>"Save"</strong></li>
+                    </ul>
+                </li>
+                <li>Attendi 1-2 minuti, poi attiva <strong>"Enforce HTTPS"</strong></li>
+            </ol>
+            <p>✅ GitHub pubblicherà automaticamente il sito</p>
+        </div>
+
+        <div class="step">
+            <h3>🔄 PASSO 3: Svuotare la Cache del Browser</h3>
+            <p><strong>Tempo: 30 secondi</strong></p>
+            <p>Nel tuo browser, premi:</p>
+            <ul>
+                <li><strong>Windows/Linux</strong>: <code>Ctrl + Shift + R</code></li>
+                <li><strong>Mac</strong>: <code>Cmd + Shift + R</code></li>
+            </ul>
+            <p><strong>OPPURE</strong> apri il sito in modalità incognito:</p>
+            <ul>
+                <li><strong>Chrome/Edge</strong>: <code>Ctrl + Shift + N</code></li>
+                <li><strong>Firefox</strong>: <code>Ctrl + Shift + P</code></li>
+            </ul>
+            <p>✅ Questo forza il browser a scaricare la nuova versione</p>
+        </div>
+
+        <h2>✅ Verifica che Funzioni</h2>
+        <p>Apri <a href="https://www.nonnetta.eu" target="_blank">www.nonnetta.eu</a> e verifica che vedi:</p>
+        <ul>
+            <li>✅ <strong>Sfondo NERO</strong> (invece di bianco)</li>
+            <li>✅ <strong>Testo GIALLO/ARANCIONE</strong> molto grande</li>
+            <li>✅ Banner cookie: "Questo sito utilizza cookie..."</li>
+            <li>✅ Form di login con email e password</li>
+            <li>✅ Cursore del mouse grande e giallo</li>
+        </ul>
+
+        <div class="success">
+            <h3>🎉 Se vedi queste cose, la nuova versione è ATTIVA!</h3>
+        </div>
+
+        <h2>📋 Checklist Completa</h2>
+        <div class="checklist">
+            <ul>
+                <li><input type="checkbox"> Pull Request unito (merged)</li>
+                <li><input type="checkbox"> GitHub Pages attivato</li>
+                <li><input type="checkbox"> Branch impostato su "main"</li>
+                <li><input type="checkbox"> Dominio personalizzato: "nonnetta.eu"</li>
+                <li><input type="checkbox"> "Enforce HTTPS" attivato</li>
+                <li><input type="checkbox"> Cache del browser svuotata</li>
+                <li><input type="checkbox"> Sito verificato (sfondo nero, testo giallo)</li>
+            </ul>
+        </div>
+
+        <h2>⏱️ Tempi Previsti</h2>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background: #f8f9fa;">
+                <td style="padding: 10px; border: 1px solid #dee2e6;"><strong>Operazione</strong></td>
+                <td style="padding: 10px; border: 1px solid #dee2e6;"><strong>Tempo</strong></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #dee2e6;">Merge Pull Request</td>
+                <td style="padding: 10px; border: 1px solid #dee2e6;">Immediato</td>
+            </tr>
+            <tr style="background: #f8f9fa;">
+                <td style="padding: 10px; border: 1px solid #dee2e6;">Attivazione GitHub Pages</td>
+                <td style="padding: 10px; border: 1px solid #dee2e6;">1-3 minuti</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #dee2e6;">Generazione SSL</td>
+                <td style="padding: 10px; border: 1px solid #dee2e6;">5-10 minuti</td>
+            </tr>
+            <tr style="background: #f8f9fa;">
+                <td style="padding: 10px; border: 1px solid #dee2e6;">Aggiornamento CDN</td>
+                <td style="padding: 10px; border: 1px solid #dee2e6;">5-10 minuti</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #dee2e6;"><strong>TOTALE</strong></td>
+                <td style="padding: 10px; border: 1px solid #dee2e6;"><strong>10-30 minuti</strong></td>
+            </tr>
+        </table>
+
+        <div class="warning">
+            <h3>❌ Problemi?</h3>
+            <p>Se dopo 30 minuti vedi ancora problemi:</p>
+            <ul>
+                <li>📖 Leggi la <a href="PUBBLICAZIONE.md">guida completa (PUBBLICAZIONE.md)</a></li>
+                <li>🔍 Verifica lo stato di GitHub: <a href="https://www.githubstatus.com/" target="_blank">githubstatus.com</a></li>
+                <li>📊 Controlla i log: <a href="https://github.com/minimus-cyber/Nonnetta/actions" target="_blank">GitHub Actions</a></li>
+            </ul>
+        </div>
+
+        <h2>📚 Guide Disponibili</h2>
+        <ul>
+            <li><strong>LEGGIMI-PRIMA.md</strong> - Guida rapida (2 minuti)</li>
+            <li><strong>PUBBLICAZIONE.md</strong> - Guida completa con risoluzione problemi</li>
+            <li><strong>DEPLOYMENT.md</strong> - Guida tecnica in inglese</li>
+            <li><strong>README.md</strong> - Documentazione del progetto</li>
+        </ul>
+
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #ecf0f1; text-align: center; color: #7f8c8d;">
+            <p>📅 <strong>Creato:</strong> 2 Febbraio 2026</p>
+            <p>🌐 <strong>Per:</strong> www.nonnetta.eu</p>
+            <p>📧 <strong>Supporto:</strong> Leggi PUBBLICAZIONE.md per ulteriori informazioni</p>
+        </div>
+    </div>
+
+    <script>
+        // Salva lo stato delle checkbox in localStorage
+        document.querySelectorAll('.checklist input[type="checkbox"]').forEach((checkbox, index) => {
+            // Carica stato salvato
+            const saved = localStorage.getItem('deploy-check-' + index);
+            if (saved === 'true') {
+                checkbox.checked = true;
+            }
+            
+            // Salva quando cambia
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem('deploy-check-' + index, this.checked);
+            });
+        });
+    </script>
+</body>
+</html>

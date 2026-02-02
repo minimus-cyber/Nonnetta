@@ -1,0 +1,220 @@
+═══════════════════════════════════════════════════════════════════════════════
+                        🌐 NONNETTA.EU - GUIDA PUBBLICAZIONE
+                  "Vedo ancora la vecchia versione, cosa devo fare?"
+═══════════════════════════════════════════════════════════════════════════════
+
+📋 RISPOSTA RAPIDA
+═══════════════════════════════════════════════════════════════════════════════
+
+La vecchia versione è ancora visibile perché la nuova versione non è stata
+ancora pubblicata su GitHub Pages. Ecco cosa fare:
+
+
+🚀 3 PASSAGGI SEMPLICI (10-15 minuti totali)
+═══════════════════════════════════════════════════════════════════════════════
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ PASSO 1: UNIRE IL PULL REQUEST                                    ⏱️ 1 min ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+1. Vai alla pagina dei Pull Request:
+   👉 https://github.com/minimus-cyber/Nonnetta/pulls
+
+2. Trova il Pull Request con titolo:
+   "Implement accessible neurocognitive stimulation web app"
+
+3. Clicca il pulsante verde "Merge pull request"
+
+4. Conferma cliccando "Confirm merge"
+
+✅ Fatto! I nuovi file sono ora nel branch principale
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ PASSO 2: ATTIVARE GITHUB PAGES                                  ⏱️ 2-3 min ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+1. Vai alle impostazioni di GitHub Pages:
+   👉 https://github.com/minimus-cyber/Nonnetta/settings/pages
+
+2. Nella sezione "Source":
+   • Branch: Seleziona "main"
+   • Folder: Seleziona "/ (root)"
+   • Clicca "Save"
+
+3. Nella sezione "Custom domain":
+   • Scrivi: nonnetta.eu
+   • Clicca "Save"
+
+4. Aspetta 1-2 minuti, poi:
+   • Attiva la checkbox "Enforce HTTPS"
+
+✅ Fatto! GitHub pubblicherà automaticamente il sito
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ PASSO 3: SVUOTARE LA CACHE DEL BROWSER                          ⏱️ 30 sec ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+Nel tuo browser, premi una di queste combinazioni:
+
+• Windows/Linux: Ctrl + Shift + R
+• Mac: Cmd + Shift + R
+
+OPPURE apri il sito in modalità incognito:
+
+• Chrome/Edge: Ctrl + Shift + N
+• Firefox: Ctrl + Shift + P
+• Safari: Cmd + Shift + N
+
+✅ Fatto! Il browser scaricherà la nuova versione
+
+
+═══════════════════════════════════════════════════════════════════════════════
+✅ COME VERIFICARE CHE FUNZIONA
+═══════════════════════════════════════════════════════════════════════════════
+
+Apri www.nonnetta.eu e controlla che vedi:
+
+  ✅ SFONDO NERO (invece di bianco)
+  ✅ TESTO GIALLO/ARANCIONE molto grande
+  ✅ Banner cookie: "Questo sito utilizza cookie..."
+  ✅ Form di login con campi email e password
+  ✅ Cursore del mouse GRANDE e ben visibile (giallo)
+
+🎉 Se vedi queste caratteristiche, LA NUOVA VERSIONE È ATTIVA!
+
+
+═══════════════════════════════════════════════════════════════════════════════
+⏱️ QUANTO TEMPO CI VUOLE?
+═══════════════════════════════════════════════════════════════════════════════
+
+  Merge Pull Request           →  Immediato
+  Configurazione GitHub Pages  →  2-3 minuti
+  Pubblicazione automatica     →  2-5 minuti
+  Generazione certificato SSL  →  5-10 minuti
+  Aggiornamento CDN            →  2-5 minuti
+  Svuotare cache browser       →  30 secondi
+  ─────────────────────────────────────────────
+  TOTALE TIPICO               →  10-15 minuti
+
+  Se il DNS non è configurato, aggiungi 15 min - 2 ore per la propagazione.
+
+
+═══════════════════════════════════════════════════════════════════════════════
+📚 GUIDE DETTAGLIATE DISPONIBILI
+═══════════════════════════════════════════════════════════════════════════════
+
+  📄 LEGGIMI-PRIMA.md
+     → Guida rapidissima (2 minuti di lettura)
+     → 3 passaggi essenziali
+     → Perfetta per iniziare subito
+
+  📘 PUBBLICAZIONE.md
+     → Guida completa e dettagliata
+     → Risoluzione problemi comuni
+     → Configurazione DNS
+     → Checklist completa
+
+  🌐 guida-pubblicazione.html
+     → Guida visuale interattiva
+     → Aprila nel browser per un'esperienza guidata
+     → Checklist salvabile
+     → Link diretti a tutte le pagine GitHub
+
+  📗 DEPLOYMENT.md
+     → Guida tecnica in inglese
+     → Per sviluppatori
+     → Opzioni di hosting alternative
+
+
+═══════════════════════════════════════════════════════════════════════════════
+❌ PROBLEMI COMUNI E SOLUZIONI
+═══════════════════════════════════════════════════════════════════════════════
+
+🔴 "404 - There isn't a GitHub Pages site here"
+
+   → Hai fatto il merge del Pull Request?
+   → Hai configurato GitHub Pages (Source = main, root)?
+   → Aspetta 2-3 minuti e riprova
+   → Controlla: https://github.com/minimus-cyber/Nonnetta/actions
+
+
+🔴 "Vedo ancora la vecchia versione"
+
+   → Svuota la cache: Ctrl+Shift+R o Cmd+Shift+R
+   → Prova in modalità incognito: Ctrl+Shift+N
+   → Prova da un altro dispositivo (smartphone)
+   → Aspetta 5-10 minuti per l'aggiornamento del CDN
+
+
+🔴 "Sito non raggiungibile" o "DNS_PROBE_FINISHED_NXDOMAIN"
+
+   → Verifica che il DNS sia configurato correttamente
+   → Usa https://dnschecker.org/ per verificare la propagazione
+   → Aspetta 1-2 ore (massimo 48 ore) per la propagazione DNS
+   → Leggi PUBBLICAZIONE.md per i dettagli sulla configurazione DNS
+
+
+🔴 "Connessione non sicura" o "SSL Certificate Error"
+
+   → Aspetta che GitHub generi il certificato (5-10 minuti)
+   → Verifica che "Enforce HTTPS" sia attivato
+   → Se non puoi attivarlo, aspetta che GitHub verifichi il dominio
+   → Ricarica la pagina dopo qualche minuto
+
+
+═══════════════════════════════════════════════════════════════════════════════
+🎯 CHECKLIST COMPLETA
+═══════════════════════════════════════════════════════════════════════════════
+
+  [ ] Pull Request unito (merged) al branch main
+  [ ] GitHub Pages attivato
+  [ ] Branch impostato su "main"
+  [ ] Folder impostato su "/ (root)"
+  [ ] Dominio personalizzato configurato: "nonnetta.eu"
+  [ ] "Enforce HTTPS" attivato
+  [ ] Cache del browser svuotata
+  [ ] Sito aperto in modalità incognito
+  [ ] Verificato: sfondo nero e testo giallo
+  [ ] Verificato: banner cookie presente
+  [ ] Verificato: form di login presente
+
+
+═══════════════════════════════════════════════════════════════════════════════
+🆘 SERVE ANCORA AIUTO?
+═══════════════════════════════════════════════════════════════════════════════
+
+1. 📖 Leggi PUBBLICAZIONE.md per la guida completa
+
+2. 🌐 Apri guida-pubblicazione.html nel browser per la guida interattiva
+
+3. 🔍 Verifica lo stato di GitHub: https://www.githubstatus.com/
+
+4. 📊 Controlla i log del deployment: 
+   https://github.com/minimus-cyber/Nonnetta/actions
+
+5. 📚 Consulta la documentazione ufficiale:
+   https://docs.github.com/it/pages
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                              🎉 BUONA PUBBLICAZIONE!
+═══════════════════════════════════════════════════════════════════════════════
+
+Seguendo questi passaggi, entro 10-15 minuti vedrai la nuova versione del sito
+su www.nonnetta.eu con tutte le funzionalità accessibili per gli anziani!
+
+  • Alto contrasto (nero/giallo)
+  • Testo molto grande
+  • Cursore grande e visibile
+  • Navigazione da tastiera
+  • Sistema di login e registrazione
+  • Tracciamento attività giornaliere
+  • Pannello amministratore
+
+═══════════════════════════════════════════════════════════════════════════════
+Creato: 2 Febbraio 2026
+Per: www.nonnetta.eu
+Repository: https://github.com/minimus-cyber/Nonnetta
+═══════════════════════════════════════════════════════════════════════════════

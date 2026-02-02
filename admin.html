@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Nonnetta</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔐 Pannello Amministrazione</h1>
+            <a href="index.html" class="btn btn-secondary" tabindex="0">← Torna alla Home</a>
+        </header>
+
+        <!-- Admin Login Section -->
+        <section id="admin-login-section" class="card">
+            <h2>Accesso Amministratore</h2>
+            <p class="help-text">Inserisci le credenziali di amministrazione</p>
+            <p class="help-text" style="font-size: 1rem; margin-top: 0.5rem;">
+                <strong>Nota:</strong> Credenziali iniziali - Username: fraverderosa, Password: Rosa@5791<br>
+                <em>Si consiglia vivamente di cambiarle dopo il primo accesso.</em>
+            </p>
+            
+            <form id="adminLoginForm">
+                <label for="admin-username">Nome Utente:</label>
+                <input type="text" id="admin-username" required tabindex="0">
+                
+                <label for="admin-password">Password:</label>
+                <input type="password" id="admin-password" required tabindex="0">
+                
+                <button type="submit" class="btn btn-primary" tabindex="0">Accedi</button>
+            </form>
+            
+            <div id="admin-error" class="error-message" style="display: none;"></div>
+        </section>
+
+        <!-- Admin Dashboard (shown after login) -->
+        <section id="admin-dashboard" style="display: none;">
+            <div class="user-info">
+                <p>Amministratore: <strong id="admin-name"></strong></p>
+                <button id="admin-logout-btn" class="btn btn-secondary" tabindex="0">Esci</button>
+            </div>
+
+            <!-- Change Password Section -->
+            <div class="card">
+                <h2>Cambia Credenziali</h2>
+                <form id="changeCredentialsForm">
+                    <label for="new-username">Nuovo Nome Utente:</label>
+                    <input type="text" id="new-username" tabindex="0">
+                    
+                    <label for="new-password">Nuova Password:</label>
+                    <input type="password" id="new-password" minlength="6" tabindex="0">
+                    
+                    <label for="new-password-confirm">Conferma Nuova Password:</label>
+                    <input type="password" id="new-password-confirm" minlength="6" tabindex="0">
+                    
+                    <button type="submit" class="btn btn-primary" tabindex="0">Aggiorna Credenziali</button>
+                </form>
+                <div id="credentials-message" class="success-message" style="display: none;"></div>
+            </div>
+
+            <!-- User Management Section -->
+            <div class="card">
+                <h2>Gestione Utenti</h2>
+                <p class="help-text">Utenti registrati nel sistema</p>
+                <div id="users-list" class="users-list"></div>
+            </div>
+
+            <!-- Statistics Section -->
+            <div class="card">
+                <h2>Statistiche</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3 id="total-users">0</h3>
+                        <p>Utenti Registrati</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="total-activities">0</h3>
+                        <p>Attività Completate</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="active-today">0</h3>
+                        <p>Attivi Oggi</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Nonnetta. Conforme al GDPR e alle normative europee.</p>
+    </footer>
+
+    <script src="admin.js"></script>
+</body>
+</html>
