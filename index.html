@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nonnetta - Stimolazione Neurocognitiva Accessibile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cookie Consent Banner (GDPR Compliance) -->
+    <div id="cookie-banner" class="cookie-banner" role="alert" aria-live="polite">
+        <div class="cookie-content">
+            <p>Questo sito utilizza cookie per migliorare l'esperienza utente e memorizzare le attività. Continuando la navigazione acconsenti all'uso dei cookie.</p>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="btn btn-primary" tabindex="0">Accetta</button>
+                <a href="privacy.html" class="btn btn-secondary" tabindex="0">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Nonnetta</h1>
+            <p class="subtitle">Stimolazione Neurocognitiva Accessibile per Anziani</p>
+            <nav>
+                <button id="home-btn" class="nav-btn active" tabindex="0">Home</button>
+                <button id="activities-btn" class="nav-btn" tabindex="0">Attività</button>
+                <button id="history-btn" class="nav-btn" tabindex="0">Storico</button>
+                <a href="admin.html" class="nav-btn" tabindex="0">Admin</a>
+            </nav>
+        </header>
+
+        <!-- Login/Register Section -->
+        <section id="auth-section" class="card">
+            <h2>Benvenuto</h2>
+            <p class="help-text">Registrati o accedi per tenere traccia delle tue attività giornaliere</p>
+            
+            <div id="login-form" class="auth-form">
+                <h3>Accedi</h3>
+                <form id="loginForm">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" required tabindex="0">
+                    
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" required tabindex="0">
+                    
+                    <button type="submit" class="btn btn-primary" tabindex="0">Accedi</button>
+                    <button type="button" id="show-register" class="btn btn-secondary" tabindex="0">Registrati</button>
+                </form>
+            </div>
+
+            <div id="register-form" class="auth-form" style="display: none;">
+                <h3>Registrazione</h3>
+                <form id="registerForm">
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" required tabindex="0">
+                    
+                    <label for="register-password">Password:</label>
+                    <input type="password" id="register-password" required minlength="6" tabindex="0">
+                    
+                    <label for="register-password-confirm">Conferma Password:</label>
+                    <input type="password" id="register-password-confirm" required minlength="6" tabindex="0">
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacy-consent" required tabindex="0">
+                        <label for="privacy-consent">Accetto la <a href="privacy.html" target="_blank">Privacy Policy</a> e il trattamento dei dati personali (GDPR)</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" tabindex="0">Registrati</button>
+                    <button type="button" id="show-login" class="btn btn-secondary" tabindex="0">Torna al Login</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Main Content (shown after login) -->
+        <section id="main-content" style="display: none;">
+            <div class="user-info">
+                <p>Benvenuto, <strong id="user-email"></strong>!</p>
+                <button id="logout-btn" class="btn btn-secondary" tabindex="0">Esci</button>
+            </div>
+
+            <!-- Activities Section -->
+            <div id="activities-section" class="card">
+                <h2>Attività Giornaliere</h2>
+                <p class="help-text">Usa le frecce ⬆️⬇️ per navigare, SPAZIO per selezionare, INVIO per confermare</p>
+                
+                <div class="activities-list">
+                    <div class="activity-item" tabindex="0" data-activity="memoria">
+                        <h3>🧠 Esercizi di Memoria</h3>
+                        <p>Stimola la memoria a breve e lungo termine</p>
+                    </div>
+                    <div class="activity-item" tabindex="0" data-activity="calcolo">
+                        <h3>🔢 Calcolo Mentale</h3>
+                        <p>Esercizi di matematica semplice</p>
+                    </div>
+                    <div class="activity-item" tabindex="0" data-activity="parole">
+                        <h3>📝 Giochi di Parole</h3>
+                        <p>Cruciverba e anagrammi</p>
+                    </div>
+                    <div class="activity-item" tabindex="0" data-activity="logica">
+                        <h3>🎯 Puzzle Logici</h3>
+                        <p>Esercizi di logica e ragionamento</p>
+                    </div>
+                </div>
+                
+                <button id="complete-activity" class="btn btn-primary" tabindex="0">Completa Attività Selezionata</button>
+            </div>
+
+            <!-- History Section -->
+            <div id="history-section" class="card" style="display: none;">
+                <h2>Storico Attività</h2>
+                <div class="history-actions">
+                    <button id="print-history" class="btn btn-primary" tabindex="0">🖨️ Stampa</button>
+                    <button id="download-history" class="btn btn-primary" tabindex="0">💾 Scarica TXT</button>
+                    <button id="clear-history" class="btn btn-danger" tabindex="0">🗑️ Cancella Storico</button>
+                </div>
+                <div id="history-list" class="history-list"></div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Nonnetta. Conforme al GDPR e alle normative europee.</p>
+        <p><a href="privacy.html">Privacy Policy</a> | <a href="accessibility.html">Accessibilità</a></p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
