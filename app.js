@@ -23,6 +23,20 @@ function hapticFeedback(type = 'light') {
     }
 }
 
+// ========== NOTIFICATION SYSTEM ==========
+function showNotification(message, duration = 3000) {
+    const toast = document.getElementById('notification-toast');
+    const messageEl = document.getElementById('notification-message');
+    
+    messageEl.textContent = message;
+    toast.style.display = 'block';
+    
+    // Auto-hide after duration
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, duration);
+}
+
 // ========== SOUND EFFECTS ==========
 let audioContext = null;
 
@@ -112,7 +126,7 @@ function initializeGameSelection() {
             
             // Check if user needs to be registered for this difficulty
             if ((difficulty === 'intermedio' || difficulty === 'esperto') && !currentUser) {
-                alert('Devi essere registrato per accedere ai giochi di livello ' + difficulty);
+                showNotification('Devi essere registrato per accedere ai giochi di livello ' + difficulty);
                 hapticFeedback('error');
                 playSound(300, 100);
                 return;
@@ -134,6 +148,9 @@ function initializeGameSelection() {
 }
 
 function showGameSelection() {
+    // Clean up any game-specific handlers
+    cleanupScriviGame();
+    
     document.querySelectorAll('.game-container').forEach(container => {
         container.style.display = 'none';
     });
@@ -646,6 +663,7 @@ let scriviState = {
     score: 0,
     currentWord: '',
     currentInput: '',
+    keyboardHandler: null,
     words: [
         { word: 'CASA', hint: 'Dove vivi' },
         { word: 'SOLE', hint: 'Splende nel cielo' },
@@ -664,8 +682,16 @@ function initScriviGame() {
     updateScriviStats();
     nextScriviWord();
     
-    // Add keyboard listener for physical keyboard
-    document.addEventListener('keydown', handleScriviKeyboard);
+    // Store handler reference for cleanup
+    scriviState.keyboardHandler = (e) => handleScriviKeyboard(e);
+    document.addEventListener('keydown', scriviState.keyboardHandler);
+}
+
+function cleanupScriviGame() {
+    if (scriviState.keyboardHandler) {
+        document.removeEventListener('keydown', scriviState.keyboardHandler);
+        scriviState.keyboardHandler = null;
+    }
 }
 
 function nextScriviWord() {
@@ -780,13 +806,6 @@ function updateScriviStats() {
     document.getElementById('scrivi-score').textContent = scriviState.score;
 }
 
-// Clean up keyboard listener when leaving scrivi game
-const originalShowGameSelection = showGameSelection;
-showGameSelection = function() {
-    document.removeEventListener('keydown', handleScriviKeyboard);
-    originalShowGameSelection();
-};
-
 // ========== AUTHENTICATION SYSTEM ==========
 let currentUser = null;
 
@@ -838,8 +857,9 @@ async function handleLogin(e) {
         updateAuthUI();
         hapticFeedback('success');
         playSound(800, 100);
+        showNotification('Accesso effettuato con successo!');
     } else {
-        alert('Email o password errati');
+        showNotification('Email o password errati');
         hapticFeedback('error');
         playSound(300, 100);
     }
@@ -943,7 +963,7 @@ function logActivity(gameName, score) {
 
 function openDiary() {
     if (!currentUser) {
-        alert('Devi essere registrato per vedere il diario');
+        showNotification('Devi essere registrato per vedere il diario');
         return;
     }
     
@@ -1057,7 +1077,7 @@ function initializeNonnettaPlus() {
 
 function openNonnettaPlus() {
     if (!currentUser) {
-        alert('Devi essere registrato per accedere a Nonnetta Plus');
+        showNotification('Devi essere registrato per accedere a Nonnetta Plus');
         hapticFeedback('error');
         playSound(300, 100);
         return;

@@ -948,6 +948,34 @@ input[type="checkbox"] {
     margin-bottom: var(--spacing-xs);
 }
 
+/* ========== NOTIFICATION TOAST ========== */
+.notification-toast {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-secondary);
+    color: white;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: 8px;
+    font-size: var(--font-md);
+    font-weight: bold;
+    z-index: 2000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
 /* ========== MESSAGES ========== */
 .cookie-banner {
     position: fixed;
