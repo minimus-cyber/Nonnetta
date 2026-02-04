@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in
     if (!userManager.isLoggedIn()) {
-        window.location.href = 'games.html';
+        window.location.href = 'index.html';
         return;
     }
 
@@ -135,7 +135,7 @@ function initializeLogout() {
     document.getElementById('logout-btn').addEventListener('click', () => {
         if (confirm('Sei sicuro di voler uscire?')) {
             userManager.logout();
-            window.location.href = 'games.html';
+            window.location.href = 'index.html';
         }
     });
 }
@@ -154,7 +154,7 @@ function initializeQuickActions() {
 function checkAccessAndPlay(game) {
     if (userManager.hasAccess(game)) {
         // Redirect to game
-        window.location.href = `index.html?game=${game}`;
+        window.location.href = `games.html?game=${game}`;
     } else {
         alert('⚠️ Questo gioco è disponibile solo con il piano Premium. Aggiorna il tuo abbonamento per continuare!');
         // Switch to subscription tab
