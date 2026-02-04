@@ -164,12 +164,6 @@ function showLoggedInState() {
     document.getElementById('history-btn').style.display = 'inline-block';
 }
 
-function showMainContent() {
-    // Deprecated: Activities are now always visible
-    // Keep for backward compatibility
-    showLoggedInState();
-}
-
 // ========== ACTIVITIES ==========
 function initializeActivities() {
     activityElements = Array.from(document.querySelectorAll('.activity-item'));
@@ -261,6 +255,7 @@ function showSection(section) {
         document.getElementById('activities-section').style.display = 'none';
         document.getElementById('history-section').style.display = 'block';
         document.getElementById('history-btn').classList.add('active');
+        document.getElementById('history-help-text').style.display = 'none';
         document.querySelector('#history-section .history-actions').style.display = 'flex';
         currentSection = 'history';
         loadHistory();
@@ -380,7 +375,7 @@ function clearHistory() {
 // ========== KEYBOARD NAVIGATION ==========
 function initializeKeyboardNavigation() {
     document.addEventListener('keydown', (e) => {
-        // ESC - Go back or show info
+        // ESC - Go back or logout
         if (e.key === 'Escape') {
             if (currentSection === 'history') {
                 showSection('activities');
