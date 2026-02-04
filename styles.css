@@ -324,6 +324,30 @@ input[type="checkbox"] {
     margin: 0;
 }
 
+.difficulty-badge {
+    display: block;
+    margin-top: var(--spacing-xs);
+    padding: var(--spacing-xs);
+    border-radius: 4px;
+    font-size: var(--font-xs);
+    font-weight: bold;
+}
+
+.difficulty-badge.principiante {
+    background-color: #4caf50;
+    color: white;
+}
+
+.difficulty-badge.intermedio {
+    background-color: #ff9800;
+    color: white;
+}
+
+.difficulty-badge.esperto {
+    background-color: #f44336;
+    color: white;
+}
+
 /* ========== GAME CONTAINERS ========== */
 .game-container {
     background-color: var(--bg-card);

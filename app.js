@@ -24,23 +24,44 @@ function hapticFeedback(type = 'light') {
 }
 
 // ========== SOUND EFFECTS ==========
+let audioContext = null;
+
+function initAudioContext() {
+    if (!audioContext) {
+        try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch(e) {
+            console.log('Audio not available');
+        }
+    }
+    return audioContext;
+}
+
 function playSound(frequency, duration = 100, type = 'sine') {
     try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
+        const ctx = initAudioContext();
+        if (!ctx) return;
+        
+        // Resume audio context if suspended (browser autoplay policy)
+        if (ctx.state === 'suspended') {
+            ctx.resume();
+        }
+        
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
         
         oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
+        gainNode.connect(ctx.destination);
         
         oscillator.type = type;
         oscillator.frequency.value = frequency;
-        gainNode.gain.value = 0.3;
+        gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration / 1000);
         
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + duration / 1000);
+        oscillator.start(ctx.currentTime);
+        oscillator.stop(ctx.currentTime + duration / 1000);
     } catch(e) {
-        console.log('Audio not available');
+        console.log('Audio playback error:', e);
     }
 }
 
@@ -66,8 +87,17 @@ function initializeCookieBanner() {
         localStorage.setItem('cookiesAccepted', 'true');
         cookieBanner.style.display = 'none';
         hapticFeedback('light');
+        
+        // Initialize audio context on user interaction
+        initAudioContext();
         playSound(600, 50);
     });
+    
+    // Also initialize audio on any user click
+    document.addEventListener('click', function initAudio() {
+        initAudioContext();
+        document.removeEventListener('click', initAudio);
+    }, { once: true });
 }
 
 // ========== GAME SELECTION ==========
@@ -78,6 +108,16 @@ function initializeGameSelection() {
     gameCards.forEach(card => {
         card.addEventListener('click', () => {
             const game = card.dataset.game;
+            const difficulty = card.dataset.difficulty;
+            
+            // Check if user needs to be registered for this difficulty
+            if ((difficulty === 'intermedio' || difficulty === 'esperto') && !currentUser) {
+                alert('Devi essere registrato per accedere ai giochi di livello ' + difficulty);
+                hapticFeedback('error');
+                playSound(300, 100);
+                return;
+            }
+            
             hapticFeedback('medium');
             playSound(800, 100);
             startGame(game);
@@ -510,7 +550,6 @@ function updateSequenceStats() {
 // ========== BINAURAL GAME ==========
 let binauralState = {
     score: 0,
-    audioContext: null,
     currentSide: null,
     waitMode: false
 };
@@ -519,9 +558,8 @@ function initBinauralGame() {
     document.getElementById('binaural-game').style.display = 'block';
     binauralState.score = 0;
     
-    try {
-        binauralState.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    } catch(e) {
+    const ctx = initAudioContext();
+    if (!ctx) {
         alert('Audio non disponibile su questo dispositivo');
         return;
     }
@@ -537,23 +575,31 @@ function initBinauralGame() {
 }
 
 function playBinauralSound() {
+    const ctx = initAudioContext();
+    if (!ctx) return;
+    
+    // Resume if suspended
+    if (ctx.state === 'suspended') {
+        ctx.resume();
+    }
+    
     binauralState.currentSide = Math.random() < 0.5 ? 'left' : 'right';
     
-    const oscillator = binauralState.audioContext.createOscillator();
-    const panner = binauralState.audioContext.createStereoPanner();
-    const gainNode = binauralState.audioContext.createGain();
+    const oscillator = ctx.createOscillator();
+    const panner = ctx.createStereoPanner();
+    const gainNode = ctx.createGain();
     
     oscillator.connect(panner);
     panner.connect(gainNode);
-    gainNode.connect(binauralState.audioContext.destination);
+    gainNode.connect(ctx.destination);
     
     oscillator.type = 'sine';
     oscillator.frequency.value = 440;
     panner.pan.value = binauralState.currentSide === 'left' ? -1 : 1;
     gainNode.gain.value = 0.3;
     
-    oscillator.start();
-    oscillator.stop(binauralState.audioContext.currentTime + 0.5);
+    oscillator.start(ctx.currentTime);
+    oscillator.stop(ctx.currentTime + 0.5);
     
     document.getElementById('binaural-feedback').textContent = '🎧 Ascolta...';
 }
@@ -859,6 +905,9 @@ function updateAuthUI() {
         document.getElementById('auth-logged-out').style.display = 'block';
         document.getElementById('auth-logged-in').style.display = 'none';
     }
+    
+    // Re-initialize game selection to update access permissions
+    initializeGameSelection();
 }
 
 async function hashPassword(password) {
