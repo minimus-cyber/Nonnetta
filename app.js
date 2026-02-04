@@ -48,6 +48,9 @@ function playSound(frequency, duration = 100, type = 'sine') {
 document.addEventListener('DOMContentLoaded', () => {
     initializeCookieBanner();
     initializeGameSelection();
+    initializeAuth();
+    initializeDiary();
+    initializeNonnettaPlus();
 });
 
 // ========== COOKIE BANNER (GDPR COMPLIANCE) ==========
@@ -116,6 +119,9 @@ function startGame(gameName) {
         case 'binaural':
             initBinauralGame();
             break;
+        case 'scrivi':
+            initScriviGame();
+            break;
     }
 }
 
@@ -133,8 +139,8 @@ function initMemoryGame() {
     // Reset state
     memoryState = { cards: [], flipped: [], moves: 0, found: 0 };
     
-    // Create card pairs
-    const symbols = ['🌸', '🌺', '🌻', '🌷', '🌹', '🏵️', '🌼', '💐'];
+    // Create card pairs - 4 pairs = 8 cards for 3x3 grid (9 spaces with 1 empty)
+    const symbols = ['🌸', '🌺', '🌻', '🌷'];
     const cardPairs = [...symbols, ...symbols];
     memoryState.cards = cardPairs.sort(() => Math.random() - 0.5);
     
@@ -151,6 +157,11 @@ function initMemoryGame() {
         card.addEventListener('click', () => flipCard(index));
         board.appendChild(card);
     });
+    
+    // Add one empty space to make it 9 slots
+    const emptySpace = document.createElement('div');
+    emptySpace.className = 'memory-card-empty';
+    board.appendChild(emptySpace);
     
     updateMemoryStats();
 }
@@ -192,7 +203,7 @@ function checkMemoryMatch() {
         hapticFeedback('success');
         playSound(800, 100);
         
-        if (memoryState.found === 8) {
+        if (memoryState.found === 4) {
             setTimeout(() => {
                 alert(`🎉 Complimenti! Hai completato il gioco in ${memoryState.moves} mosse!`);
                 hapticFeedback('success');
@@ -583,3 +594,475 @@ function checkBinauralAnswer(side) {
 function updateBinauralStats() {
     document.getElementById('binaural-score').textContent = binauralState.score;
 }
+
+// ========== SCRIVI GAME ==========
+let scriviState = {
+    score: 0,
+    currentWord: '',
+    currentInput: '',
+    words: [
+        { word: 'CASA', hint: 'Dove vivi' },
+        { word: 'SOLE', hint: 'Splende nel cielo' },
+        { word: 'MARE', hint: 'È blu e grande' },
+        { word: 'GATTO', hint: 'Animale che fa miao' },
+        { word: 'FIORE', hint: 'È bello e profumato' },
+        { word: 'PANE', hint: 'Si mangia a colazione' },
+        { word: 'LUNA', hint: 'Si vede di notte' },
+        { word: 'LIBRO', hint: 'Si legge' }
+    ]
+};
+
+function initScriviGame() {
+    document.getElementById('scrivi-game').style.display = 'block';
+    scriviState.score = 0;
+    updateScriviStats();
+    nextScriviWord();
+    
+    // Add keyboard listener for physical keyboard
+    document.addEventListener('keydown', handleScriviKeyboard);
+}
+
+function nextScriviWord() {
+    const wordObj = scriviState.words[Math.floor(Math.random() * scriviState.words.length)];
+    scriviState.currentWord = wordObj.word;
+    scriviState.currentInput = '';
+    
+    document.getElementById('scrivi-hint').textContent = `Indizio: ${wordObj.hint}`;
+    updateScriviDisplay();
+    createScriviKeyboard();
+    document.getElementById('scrivi-feedback').textContent = '';
+}
+
+function updateScriviDisplay() {
+    const display = document.getElementById('scrivi-input-display');
+    display.textContent = scriviState.currentInput || '___';
+    
+    // Check if word is complete
+    if (scriviState.currentInput.length === scriviState.currentWord.length) {
+        checkScriviWord();
+    }
+}
+
+function createScriviKeyboard() {
+    const keyboard = document.getElementById('scrivi-keyboard');
+    keyboard.innerHTML = '';
+    
+    const letters = 'ABCDEFGHILMNOPQRSTUVZ';
+    for (let letter of letters) {
+        const btn = document.createElement('button');
+        btn.className = 'scrivi-key';
+        btn.textContent = letter;
+        btn.tabIndex = 0;
+        btn.addEventListener('click', () => addScriviLetter(letter));
+        keyboard.appendChild(btn);
+    }
+    
+    // Add backspace button
+    const backspaceBtn = document.createElement('button');
+    backspaceBtn.className = 'scrivi-key';
+    backspaceBtn.textContent = '⌫';
+    backspaceBtn.style.gridColumn = 'span 2';
+    backspaceBtn.addEventListener('click', () => removeScriviLetter());
+    keyboard.appendChild(backspaceBtn);
+}
+
+function handleScriviKeyboard(e) {
+    // Only handle if scrivi game is active
+    if (document.getElementById('scrivi-game').style.display !== 'block') {
+        return;
+    }
+    
+    const key = e.key.toUpperCase();
+    
+    if (key === 'BACKSPACE') {
+        e.preventDefault();
+        removeScriviLetter();
+    } else if (key.length === 1 && key >= 'A' && key <= 'Z') {
+        e.preventDefault();
+        addScriviLetter(key);
+    }
+}
+
+function addScriviLetter(letter) {
+    if (scriviState.currentInput.length < scriviState.currentWord.length) {
+        scriviState.currentInput += letter;
+        hapticFeedback('light');
+        playSound(600, 50);
+        updateScriviDisplay();
+    }
+}
+
+function removeScriviLetter() {
+    if (scriviState.currentInput.length > 0) {
+        scriviState.currentInput = scriviState.currentInput.slice(0, -1);
+        hapticFeedback('light');
+        playSound(400, 50);
+        updateScriviDisplay();
+    }
+}
+
+function checkScriviWord() {
+    const feedback = document.getElementById('scrivi-feedback');
+    
+    if (scriviState.currentInput === scriviState.currentWord) {
+        scriviState.score++;
+        feedback.textContent = '🎉 Complimenti! Parola corretta!';
+        feedback.className = 'scrivi-feedback correct';
+        hapticFeedback('success');
+        playSound(900, 150);
+        updateScriviStats();
+        
+        // Log to diary
+        logActivity('Scrivi', scriviState.score);
+        
+        setTimeout(nextScriviWord, 2000);
+    } else {
+        feedback.textContent = `❌ Sbagliato! La parola era ${scriviState.currentWord}`;
+        feedback.className = 'scrivi-feedback incorrect';
+        hapticFeedback('error');
+        playSound(300, 100);
+        
+        setTimeout(() => {
+            scriviState.currentInput = '';
+            updateScriviDisplay();
+            document.getElementById('scrivi-feedback').textContent = '';
+        }, 2000);
+    }
+}
+
+function updateScriviStats() {
+    document.getElementById('scrivi-score').textContent = scriviState.score;
+}
+
+// Clean up keyboard listener when leaving scrivi game
+const originalShowGameSelection = showGameSelection;
+showGameSelection = function() {
+    document.removeEventListener('keydown', handleScriviKeyboard);
+    originalShowGameSelection();
+};
+
+// ========== AUTHENTICATION SYSTEM ==========
+let currentUser = null;
+
+function initializeAuth() {
+    // Check if user is logged in
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        updateAuthUI();
+    }
+    
+    // Login form
+    document.getElementById('login-form').addEventListener('submit', handleLogin);
+    
+    // Register button
+    document.getElementById('register-btn').addEventListener('click', () => {
+        document.getElementById('register-modal').style.display = 'flex';
+    });
+    
+    // Register form
+    document.getElementById('register-form').addEventListener('submit', handleRegister);
+    
+    // Logout button
+    document.getElementById('logout-btn').addEventListener('click', handleLogout);
+    
+    // Close modals
+    document.getElementById('close-register-modal').addEventListener('click', () => {
+        document.getElementById('register-modal').style.display = 'none';
+    });
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    
+    // Get users from localStorage
+    const users = JSON.parse(localStorage.getItem('nonnetta-users') || '[]');
+    
+    // Hash password for comparison
+    const hashedPassword = await hashPassword(password);
+    
+    const user = users.find(u => u.email === email && u.password === hashedPassword);
+    
+    if (user) {
+        currentUser = { name: user.name, email: user.email };
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        updateAuthUI();
+        hapticFeedback('success');
+        playSound(800, 100);
+    } else {
+        alert('Email o password errati');
+        hapticFeedback('error');
+        playSound(300, 100);
+    }
+}
+
+async function handleRegister(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    const confirmPassword = document.getElementById('register-password-confirm').value;
+    
+    if (password !== confirmPassword) {
+        document.getElementById('register-message').textContent = 'Le password non corrispondono';
+        return;
+    }
+    
+    // Get existing users
+    const users = JSON.parse(localStorage.getItem('nonnetta-users') || '[]');
+    
+    // Check if email already exists
+    if (users.find(u => u.email === email)) {
+        document.getElementById('register-message').textContent = 'Email già registrata';
+        return;
+    }
+    
+    // Hash password
+    const hashedPassword = await hashPassword(password);
+    
+    // Add new user
+    users.push({ name, email, password: hashedPassword });
+    localStorage.setItem('nonnetta-users', JSON.stringify(users));
+    
+    // Auto-login
+    currentUser = { name, email };
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    
+    // Close modal and update UI
+    document.getElementById('register-modal').style.display = 'none';
+    document.getElementById('register-form').reset();
+    document.getElementById('register-message').textContent = '';
+    updateAuthUI();
+    
+    hapticFeedback('success');
+    playSound(800, 100);
+}
+
+function handleLogout() {
+    currentUser = null;
+    localStorage.removeItem('currentUser');
+    updateAuthUI();
+    hapticFeedback('light');
+    playSound(400, 50);
+}
+
+function updateAuthUI() {
+    if (currentUser) {
+        document.getElementById('auth-logged-out').style.display = 'none';
+        document.getElementById('auth-logged-in').style.display = 'block';
+        document.getElementById('user-display-name').textContent = currentUser.name;
+    } else {
+        document.getElementById('auth-logged-out').style.display = 'block';
+        document.getElementById('auth-logged-in').style.display = 'none';
+    }
+}
+
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hash = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+}
+
+// ========== DIARY SYSTEM ==========
+function initializeDiary() {
+    document.getElementById('view-diary-btn').addEventListener('click', openDiary);
+    document.getElementById('close-diary-modal').addEventListener('click', closeDiary);
+    document.getElementById('download-diary-btn').addEventListener('click', downloadDiary);
+    document.getElementById('print-diary-btn').addEventListener('click', printDiary);
+}
+
+function logActivity(gameName, score) {
+    if (!currentUser) return;
+    
+    const diary = JSON.parse(localStorage.getItem(`diary-${currentUser.email}`) || '[]');
+    
+    diary.push({
+        date: new Date().toISOString(),
+        game: gameName,
+        score: score
+    });
+    
+    localStorage.setItem(`diary-${currentUser.email}`, JSON.stringify(diary));
+}
+
+function openDiary() {
+    if (!currentUser) {
+        alert('Devi essere registrato per vedere il diario');
+        return;
+    }
+    
+    const diary = JSON.parse(localStorage.getItem(`diary-${currentUser.email}`) || '[]');
+    const diaryContent = document.getElementById('diary-content');
+    
+    if (diary.length === 0) {
+        diaryContent.innerHTML = '<div class="diary-empty">Nessuna attività registrata ancora. Inizia a giocare!</div>';
+    } else {
+        // Group by date
+        const groupedByDate = {};
+        diary.forEach(entry => {
+            const date = new Date(entry.date).toLocaleDateString('it-IT');
+            if (!groupedByDate[date]) {
+                groupedByDate[date] = [];
+            }
+            groupedByDate[date].push(entry);
+        });
+        
+        let html = '';
+        Object.keys(groupedByDate).reverse().forEach(date => {
+            html += `<div class="diary-entry">`;
+            html += `<div class="diary-entry-date">📅 ${date}</div>`;
+            groupedByDate[date].forEach(entry => {
+                const time = new Date(entry.date).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                html += `<div class="diary-entry-activity">🎮 ${entry.game} - ${time}</div>`;
+                html += `<div class="diary-entry-score">Punteggio: ${entry.score}</div>`;
+            });
+            html += `</div>`;
+        });
+        
+        diaryContent.innerHTML = html;
+    }
+    
+    document.getElementById('diary-modal').style.display = 'flex';
+}
+
+function closeDiary() {
+    document.getElementById('diary-modal').style.display = 'none';
+}
+
+function downloadDiary() {
+    if (!currentUser) return;
+    
+    const diary = JSON.parse(localStorage.getItem(`diary-${currentUser.email}`) || '[]');
+    
+    let text = `DIARIO ATTIVITÀ - ${currentUser.name}\n`;
+    text += `Email: ${currentUser.email}\n`;
+    text += `Generato: ${new Date().toLocaleString('it-IT')}\n`;
+    text += `\n${'='.repeat(50)}\n\n`;
+    
+    // Group by date
+    const groupedByDate = {};
+    diary.forEach(entry => {
+        const date = new Date(entry.date).toLocaleDateString('it-IT');
+        if (!groupedByDate[date]) {
+            groupedByDate[date] = [];
+        }
+        groupedByDate[date].push(entry);
+    });
+    
+    Object.keys(groupedByDate).reverse().forEach(date => {
+        text += `${date}\n`;
+        text += `${'-'.repeat(30)}\n`;
+        groupedByDate[date].forEach(entry => {
+            const time = new Date(entry.date).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+            text += `  ${time} - ${entry.game}: Punteggio ${entry.score}\n`;
+        });
+        text += `\n`;
+    });
+    
+    // Create download
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `diario-nonnetta-${new Date().toISOString().split('T')[0]}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function printDiary() {
+    const printContent = document.getElementById('diary-content').innerHTML;
+    const printWindow = window.open('', '', 'height=600,width=800');
+    
+    printWindow.document.write('<html><head><title>Diario Nonnetta</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write('body { font-family: Arial, sans-serif; padding: 20px; }');
+    printWindow.document.write('.diary-entry { border: 2px solid #4caf50; padding: 15px; margin-bottom: 15px; border-radius: 8px; }');
+    printWindow.document.write('.diary-entry-date { font-size: 1.2em; font-weight: bold; color: #4caf50; margin-bottom: 10px; }');
+    printWindow.document.write('.diary-entry-activity { margin-bottom: 5px; }');
+    printWindow.document.write('.diary-entry-score { color: #ec407a; font-weight: bold; }');
+    printWindow.document.write('</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(`<h1>Diario Nonnetta - ${currentUser.name}</h1>`);
+    printWindow.document.write(`<p>Generato: ${new Date().toLocaleString('it-IT')}</p>`);
+    printWindow.document.write(printContent);
+    printWindow.document.write('</body></html>');
+    
+    printWindow.document.close();
+    printWindow.print();
+}
+
+// ========== NONNETTA PLUS ==========
+function initializeNonnettaPlus() {
+    document.getElementById('nonnetta-plus-card').addEventListener('click', openNonnettaPlus);
+    document.getElementById('close-nonnetta-plus-modal').addEventListener('click', closeNonnettaPlus);
+}
+
+function openNonnettaPlus() {
+    if (!currentUser) {
+        alert('Devi essere registrato per accedere a Nonnetta Plus');
+        hapticFeedback('error');
+        playSound(300, 100);
+        return;
+    }
+    
+    document.getElementById('nonnetta-plus-modal').style.display = 'flex';
+    hapticFeedback('medium');
+    playSound(800, 100);
+}
+
+function closeNonnettaPlus() {
+    document.getElementById('nonnetta-plus-modal').style.display = 'none';
+}
+
+// Update game completion tracking for diary
+const originalCheckMemoryMatch = checkMemoryMatch;
+checkMemoryMatch = function() {
+    originalCheckMemoryMatch();
+    if (memoryState.found === 4) {
+        logActivity('Memory', memoryState.moves);
+    }
+};
+
+const originalCheckMathAnswer = checkMathAnswer;
+checkMathAnswer = function(answer) {
+    originalCheckMathAnswer(answer);
+    if (answer === mathState.currentAnswer) {
+        logActivity('Calcoli', mathState.score);
+    }
+};
+
+const originalUpdateWordsDisplay = updateWordsDisplay;
+updateWordsDisplay = function() {
+    const wasComplete = wordsState.currentWord.split('').every(l => wordsState.guessed.includes(l));
+    originalUpdateWordsDisplay();
+    const isNowComplete = wordsState.currentWord.split('').every(l => wordsState.guessed.includes(l));
+    if (!wasComplete && isNowComplete) {
+        logActivity('Parole', wordsState.score);
+    }
+};
+
+const originalHandleSequenceClick = handleSequenceClick;
+handleSequenceClick = function(index) {
+    const oldLevel = sequenceState.level;
+    originalHandleSequenceClick(index);
+    if (sequenceState.level > oldLevel) {
+        logActivity('Sequenze', sequenceState.level);
+    }
+};
+
+const originalCheckBinauralAnswer = checkBinauralAnswer;
+checkBinauralAnswer = function(side) {
+    originalCheckBinauralAnswer(side);
+    if (side === binauralState.currentSide) {
+        logActivity('Audio', binauralState.score);
+    }
+};

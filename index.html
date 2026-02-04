@@ -19,16 +19,11 @@
     </div>
 
     <div class="container">
-        <header>
-            <h1>Nonnetta</h1>
-            <p class="subtitle">Giochi divertenti per allenare la mente</p>
-        </header>
-
         <!-- Main Content -->
         <section id="main-content">
             <!-- Game Selection -->
             <div id="game-selection" class="card">
-                <h2>Scegli un Gioco</h2>
+                <h2>Gioca e allena la mente</h2>
                 
                 <div class="games-grid">
                     <button class="game-card" data-game="memory" tabindex="0">
@@ -60,6 +55,12 @@
                         <h3>Audio</h3>
                         <p>Indovina il lato</p>
                     </button>
+                    
+                    <button class="game-card" data-game="scrivi" tabindex="0">
+                        <div class="game-icon">✍️</div>
+                        <h3>Scrivi</h3>
+                        <p>Scrivi la parola</p>
+                    </button>
                 </div>
             </div>
 
@@ -69,7 +70,7 @@
                     <h2>🧠 Memory</h2>
                     <div class="game-stats">
                         <span>Mosse: <strong id="memory-moves">0</strong></span>
-                        <span>Trovate: <strong id="memory-found">0</strong>/8</span>
+                        <span>Trovate: <strong id="memory-found">0</strong>/4</span>
                     </div>
                     <button class="btn-back" tabindex="0">← Indietro</button>
                 </div>
@@ -150,7 +151,164 @@
                     </div>
                 </div>
             </div>
+
+            <div id="scrivi-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>✍️ Scrivi</h2>
+                    <div class="game-stats">
+                        <span>Punteggio: <strong id="scrivi-score">0</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div class="scrivi-content">
+                    <div id="scrivi-hint" class="scrivi-hint"></div>
+                    <div id="scrivi-input-display" class="scrivi-input-display"></div>
+                    <div id="scrivi-keyboard" class="scrivi-keyboard"></div>
+                    <div id="scrivi-feedback" class="scrivi-feedback"></div>
+                    <p class="scrivi-help">Usa la tastiera o clicca le lettere</p>
+                </div>
+            </div>
         </section>
+
+        <!-- User Authentication Section -->
+        <section id="auth-section" class="card compact-auth-form">
+            <div id="auth-logged-out" style="display: block;">
+                <h3>👤 Registrazione / Accesso</h3>
+                <form id="login-form">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" required>
+                    
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" required>
+                    
+                    <div style="display: flex; gap: var(--spacing-sm); flex-wrap: wrap;">
+                        <button type="submit" class="btn btn-primary">Accedi</button>
+                        <button type="button" id="register-btn" class="btn btn-secondary">Registrati</button>
+                    </div>
+                </form>
+                <p class="help-text">Gli utenti registrati possono accedere ai livelli intermedio ed esperto</p>
+            </div>
+            
+            <div id="auth-logged-in" class="user-info-compact" style="display: none;">
+                <p>Benvenuto, <strong id="user-display-name"></strong>!</p>
+                <button id="logout-btn" class="btn btn-secondary">Esci</button>
+                <button id="view-diary-btn" class="btn btn-primary">📔 Diario</button>
+            </div>
+        </section>
+
+        <!-- Nonnetta Plus Section -->
+        <section id="nonnetta-plus-section">
+            <div class="card">
+                <h2>Nonnetta Plus</h2>
+                <div class="games-grid">
+                    <button class="game-card" id="nonnetta-plus-card" tabindex="0">
+                        <div class="game-icon">⭐</div>
+                        <h3>Nonnetta Plus</h3>
+                        <p>Percorso di stimolazione cognitiva avanzata</p>
+                        <p class="help-text">Solo per utenti registrati</p>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Diary Modal -->
+    <div id="diary-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📔 Il Mio Diario</h2>
+                <button class="modal-close" id="close-diary-modal">✕</button>
+            </div>
+            <div id="diary-content" class="diary-content"></div>
+            <div class="diary-actions">
+                <button id="download-diary-btn" class="btn btn-primary">📥 Scarica TXT</button>
+                <button id="print-diary-btn" class="btn btn-secondary">🖨️ Stampa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="register-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Registrazione Nuovo Utente</h2>
+                <button class="modal-close" id="close-register-modal">✕</button>
+            </div>
+            <form id="register-form">
+                <label for="register-name">Nome:</label>
+                <input type="text" id="register-name" required>
+                
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" required>
+                
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" required minlength="6">
+                
+                <label for="register-password-confirm">Conferma Password:</label>
+                <input type="password" id="register-password-confirm" required minlength="6">
+                
+                <button type="submit" class="btn btn-primary">Registrati</button>
+            </form>
+            <div id="register-message" class="help-text"></div>
+        </div>
+    </div>
+
+    <!-- Nonnetta Plus Page Modal -->
+    <div id="nonnetta-plus-modal" class="modal" style="display: none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>⭐ Nonnetta Plus</h2>
+                <button class="modal-close" id="close-nonnetta-plus-modal">✕</button>
+            </div>
+            <div class="nonnetta-plus-content">
+                <h3>Percorso di Stimolazione Cognitiva Avanzata</h3>
+                <p>Benvenuto nel percorso Nonnetta Plus, un programma strutturato di stimolazione cognitiva basato su metodologie validate.</p>
+                
+                <div class="plus-modules">
+                    <div class="plus-module">
+                        <h4>📚 Modulo 1: Memoria e Attenzione</h4>
+                        <p>Esercizi progressivi per migliorare la memoria di lavoro e l'attenzione sostenuta.</p>
+                        <ul>
+                            <li>Riconoscimento di pattern</li>
+                            <li>Memorizzazione di sequenze</li>
+                            <li>Esercizi di attenzione selettiva</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plus-module">
+                        <h4>🧮 Modulo 2: Calcolo e Logica</h4>
+                        <p>Attività per stimolare il ragionamento logico e le capacità di calcolo.</p>
+                        <ul>
+                            <li>Problemi aritmetici progressivi</li>
+                            <li>Sequenze numeriche</li>
+                            <li>Puzzle logici</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plus-module">
+                        <h4>💬 Modulo 3: Linguaggio e Comunicazione</h4>
+                        <p>Esercizi per mantenere e migliorare le competenze linguistiche.</p>
+                        <ul>
+                            <li>Arricchimento lessicale</li>
+                            <li>Comprensione verbale</li>
+                            <li>Produzione linguistica</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plus-module">
+                        <h4>🎯 Modulo 4: Funzioni Esecutive</h4>
+                        <p>Attività per potenziare pianificazione, organizzazione e problem-solving.</p>
+                        <ul>
+                            <li>Pianificazione di attività</li>
+                            <li>Risoluzione di problemi complessi</li>
+                            <li>Flessibilità cognitiva</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p class="help-text">Il percorso è in fase di sviluppo. Nuovi contenuti saranno aggiunti progressivamente.</p>
+            </div>
+        </div>
     </div>
 
     <footer>
