@@ -117,6 +117,50 @@ header .subtitle {
 }
 
 /* ========== NAVIGATION ========== */
+.game-nav {
+    background: var(--bg-primary);
+    border-bottom: 3px solid var(--border-color);
+    padding: var(--spacing-md) 0;
+    margin: calc(var(--spacing-md) * -1);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: var(--font-xl);
+    color: var(--accent-primary);
+    margin: 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.game-footer {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 2px solid var(--border-color);
+    text-align: center;
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+}
+
+.game-footer a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.game-footer a:hover {
+    text-decoration: underline;
+}
 
 /* ========== CARDS ========== */
 .card {

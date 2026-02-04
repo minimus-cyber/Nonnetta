@@ -7,22 +7,18 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Cookie Consent Banner (GDPR Compliance) -->
-    <div id="cookie-banner" class="cookie-banner" role="alert" aria-live="polite">
-        <div class="cookie-content">
-            <p>Questo sito utilizza cookie per migliorare l'esperienza utente e memorizzare le attività. Continuando la navigazione acconsenti all'uso dei cookie.</p>
-            <div class="cookie-buttons">
-                <button id="accept-cookies" class="btn btn-primary" tabindex="0">Accetta</button>
-                <a href="privacy.html" class="btn btn-secondary" tabindex="0">Privacy Policy</a>
+    <!-- Top Navigation -->
+    <nav class="game-nav">
+        <div class="container">
+            <div class="nav-content">
+                <h1 class="logo">Nonnetta</h1>
+                <div class="nav-links">
+                    <a href="dashboard.html" class="btn btn-secondary">← Dashboard</a>
+                </div>
             </div>
         </div>
-    </div>
-
+    </nav>
     <div class="container">
-        <header>
-            <h1>Nonnetta</h1>
-            <p class="subtitle">Giochi divertenti per allenare la mente</p>
-        </header>
 
         <!-- Main Content -->
         <section id="main-content">
@@ -153,11 +149,73 @@
         </section>
     </div>
 
-    <footer>
+    <footer class="game-footer">
         <p>&copy; 2026 Nonnetta. Conforme al GDPR e alle normative europee.</p>
         <p><a href="privacy.html">Privacy Policy</a> | <a href="accessibility.html">Accessibilità</a></p>
     </footer>
 
+    <script src="auth.js"></script>
     <script src="app.js"></script>
+    <script>
+        // Check if user is logged in and has access
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!userManager.isLoggedIn()) {
+                window.location.href = 'landing.html';
+                return;
+            }
+            
+            // Check if specific game requested
+            const urlParams = new URLSearchParams(window.location.search);
+            const requestedGame = urlParams.get('game');
+            
+            if (requestedGame) {
+                // Check access
+                if (!userManager.hasAccess(requestedGame)) {
+                    alert('⚠️ Questo gioco è disponibile solo con il piano Premium!');
+                    window.location.href = 'dashboard.html';
+                    return;
+                }
+                
+                // Start the requested game
+                setTimeout(() => {
+                    startGame(requestedGame);
+                }, 100);
+            }
+            
+            // Override back buttons to return to dashboard
+            document.querySelectorAll('.btn-back').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    
+                    // Record game completion
+                    const gameContainer = btn.closest('.game-container');
+                    if (gameContainer) {
+                        const gameId = gameContainer.id.replace('-game', '');
+                        const score = getGameScore(gameId);
+                        userManager.recordGamePlay(gameId, score);
+                    }
+                    
+                    window.location.href = 'dashboard.html';
+                }, true);
+            });
+        });
+        
+        function getGameScore(gameId) {
+            switch(gameId) {
+                case 'memory':
+                    return memoryState.found * 10 - memoryState.moves;
+                case 'math':
+                    return mathState.score;
+                case 'words':
+                    return wordsState.score;
+                case 'sequence':
+                    return sequenceState.level;
+                case 'binaural':
+                    return binauralState.score;
+                default:
+                    return 0;
+            }
+        }
+    </script>
 </body>
 </html>
