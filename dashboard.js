@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in
     if (!userManager.isLoggedIn()) {
-        window.location.href = 'landing.html';
+        window.location.href = 'games.html';
         return;
     }
 
@@ -135,7 +135,7 @@ function initializeLogout() {
     document.getElementById('logout-btn').addEventListener('click', () => {
         if (confirm('Sei sicuro di voler uscire?')) {
             userManager.logout();
-            window.location.href = 'landing.html';
+            window.location.href = 'games.html';
         }
     });
 }
@@ -294,7 +294,7 @@ function initializeSettings(user) {
                 // Logout and redirect
                 userManager.logout();
                 alert('✅ Tutti i dati sono stati eliminati.');
-                window.location.href = 'landing.html';
+                window.location.href = 'games.html';
             }
         }
     });
