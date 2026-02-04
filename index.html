@@ -20,116 +20,135 @@
 
     <div class="container">
         <header>
-            <div class="header-top">
-                <div class="header-branding">
-                    <h1>Nonnetta</h1>
-                    <p class="subtitle">Stimolazione Neurocognitiva Accessibile per Anziani</p>
-                </div>
-                
-                <!-- Compact Login/Register in Header -->
-                <div class="header-auth">
-                    <!-- Logged out view -->
-                    <div id="auth-compact" class="compact-auth-form">
-                        <div id="login-compact" style="display: block;">
-                            <h3>Accedi (opzionale)</h3>
-                            <p class="help-text">Registrati per salvare le tue attività</p>
-                            <form id="loginForm">
-                                <input type="email" id="login-email" placeholder="Email" required tabindex="0">
-                                <input type="password" id="login-password" placeholder="Password" required tabindex="0">
-                                <div style="display: flex; gap: var(--spacing-xs);">
-                                    <button type="submit" class="btn btn-primary" tabindex="0">Accedi</button>
-                                    <button type="button" id="show-register" class="btn btn-secondary" tabindex="0">Registrati</button>
-                                </div>
-                            </form>
-                        </div>
-                        
-                        <div id="register-compact" style="display: none;">
-                            <h3>Registrazione</h3>
-                            <form id="registerForm">
-                                <input type="email" id="register-email" placeholder="Email" required tabindex="0">
-                                <input type="password" id="register-password" placeholder="Password (min 6 caratteri)" required minlength="6" tabindex="0">
-                                <input type="password" id="register-password-confirm" placeholder="Conferma Password" required minlength="6" tabindex="0">
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="privacy-consent" required tabindex="0">
-                                    <label for="privacy-consent">Accetto la <a href="privacy.html" target="_blank">Privacy Policy</a></label>
-                                </div>
-                                <div style="display: flex; gap: var(--spacing-xs);">
-                                    <button type="submit" class="btn btn-primary" tabindex="0">Registrati</button>
-                                    <button type="button" id="show-login" class="btn btn-secondary" tabindex="0">Torna al Login</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <!-- Logged in view -->
-                    <div id="user-info-compact" class="user-info-compact" style="display: none;">
-                        <p>Ciao, <strong id="user-email"></strong>!</p>
-                        <button id="logout-btn" class="btn btn-secondary" tabindex="0">Esci</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="header-nav">
-                <nav>
-                    <button id="home-btn" class="nav-btn active" tabindex="0">Home</button>
-                    <button id="activities-btn" class="nav-btn" tabindex="0">Attività</button>
-                    <button id="history-btn" class="nav-btn" tabindex="0" style="display: none;">Storico</button>
-                    <a href="admin.html" class="nav-btn" tabindex="0">Admin</a>
-                </nav>
-            </div>
+            <h1>Nonnetta</h1>
+            <p class="subtitle">Giochi divertenti per allenare la mente</p>
         </header>
 
-        <!-- Keyboard Controls Display -->
-        <div class="keyboard-controls">
-            <p>Controlli tastiera:</p>
-            <span class="key-button" title="Freccia su">⬆️</span>
-            <span class="key-button" title="Freccia giù">⬇️</span>
-            <span class="key-button" title="Freccia sinistra">⬅️</span>
-            <span class="key-button" title="Freccia destra">➡️</span>
-            <span class="key-button" title="Spazio per selezionare">SPAZIO</span>
-            <span class="key-button" title="Invio per confermare">INVIO</span>
-            <span class="key-button" title="Esci">ESC</span>
-        </div>
-
-        <!-- Main Content (Activities - visible to everyone) -->
+        <!-- Main Content -->
         <section id="main-content">
-            <!-- Activities Section -->
-            <div id="activities-section" class="card">
-                <h2>Attività Giornaliere</h2>
-                <p class="help-text">Scegli un'attività per iniziare! Usa le frecce ⬆️⬇️⬅️➡️ per navigare, SPAZIO per selezionare, INVIO per confermare</p>
+            <!-- Game Selection -->
+            <div id="game-selection" class="card">
+                <h2>Scegli un Gioco</h2>
                 
-                <div class="activities-list">
-                    <div class="activity-item" tabindex="0" data-activity="memoria">
-                        <h3>🧠 Esercizi di Memoria</h3>
-                        <p>Stimola la memoria a breve e lungo termine</p>
-                    </div>
-                    <div class="activity-item" tabindex="0" data-activity="calcolo">
-                        <h3>🔢 Calcolo Mentale</h3>
-                        <p>Esercizi di matematica semplice</p>
-                    </div>
-                    <div class="activity-item" tabindex="0" data-activity="parole">
-                        <h3>📝 Giochi di Parole</h3>
-                        <p>Cruciverba e anagrammi</p>
-                    </div>
-                    <div class="activity-item" tabindex="0" data-activity="logica">
-                        <h3>🎯 Puzzle Logici</h3>
-                        <p>Esercizi di logica e ragionamento</p>
-                    </div>
+                <div class="games-grid">
+                    <button class="game-card" data-game="memory" tabindex="0">
+                        <div class="game-icon">🧠</div>
+                        <h3>Memory</h3>
+                        <p>Trova le coppie</p>
+                    </button>
+                    
+                    <button class="game-card" data-game="math" tabindex="0">
+                        <div class="game-icon">🔢</div>
+                        <h3>Calcoli</h3>
+                        <p>Risolvi le operazioni</p>
+                    </button>
+                    
+                    <button class="game-card" data-game="words" tabindex="0">
+                        <div class="game-icon">📝</div>
+                        <h3>Parole</h3>
+                        <p>Indovina la parola</p>
+                    </button>
+                    
+                    <button class="game-card" data-game="sequence" tabindex="0">
+                        <div class="game-icon">🎯</div>
+                        <h3>Sequenze</h3>
+                        <p>Ricorda l'ordine</p>
+                    </button>
+                    
+                    <button class="game-card" data-game="binaural" tabindex="0">
+                        <div class="game-icon">🎧</div>
+                        <h3>Audio</h3>
+                        <p>Indovina il lato</p>
+                    </button>
                 </div>
-                
-                <button id="complete-activity" class="btn btn-primary" tabindex="0">Completa Attività Selezionata</button>
             </div>
 
-            <!-- History Section (only visible when logged in) -->
-            <div id="history-section" class="card" style="display: none;">
-                <h2>Storico Attività</h2>
-                <p class="help-text">Devi essere registrato per visualizzare lo storico delle tue attività.</p>
-                <div class="history-actions" style="display: none;">
-                    <button id="print-history" class="btn btn-primary" tabindex="0">🖨️ Stampa</button>
-                    <button id="download-history" class="btn btn-primary" tabindex="0">💾 Scarica TXT</button>
-                    <button id="clear-history" class="btn btn-danger" tabindex="0">🗑️ Cancella Storico</button>
+            <!-- Game Containers (hidden by default) -->
+            <div id="memory-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🧠 Memory</h2>
+                    <div class="game-stats">
+                        <span>Mosse: <strong id="memory-moves">0</strong></span>
+                        <span>Trovate: <strong id="memory-found">0</strong>/8</span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
                 </div>
-                <div id="history-list" class="history-list"></div>
+                <div id="memory-board" class="memory-board"></div>
+            </div>
+
+            <div id="math-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🔢 Calcoli</h2>
+                    <div class="game-stats">
+                        <span>Punteggio: <strong id="math-score">0</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div class="math-content">
+                    <div id="math-question" class="math-question"></div>
+                    <div id="math-options" class="math-options"></div>
+                    <div id="math-feedback" class="math-feedback"></div>
+                </div>
+            </div>
+
+            <div id="words-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>📝 Parole</h2>
+                    <div class="game-stats">
+                        <span>Punteggio: <strong id="words-score">0</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div class="words-content">
+                    <div id="words-hint" class="words-hint"></div>
+                    <div id="words-display" class="words-display"></div>
+                    <div id="words-keyboard" class="words-keyboard"></div>
+                    <div id="words-feedback" class="words-feedback"></div>
+                </div>
+            </div>
+
+            <div id="sequence-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🎯 Sequenze</h2>
+                    <div class="game-stats">
+                        <span>Livello: <strong id="sequence-level">1</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div class="sequence-content">
+                    <div id="sequence-board" class="sequence-board"></div>
+                    <div id="sequence-feedback" class="sequence-feedback"></div>
+                </div>
+            </div>
+
+            <div id="binaural-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🎧 Audio Binaurale</h2>
+                    <div class="game-stats">
+                        <span>Punteggio: <strong id="binaural-score">0</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div class="binaural-content">
+                    <p class="binaural-instructions">Indossa le cuffie. Il suono arriverà da sinistra o destra. Clicca il pulsante corrispondente!</p>
+                    <div class="binaural-controls">
+                        <button id="binaural-left" class="binaural-btn" tabindex="0">
+                            <span class="binaural-arrow">←</span>
+                            Sinistra
+                        </button>
+                        <button id="binaural-right" class="binaural-btn" tabindex="0">
+                            Destra
+                            <span class="binaural-arrow">→</span>
+                        </button>
+                    </div>
+                    <div id="binaural-feedback" class="binaural-feedback"></div>
+                    <div class="binaural-options">
+                        <label class="binaural-option">
+                            <input type="checkbox" id="binaural-wait-mode" tabindex="0">
+                            <span>Modalità attesa: il suono cambia solo quando rispondi correttamente</span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
