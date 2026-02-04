@@ -324,6 +324,30 @@ input[type="checkbox"] {
     margin: 0;
 }
 
+.difficulty-badge {
+    display: block;
+    margin-top: var(--spacing-xs);
+    padding: var(--spacing-xs);
+    border-radius: 4px;
+    font-size: var(--font-xs);
+    font-weight: bold;
+}
+
+.difficulty-badge.principiante {
+    background-color: #4caf50;
+    color: white;
+}
+
+.difficulty-badge.intermedio {
+    background-color: #ff9800;
+    color: white;
+}
+
+.difficulty-badge.esperto {
+    background-color: #f44336;
+    color: white;
+}
+
 /* ========== GAME CONTAINERS ========== */
 .game-container {
     background-color: var(--bg-card);
@@ -380,9 +404,9 @@ input[type="checkbox"] {
 /* ========== MEMORY GAME ========== */
 .memory-board {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-md);
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
 }
 
@@ -409,6 +433,11 @@ input[type="checkbox"] {
     background-color: var(--accent-primary);
     color: white;
     cursor: default;
+}
+
+.memory-card-empty {
+    aspect-ratio: 1;
+    visibility: hidden;
 }
 
 @keyframes flip {
@@ -687,6 +716,264 @@ input[type="checkbox"] {
 .binaural-option input[type="checkbox"] {
     width: 30px;
     height: 30px;
+}
+
+/* ========== SCRIVI GAME ========== */
+.scrivi-content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.scrivi-hint {
+    font-size: var(--font-lg);
+    color: var(--accent-secondary);
+    margin: var(--spacing-lg) 0;
+    font-style: italic;
+}
+
+.scrivi-input-display {
+    font-size: var(--font-xl);
+    font-weight: bold;
+    color: var(--accent-primary);
+    margin: var(--spacing-xl) 0;
+    padding: var(--spacing-lg);
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    min-height: 4rem;
+    letter-spacing: 0.2em;
+}
+
+.scrivi-keyboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: var(--spacing-xs);
+    margin: var(--spacing-lg) 0;
+}
+
+.scrivi-key {
+    padding: var(--spacing-sm);
+    font-size: var(--font-md);
+    font-weight: bold;
+    background-color: var(--bg-secondary);
+    border: 2px solid var(--accent-primary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.scrivi-key:hover:not(:disabled),
+.scrivi-key:focus:not(:disabled) {
+    background-color: var(--accent-primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+.scrivi-key:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.scrivi-feedback {
+    font-size: var(--font-lg);
+    font-weight: bold;
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    min-height: 3rem;
+}
+
+.scrivi-feedback.correct {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.scrivi-feedback.incorrect {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.scrivi-help {
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: var(--spacing-md);
+}
+
+/* ========== MODAL STYLES ========== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: var(--spacing-md);
+}
+
+.modal-content {
+    background-color: var(--bg-card);
+    border: 4px solid var(--border-color);
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-large {
+    max-width: 900px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 3px solid var(--border-color);
+    padding-bottom: var(--spacing-sm);
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.modal-close {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-lg);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    transform: scale(1.1);
+    background-color: #d32f2f;
+}
+
+/* ========== DIARY STYLES ========== */
+.diary-content {
+    margin: var(--spacing-lg) 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.diary-entry {
+    background-color: var(--bg-secondary);
+    border: 3px solid var(--accent-primary);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.diary-entry-date {
+    font-size: var(--font-lg);
+    font-weight: bold;
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.diary-entry-activity {
+    font-size: var(--font-md);
+    margin-bottom: var(--spacing-xs);
+}
+
+.diary-entry-score {
+    font-size: var(--font-md);
+    color: var(--accent-secondary);
+    font-weight: bold;
+}
+
+.diary-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.diary-empty {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* ========== NONNETTA PLUS STYLES ========== */
+.nonnetta-plus-content {
+    padding: var(--spacing-md);
+}
+
+.nonnetta-plus-content h3 {
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.plus-modules {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+}
+
+.plus-module {
+    background-color: var(--bg-secondary);
+    border: 3px solid var(--accent-primary);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+}
+
+.plus-module h4 {
+    color: var(--accent-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.plus-module ul {
+    margin-left: var(--spacing-lg);
+    margin-top: var(--spacing-xs);
+}
+
+.plus-module li {
+    margin-bottom: var(--spacing-xs);
+}
+
+/* ========== NOTIFICATION TOAST ========== */
+.notification-toast {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-secondary);
+    color: white;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: 8px;
+    font-size: var(--font-md);
+    font-weight: bold;
+    z-index: 2000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
 /* ========== MESSAGES ========== */
