@@ -20,69 +20,83 @@
 
     <div class="container">
         <header>
-            <h1>Nonnetta</h1>
-            <p class="subtitle">Stimolazione Neurocognitiva Accessibile per Anziani</p>
-            <nav>
-                <button id="home-btn" class="nav-btn active" tabindex="0">Home</button>
-                <button id="activities-btn" class="nav-btn" tabindex="0">Attività</button>
-                <button id="history-btn" class="nav-btn" tabindex="0">Storico</button>
-                <a href="admin.html" class="nav-btn" tabindex="0">Admin</a>
-            </nav>
-        </header>
-
-        <!-- Login/Register Section -->
-        <section id="auth-section" class="card">
-            <h2>Benvenuto</h2>
-            <p class="help-text">Registrati o accedi per tenere traccia delle tue attività giornaliere</p>
-            
-            <div id="login-form" class="auth-form">
-                <h3>Accedi</h3>
-                <form id="loginForm">
-                    <label for="login-email">Email:</label>
-                    <input type="email" id="login-email" required tabindex="0">
-                    
-                    <label for="login-password">Password:</label>
-                    <input type="password" id="login-password" required tabindex="0">
-                    
-                    <button type="submit" class="btn btn-primary" tabindex="0">Accedi</button>
-                    <button type="button" id="show-register" class="btn btn-secondary" tabindex="0">Registrati</button>
-                </form>
-            </div>
-
-            <div id="register-form" class="auth-form" style="display: none;">
-                <h3>Registrazione</h3>
-                <form id="registerForm">
-                    <label for="register-email">Email:</label>
-                    <input type="email" id="register-email" required tabindex="0">
-                    
-                    <label for="register-password">Password:</label>
-                    <input type="password" id="register-password" required minlength="6" tabindex="0">
-                    
-                    <label for="register-password-confirm">Conferma Password:</label>
-                    <input type="password" id="register-password-confirm" required minlength="6" tabindex="0">
-                    
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="privacy-consent" required tabindex="0">
-                        <label for="privacy-consent">Accetto la <a href="privacy.html" target="_blank">Privacy Policy</a> e il trattamento dei dati personali (GDPR)</label>
+            <div class="header-top">
+                <div class="header-branding">
+                    <h1>Nonnetta</h1>
+                    <p class="subtitle">Stimolazione Neurocognitiva Accessibile per Anziani</p>
+                </div>
+                
+                <!-- Compact Login/Register in Header -->
+                <div class="header-auth">
+                    <!-- Logged out view -->
+                    <div id="auth-compact" class="compact-auth-form">
+                        <div id="login-compact" style="display: block;">
+                            <h3>Accedi (opzionale)</h3>
+                            <p class="help-text">Registrati per salvare le tue attività</p>
+                            <form id="loginForm">
+                                <input type="email" id="login-email" placeholder="Email" required tabindex="0">
+                                <input type="password" id="login-password" placeholder="Password" required tabindex="0">
+                                <div style="display: flex; gap: var(--spacing-xs);">
+                                    <button type="submit" class="btn btn-primary" tabindex="0">Accedi</button>
+                                    <button type="button" id="show-register" class="btn btn-secondary" tabindex="0">Registrati</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div id="register-compact" style="display: none;">
+                            <h3>Registrazione</h3>
+                            <form id="registerForm">
+                                <input type="email" id="register-email" placeholder="Email" required tabindex="0">
+                                <input type="password" id="register-password" placeholder="Password (min 6 caratteri)" required minlength="6" tabindex="0">
+                                <input type="password" id="register-password-confirm" placeholder="Conferma Password" required minlength="6" tabindex="0">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="privacy-consent" required tabindex="0">
+                                    <label for="privacy-consent">Accetto la <a href="privacy.html" target="_blank">Privacy Policy</a></label>
+                                </div>
+                                <div style="display: flex; gap: var(--spacing-xs);">
+                                    <button type="submit" class="btn btn-primary" tabindex="0">Registrati</button>
+                                    <button type="button" id="show-login" class="btn btn-secondary" tabindex="0">Torna al Login</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary" tabindex="0">Registrati</button>
-                    <button type="button" id="show-login" class="btn btn-secondary" tabindex="0">Torna al Login</button>
-                </form>
+                    <!-- Logged in view -->
+                    <div id="user-info-compact" class="user-info-compact" style="display: none;">
+                        <p>Ciao, <strong id="user-email"></strong>!</p>
+                        <button id="logout-btn" class="btn btn-secondary" tabindex="0">Esci</button>
+                    </div>
+                </div>
             </div>
-        </section>
-
-        <!-- Main Content (shown after login) -->
-        <section id="main-content" style="display: none;">
-            <div class="user-info">
-                <p>Benvenuto, <strong id="user-email"></strong>!</p>
-                <button id="logout-btn" class="btn btn-secondary" tabindex="0">Esci</button>
+            
+            <div class="header-nav">
+                <nav>
+                    <button id="home-btn" class="nav-btn active" tabindex="0">Home</button>
+                    <button id="activities-btn" class="nav-btn" tabindex="0">Attività</button>
+                    <button id="history-btn" class="nav-btn" tabindex="0" style="display: none;">Storico</button>
+                    <a href="admin.html" class="nav-btn" tabindex="0">Admin</a>
+                </nav>
             </div>
+        </header>
 
+        <!-- Keyboard Controls Display -->
+        <div class="keyboard-controls">
+            <p>Controlli tastiera:</p>
+            <span class="key-button" title="Freccia su">⬆️</span>
+            <span class="key-button" title="Freccia giù">⬇️</span>
+            <span class="key-button" title="Freccia sinistra">⬅️</span>
+            <span class="key-button" title="Freccia destra">➡️</span>
+            <span class="key-button" title="Spazio per selezionare">SPAZIO</span>
+            <span class="key-button" title="Invio per confermare">INVIO</span>
+            <span class="key-button" title="Esci">ESC</span>
+        </div>
+
+        <!-- Main Content (Activities - visible to everyone) -->
+        <section id="main-content">
             <!-- Activities Section -->
             <div id="activities-section" class="card">
                 <h2>Attività Giornaliere</h2>
-                <p class="help-text">Usa le frecce ⬆️⬇️ per navigare, SPAZIO per selezionare, INVIO per confermare</p>
+                <p class="help-text">Scegli un'attività per iniziare! Usa le frecce ⬆️⬇️⬅️➡️ per navigare, SPAZIO per selezionare, INVIO per confermare</p>
                 
                 <div class="activities-list">
                     <div class="activity-item" tabindex="0" data-activity="memoria">
@@ -106,10 +120,11 @@
                 <button id="complete-activity" class="btn btn-primary" tabindex="0">Completa Attività Selezionata</button>
             </div>
 
-            <!-- History Section -->
+            <!-- History Section (only visible when logged in) -->
             <div id="history-section" class="card" style="display: none;">
                 <h2>Storico Attività</h2>
-                <div class="history-actions">
+                <p class="help-text">Devi essere registrato per visualizzare lo storico delle tue attività.</p>
+                <div class="history-actions" style="display: none;">
                     <button id="print-history" class="btn btn-primary" tabindex="0">🖨️ Stampa</button>
                     <button id="download-history" class="btn btn-primary" tabindex="0">💾 Scarica TXT</button>
                     <button id="clear-history" class="btn btn-danger" tabindex="0">🗑️ Cancella Storico</button>

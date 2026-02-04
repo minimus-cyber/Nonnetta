@@ -12,7 +12,9 @@ let currentSection = 'activities';
 document.addEventListener('DOMContentLoaded', () => {
     initializeCookieBanner();
     initializeAuth();
+    initializeActivities();
     initializeKeyboardNavigation();
+    initializeNavigation();
     loadUserSession();
 });
 
@@ -42,13 +44,13 @@ function initializeAuth() {
     
     // Toggle between login and register forms
     showRegisterBtn.addEventListener('click', () => {
-        document.getElementById('login-form').style.display = 'none';
-        document.getElementById('register-form').style.display = 'block';
+        document.getElementById('login-compact').style.display = 'none';
+        document.getElementById('register-compact').style.display = 'block';
     });
     
     showLoginBtn.addEventListener('click', () => {
-        document.getElementById('login-form').style.display = 'block';
-        document.getElementById('register-form').style.display = 'none';
+        document.getElementById('login-compact').style.display = 'block';
+        document.getElementById('register-compact').style.display = 'none';
     });
     
     // Handle login
@@ -59,7 +61,7 @@ function initializeAuth() {
         
         if (await authenticateUser(email, password)) {
             currentUser = email;
-            showMainContent();
+            showLoggedInState();
         } else {
             alert('Credenziali non valide. Registrati se non hai un account.');
         }
@@ -85,8 +87,8 @@ function initializeAuth() {
         
         if (await registerUser(email, password)) {
             alert('Registrazione completata! Ora puoi accedere.');
-            document.getElementById('login-form').style.display = 'block';
-            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-compact').style.display = 'block';
+            document.getElementById('register-compact').style.display = 'none';
             registerForm.reset();
         } else {
             alert('Email già registrata. Usa il login.');
@@ -137,27 +139,35 @@ async function registerUser(email, password) {
 function logout() {
     currentUser = null;
     sessionStorage.removeItem('currentUser');
-    document.getElementById('auth-section').style.display = 'block';
-    document.getElementById('main-content').style.display = 'none';
+    document.getElementById('auth-compact').style.display = 'block';
+    document.getElementById('user-info-compact').style.display = 'none';
+    document.getElementById('history-btn').style.display = 'none';
     document.getElementById('loginForm').reset();
+    
+    // Keep activities visible, but hide history section
+    showSection('activities');
 }
 
 function loadUserSession() {
     const savedUser = sessionStorage.getItem('currentUser');
     if (savedUser) {
         currentUser = savedUser;
-        showMainContent();
+        showLoggedInState();
     }
 }
 
-function showMainContent() {
+function showLoggedInState() {
     sessionStorage.setItem('currentUser', currentUser);
-    document.getElementById('auth-section').style.display = 'none';
-    document.getElementById('main-content').style.display = 'block';
+    document.getElementById('auth-compact').style.display = 'none';
+    document.getElementById('user-info-compact').style.display = 'block';
     document.getElementById('user-email').textContent = currentUser;
-    
-    initializeActivities();
-    initializeNavigation();
+    document.getElementById('history-btn').style.display = 'inline-block';
+}
+
+function showMainContent() {
+    // Deprecated: Activities are now always visible
+    // Keep for backward compatibility
+    showLoggedInState();
 }
 
 // ========== ACTIVITIES ==========
@@ -192,6 +202,12 @@ function completeSelectedActivity() {
     const activityName = activityElements[selectedActivityIndex].dataset.activity;
     const activityTitle = activityElements[selectedActivityIndex].querySelector('h3').textContent;
     
+    // Check if user is logged in
+    if (!currentUser) {
+        alert(`✅ Attività "${activityTitle}" completata!\n\nSuggerimento: Registrati per salvare le tue attività e monitorare i tuoi progressi nel tempo.`);
+        return;
+    }
+    
     // Save activity to user history
     const users = JSON.parse(localStorage.getItem('users') || '{}');
     if (users[currentUser]) {
@@ -209,7 +225,7 @@ function completeSelectedActivity() {
         
         localStorage.setItem('users', JSON.stringify(users));
         
-        alert(`✅ Attività "${activityTitle}" completata!`);
+        alert(`✅ Attività "${activityTitle}" completata e salvata nel tuo storico!`);
     }
 }
 
@@ -237,9 +253,15 @@ function showSection(section) {
         document.getElementById('home-btn').classList.add('active');
         currentSection = 'activities';
     } else if (section === 'history') {
+        // History is only accessible when logged in
+        if (!currentUser) {
+            alert('Devi essere registrato per visualizzare lo storico delle attività.');
+            return;
+        }
         document.getElementById('activities-section').style.display = 'none';
         document.getElementById('history-section').style.display = 'block';
         document.getElementById('history-btn').classList.add('active');
+        document.querySelector('#history-section .history-actions').style.display = 'flex';
         currentSection = 'history';
         loadHistory();
     }
@@ -358,19 +380,17 @@ function clearHistory() {
 // ========== KEYBOARD NAVIGATION ==========
 function initializeKeyboardNavigation() {
     document.addEventListener('keydown', (e) => {
-        // Only handle keyboard nav when logged in
-        if (!currentUser) return;
-        
-        // ESC - Go back or logout
+        // ESC - Go back or show info
         if (e.key === 'Escape') {
             if (currentSection === 'history') {
                 showSection('activities');
-            } else {
+                e.preventDefault();
+            } else if (currentUser) {
                 if (confirm('Vuoi uscire?')) {
                     logout();
                 }
+                e.preventDefault();
             }
-            e.preventDefault();
             return;
         }
         
