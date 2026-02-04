@@ -6,6 +6,19 @@ Applicazione web accessibile per la stimolazione neurocognitiva degli anziani, c
 
 ---
 
+## 🆘 CI SONO ATTIVITÀ MANUALI DA FARE?
+
+### ✅ **SÌ! LEGGI QUI:** [ATTIVITA-MANUALI.md](ATTIVITA-MANUALI.md) 👈
+
+Il codice è pronto, ma serve il TUO intervento per pubblicarlo:
+1. **Merge PR** (1 min)
+2. **Attiva GitHub Pages** (2 min)  
+3. **Configura DNS** (5 min se necessario)
+
+**Tempo totale: ~30 minuti** (inclusa attesa automatica)
+
+---
+
 ## 🚨 VEDI ANCORA LA VECCHIA VERSIONE?
 
 ### 🆘 SOLUZIONI RAPIDE:
