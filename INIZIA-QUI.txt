@@ -1,13 +1,25 @@
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              ║
-║          🆘 VEDI ANCORA IL VECCHIO SITO SU WWW.NONNETTA.EU?                 ║
+║          🆘 CI SONO ATTIVITÀ MANUALI DA FARE DA PARTE MIA?                  ║
 ║                                                                              ║
-║                         INIZIA DA QUI! ⬇️                                    ║
+║                    ✅ SÌ! LEGGI ATTIVITA-MANUALI.md                         ║
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
 
-🎯 COSA DEVI FARE (Manualmente, in 5 passaggi):
+🎯 RISPOSTA BREVE: Il codice è pronto, ma serve il TUO intervento (3 cose da fare)
+
+1. Merge PR (1 minuto)
+2. Attiva GitHub Pages (2 minuti)  
+3. Configura DNS se necessario (5 minuti)
+
+👉 LEGGI: ATTIVITA-MANUALI.md per i dettagli completi
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+🎯 OPPURE: VEDI ANCORA IL VECCHIO SITO? (Guida veloce in 5 passaggi):
 
 
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
