@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Nonnetta</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+</head>
+<body class="dashboard-page">
+    <!-- Navigation -->
+    <nav class="dashboard-nav">
+        <div class="container">
+            <div class="nav-content">
+                <h1 class="logo">Nonnetta</h1>
+                <div class="nav-user">
+                    <span id="user-email"></span>
+                    <button id="logout-btn" class="btn btn-secondary">Esci</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active" data-section="overview">
+                    <span class="nav-icon">📊</span>
+                    <span>Panoramica</span>
+                </a>
+                <a href="#games" class="nav-item" data-section="games">
+                    <span class="nav-icon">🎮</span>
+                    <span>Giochi</span>
+                </a>
+                <a href="#progress" class="nav-item" data-section="progress">
+                    <span class="nav-icon">📈</span>
+                    <span>Progressi</span>
+                </a>
+                <a href="#subscription" class="nav-item" data-section="subscription">
+                    <span class="nav-icon">💎</span>
+                    <span>Abbonamento</span>
+                </a>
+                <a href="#settings" class="nav-item" data-section="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Impostazioni</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Overview Section -->
+            <section id="overview-section" class="dashboard-section active">
+                <h2 class="section-title">Benvenuto, <span id="welcome-name"></span>!</h2>
+                
+                <!-- Subscription Alert -->
+                <div id="subscription-alert" class="alert" style="display: none;"></div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎮</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="total-games">0</div>
+                            <div class="stat-label">Giochi Completati</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="total-score">0</div>
+                            <div class="stat-label">Punteggio Totale</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="current-streak">0</div>
+                            <div class="stat-label">Giorni Consecutivi</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="achievements-count">0</div>
+                            <div class="stat-label">Traguardi Raggiunti</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3>Inizia Subito</h3>
+                    <div class="actions-grid">
+                        <button class="action-card" data-game="memory">
+                            <span class="action-icon">🧠</span>
+                            <span class="action-label">Memory</span>
+                        </button>
+                        <button class="action-card" data-game="math">
+                            <span class="action-icon">🔢</span>
+                            <span class="action-label">Calcoli</span>
+                        </button>
+                        <button class="action-card" data-game="words">
+                            <span class="action-icon">📝</span>
+                            <span class="action-label">Parole</span>
+                        </button>
+                        <button class="action-card" data-game="sequence">
+                            <span class="action-icon">🎯</span>
+                            <span class="action-label">Sequenze</span>
+                        </button>
+                        <button class="action-card" data-game="binaural">
+                            <span class="action-icon">🎧</span>
+                            <span class="action-label">Audio</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="achievements-section">
+                    <h3>Traguardi Recenti</h3>
+                    <div id="achievements-list" class="achievements-list">
+                        <p class="no-achievements">Completa i giochi per sbloccare traguardi!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Games Section -->
+            <section id="games-section" class="dashboard-section" style="display: none;">
+                <h2 class="section-title">Giochi Disponibili</h2>
+                <div class="games-list">
+                    <div class="game-item">
+                        <div class="game-icon">🧠</div>
+                        <div class="game-info">
+                            <h3>Memory</h3>
+                            <p>Trova le coppie di carte uguali. Allena la memoria visiva e l'attenzione.</p>
+                            <div class="game-stats-mini">
+                                <span>Giocato: <strong id="memory-played">0</strong> volte</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" data-game="memory">Gioca</button>
+                    </div>
+                    <div class="game-item">
+                        <div class="game-icon">🔢</div>
+                        <div class="game-info">
+                            <h3>Calcoli Mentali</h3>
+                            <p>Risolvi operazioni matematiche. Stimola il calcolo e il ragionamento logico.</p>
+                            <div class="game-stats-mini">
+                                <span>Giocato: <strong id="math-played">0</strong> volte</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" data-game="math">Gioca</button>
+                    </div>
+                    <div class="game-item">
+                        <div class="game-icon">📝</div>
+                        <div class="game-info">
+                            <h3>Giochi di Parole</h3>
+                            <p>Indovina la parola corretta. Migliora vocabolario e fluenza verbale.</p>
+                            <div class="game-stats-mini">
+                                <span>Giocato: <strong id="words-played">0</strong> volte</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" data-game="words">Gioca</button>
+                    </div>
+                    <div class="game-item">
+                        <div class="game-icon">🎯</div>
+                        <div class="game-info">
+                            <h3>Sequenze</h3>
+                            <p>Ricorda l'ordine corretto. Potenzia memoria a breve termine e attenzione.</p>
+                            <div class="game-stats-mini">
+                                <span>Giocato: <strong id="sequence-played">0</strong> volte</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" data-game="sequence">Gioca</button>
+                    </div>
+                    <div class="game-item">
+                        <div class="game-icon">🎧</div>
+                        <div class="game-info">
+                            <h3>Audio Binaurale</h3>
+                            <p>Riconosci da che lato arriva il suono. Allena l'attenzione uditiva spaziale.</p>
+                            <div class="game-stats-mini">
+                                <span>Giocato: <strong id="binaural-played">0</strong> volte</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" data-game="binaural">Gioca</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section id="progress-section" class="dashboard-section" style="display: none;">
+                <h2 class="section-title">I Tuoi Progressi</h2>
+                
+                <div class="progress-overview">
+                    <div class="progress-card">
+                        <h3>Attività Giornaliera</h3>
+                        <div class="progress-content">
+                            <div class="streak-display">
+                                <div class="streak-number" id="streak-display">0</div>
+                                <div class="streak-label">giorni consecutivi</div>
+                            </div>
+                            <p>Record personale: <strong id="longest-streak">0</strong> giorni</p>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-card">
+                        <h3>Giochi per Tipologia</h3>
+                        <div class="games-breakdown" id="games-breakdown"></div>
+                    </div>
+                </div>
+
+                <div class="achievements-full">
+                    <h3>Tutti i Traguardi</h3>
+                    <div class="achievements-grid" id="achievements-grid">
+                        <div class="achievement-item locked">
+                            <div class="achievement-icon">🏁</div>
+                            <div class="achievement-name">Primo Passo</div>
+                            <div class="achievement-desc">Completa il primo gioco</div>
+                        </div>
+                        <div class="achievement-item locked">
+                            <div class="achievement-icon">🎮</div>
+                            <div class="achievement-name">Giocatore</div>
+                            <div class="achievement-desc">Completa 10 giochi</div>
+                        </div>
+                        <div class="achievement-item locked">
+                            <div class="achievement-icon">🏆</div>
+                            <div class="achievement-name">Campione</div>
+                            <div class="achievement-desc">Completa 50 giochi</div>
+                        </div>
+                        <div class="achievement-item locked">
+                            <div class="achievement-icon">🔥</div>
+                            <div class="achievement-name">Settimana Perfetta</div>
+                            <div class="achievement-desc">7 giorni consecutivi</div>
+                        </div>
+                        <div class="achievement-item locked">
+                            <div class="achievement-icon">💎</div>
+                            <div class="achievement-name">Mese Dedicato</div>
+                            <div class="achievement-desc">30 giorni consecutivi</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subscription Section -->
+            <section id="subscription-section" class="dashboard-section" style="display: none;">
+                <h2 class="section-title">Il Tuo Abbonamento</h2>
+                
+                <div class="subscription-status">
+                    <div class="status-card">
+                        <h3>Piano Attuale</h3>
+                        <div class="plan-display">
+                            <div class="plan-name" id="current-plan">Caricamento...</div>
+                            <div class="plan-status" id="plan-status"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="upgrade-section" class="upgrade-section" style="display: none;">
+                    <h3>Passa a Premium</h3>
+                    <div class="upgrade-benefits">
+                        <div class="benefit-item">✓ Accesso illimitato a tutti i giochi</div>
+                        <div class="benefit-item">✓ Nuovi esercizi ogni mese</div>
+                        <div class="benefit-item">✓ Report PDF scaricabili</div>
+                        <div class="benefit-item">✓ Analisi avanzate con grafici</div>
+                        <div class="benefit-item">✓ Supporto prioritario</div>
+                        <div class="benefit-item">✓ Nessuna pubblicità</div>
+                    </div>
+                    <button id="upgrade-btn" class="btn btn-primary btn-large">Passa a Premium - €9.99/mese</button>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings-section" class="dashboard-section" style="display: none;">
+                <h2 class="section-title">Impostazioni</h2>
+                
+                <div class="settings-card">
+                    <h3>Profilo</h3>
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="profile-email" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Nome (opzionale)</label>
+                            <input type="text" id="profile-name" placeholder="Il tuo nome">
+                        </div>
+                        <div class="form-group">
+                            <label>Età (opzionale)</label>
+                            <input type="number" id="profile-age" placeholder="La tua età" min="1" max="120">
+                        </div>
+                        <div class="form-group">
+                            <label>Obiettivo</label>
+                            <textarea id="profile-goal" placeholder="Cosa vuoi migliorare? (es: memoria, concentrazione)"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salva Modifiche</button>
+                    </form>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Privacy e Dati</h3>
+                    <p>I tuoi dati sono memorizzati localmente sul tuo dispositivo e non vengono mai trasmessi a server esterni.</p>
+                    <div class="danger-zone">
+                        <h4>Zona Pericolosa</h4>
+                        <button id="delete-data-btn" class="btn btn-danger">Elimina Tutti i Dati</button>
+                        <p class="warning-text">⚠️ Questa azione è irreversibile!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

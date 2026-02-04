@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nonnetta - Stimolazione Neurocognitiva Accessibile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="game-nav">
+        <div class="container">
+            <div class="nav-content">
+                <h1 class="logo">Nonnetta</h1>
+                <div class="nav-links">
+                    <a href="dashboard.html" class="btn btn-secondary">← Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+
+        <!-- Main Content -->
+        <section id="main-content">
+            <!-- Game Selection -->
+            <div id="game-selection" class="card">
+                <h2>Scegli un Gioco</h2>
+                
+                <div class="games-grid">
+                    <button class="game-card" data-game="memory" tabindex="0">
+                        <div class="game-icon">🧠</div>
+                        <h3>Memory</h3>
+                        <p>Trova le coppie</p>
+                    </button>
+                    
+                    <button class="game-card" data-game="math" tabindex="0">
+                        <div class="game-icon">🔢</div>
+                        <h3>Calcoli</h3>
+                        <p>Risolvi le operazioni</p>
+                    </button>
+                    
+                    <button class="game-card" data-game="words" tabindex="0">
+                        <div class="game-icon">📝</div>
+                        <h3>Parole</h3>
+                        <p>Indovina la parola</p>
+                    </button>
+                    
+                    <button class="game-card" data-game="sequence" tabindex="0">
+                        <div class="game-icon">🎯</div>
+                        <h3>Sequenze</h3>
+                        <p>Ricorda l'ordine</p>
+                    </button>
+                    
+                    <button class="game-card" data-game="binaural" tabindex="0">
+                        <div class="game-icon">🎧</div>
+                        <h3>Audio</h3>
+                        <p>Indovina il lato</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Game Containers (hidden by default) -->
+            <div id="memory-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🧠 Memory</h2>
+                    <div class="game-stats">
+                        <span>Mosse: <strong id="memory-moves">0</strong></span>
+                        <span>Trovate: <strong id="memory-found">0</strong>/8</span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div id="memory-board" class="memory-board"></div>
+            </div>
+
+            <div id="math-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🔢 Calcoli</h2>
+                    <div class="game-stats">
+                        <span>Punteggio: <strong id="math-score">0</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div class="math-content">
+                    <div id="math-question" class="math-question"></div>
+                    <div id="math-options" class="math-options"></div>
+                    <div id="math-feedback" class="math-feedback"></div>
+                </div>
+            </div>
+
+            <div id="words-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>📝 Parole</h2>
+                    <div class="game-stats">
+                        <span>Punteggio: <strong id="words-score">0</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div class="words-content">
+                    <div id="words-hint" class="words-hint"></div>
+                    <div id="words-display" class="words-display"></div>
+                    <div id="words-keyboard" class="words-keyboard"></div>
+                    <div id="words-feedback" class="words-feedback"></div>
+                </div>
+            </div>
+
+            <div id="sequence-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🎯 Sequenze</h2>
+                    <div class="game-stats">
+                        <span>Livello: <strong id="sequence-level">1</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div class="sequence-content">
+                    <div id="sequence-board" class="sequence-board"></div>
+                    <div id="sequence-feedback" class="sequence-feedback"></div>
+                </div>
+            </div>
+
+            <div id="binaural-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🎧 Audio Binaurale</h2>
+                    <div class="game-stats">
+                        <span>Punteggio: <strong id="binaural-score">0</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div class="binaural-content">
+                    <p class="binaural-instructions">Indossa le cuffie. Il suono arriverà da sinistra o destra. Clicca il pulsante corrispondente!</p>
+                    <div class="binaural-controls">
+                        <button id="binaural-left" class="binaural-btn" tabindex="0">
+                            <span class="binaural-arrow">←</span>
+                            Sinistra
+                        </button>
+                        <button id="binaural-right" class="binaural-btn" tabindex="0">
+                            Destra
+                            <span class="binaural-arrow">→</span>
+                        </button>
+                    </div>
+                    <div id="binaural-feedback" class="binaural-feedback"></div>
+                    <div class="binaural-options">
+                        <label class="binaural-option">
+                            <input type="checkbox" id="binaural-wait-mode" tabindex="0">
+                            <span>Modalità attesa: il suono cambia solo quando rispondi correttamente</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="game-footer">
+        <p>&copy; 2026 Nonnetta. Conforme al GDPR e alle normative europee.</p>
+        <p><a href="privacy.html">Privacy Policy</a> | <a href="accessibility.html">Accessibilità</a></p>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Check if user is logged in and has access
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!userManager.isLoggedIn()) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Check if specific game requested
+            const urlParams = new URLSearchParams(window.location.search);
+            const requestedGame = urlParams.get('game');
+            
+            if (requestedGame) {
+                // Check access
+                if (!userManager.hasAccess(requestedGame)) {
+                    alert('⚠️ Questo gioco è disponibile solo con il piano Premium!');
+                    window.location.href = 'dashboard.html';
+                    return;
+                }
+                
+                // Start the requested game
+                setTimeout(() => {
+                    startGame(requestedGame);
+                }, 100);
+            }
+            
+            // Override back buttons to return to dashboard
+            document.querySelectorAll('.btn-back').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    
+                    // Record game completion
+                    const gameContainer = btn.closest('.game-container');
+                    if (gameContainer) {
+                        const gameId = gameContainer.id.replace('-game', '');
+                        const score = getGameScore(gameId);
+                        userManager.recordGamePlay(gameId, score);
+                    }
+                    
+                    window.location.href = 'dashboard.html';
+                }, true);
+            });
+        });
+        
+        function getGameScore(gameId) {
+            switch(gameId) {
+                case 'memory':
+                    return memoryState.found * 10 - memoryState.moves;
+                case 'math':
+                    return mathState.score;
+                case 'words':
+                    return wordsState.score;
+                case 'sequence':
+                    return sequenceState.level;
+                case 'binaural':
+                    return binauralState.score;
+                default:
+                    return 0;
+            }
+        }
+    </script>
+</body>
+</html>
