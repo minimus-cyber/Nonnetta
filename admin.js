@@ -26,9 +26,12 @@ import {
 let currentAdmin = null;
 
 // ========== INIZIALIZZAZIONE ==========
+// onAuthStateChanged è avviato a livello di modulo per intercettare lo stato
+// di autenticazione il prima possibile, indipendentemente dal caricamento del DOM.
+onAuthStateChanged(auth, handleAuthChange);
+
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('admin-logout-btn').addEventListener('click', logoutAdmin);
-    onAuthStateChanged(auth, handleAuthChange);
 });
 
 async function handleAuthChange(firebaseUser) {
