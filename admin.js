@@ -6,7 +6,7 @@
 // Il ruolo viene assegnato manualmente tramite Firebase Console
 // o Firebase Admin SDK, MAI tramite password hard-coded nel frontend.
 // ============================================
-import { auth, db } from './firebase-config.js';
+import { auth, db } from './firebase-init.js';
 import {
     onAuthStateChanged,
     signOut
