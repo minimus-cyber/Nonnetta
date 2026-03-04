@@ -49,21 +49,18 @@ This repository contains an accessible web application for elderly users, hosted
 - **Keyboard Navigation**: Full keyboard support (arrows, space, enter, ESC)
 - **Screen Reader Compatible**: Semantic HTML5 and ARIA attributes
 
-### User Features
-- **User Registration & Login**: Email-based authentication with secure password hashing (SHA-256)
-- **Activity Tracking**: Track daily neurocognitive activities
-- **History Management**: View, print, and download activity history as TXT
-- **Data Privacy**: All data stored locally in browser (no server transmission)
+### Funzionalità Utente
+- **Registrazione e Login**: Autenticazione tramite Firebase (email/password e Google)
+- **Recupero password**: Reset via email
+- **Tracciamento attività**: Registro giornaliero delle attività neurocognitive su Firestore
+- **Gestione storico**: Visualizza, stampa e scarica lo storico attività in formato TXT
+- **Privacy dati**: I dati sono archiviati su Firestore con Security Rules che garantiscono la privacy
 
-### Admin Panel
-- **Secure Admin Access**: Located at `/admin.html`
-- **Default Credentials**:
-  - Username: `fraverderosa`
-  - Password: `Rosa@5791`
-  - ⚠️ **Important**: Change these credentials immediately after first login
-- **User Management**: View registered users and their activity statistics
-- **Statistics Dashboard**: Monitor user engagement and activities
-- **Credential Management**: Update admin username and password
+### Pannello Admin
+- **Accesso sicuro tramite Firebase**: Solo gli utenti con ruolo `admin` (assegnato in Firestore) possono accedere
+- **Nessuna password hard-coded**: l'accesso admin è gestito da Firebase Authentication e verificato da Firestore Security Rules
+- **Gestione utenti**: Visualizza gli utenti registrati e le loro statistiche di attività
+- **Dashboard statistiche**: Monitora l'utilizzo e le attività
 
 ### GDPR Compliance
 - **Cookie Consent Banner**: Compliant with EU regulations
@@ -99,24 +96,29 @@ This repository contains an accessible web application for elderly users, hosted
 - **Enter**: Confirm action or complete selected activity
 - **ESC**: Go back or exit current section
 
-## 🔐 Security
+## 🔐 Sicurezza
 
-- **Password Hashing**: All passwords are hashed using SHA-256 before storage
-- **Local Storage Only**: No data transmitted to external servers
-- **Session Management**: Secure session handling with sessionStorage
-- **Admin Access Control**: Protected admin panel with authentication
+- **Autenticazione Firebase**: Email/password e Google login tramite Firebase Authentication
+- **Nessuna password nel codice**: credenziali gestite da Firebase, mai hard-coded nel frontend
+- **Firestore Security Rules**: ogni utente può accedere solo ai propri dati
+- **Ruolo admin verificato lato server**: nessun bypass possibile dal frontend
+
+Consulta [SECURITY.md](SECURITY.md) e [DEPLOYMENT.md](DEPLOYMENT.md) per la configurazione completa.
 
 ## 📁 Project Structure
 
 ```
-├── index.html          # Main application page
-├── admin.html          # Admin panel
-├── privacy.html        # GDPR privacy policy
-├── accessibility.html  # Accessibility statement
-├── styles.css          # High-contrast accessible styles
-├── app.js             # Main application logic
-├── admin.js           # Admin panel logic
-└── README.md          # This file
+├── index.html          # Pagina principale
+├── admin.html          # Pannello admin (solo ruolo admin)
+├── privacy.html        # Privacy policy GDPR
+├── accessibility.html  # Dichiarazione di accessibilità
+├── styles.css          # Stili accessibili ad alto contrasto
+├── app.js             # Logica principale (Firebase Auth + Firestore)
+├── admin.js           # Pannello admin (Firebase Auth + ruolo Firestore)
+├── firebase-config.js # Configurazione Firebase (da personalizzare)
+├── firestore.rules    # Security Rules Firestore
+├── SECURITY.md        # Politica di sicurezza
+└── README.md          # Questo file
 ```
 
 ## 🌐 Deployment
@@ -128,14 +130,14 @@ This site is designed to be hosted on GitHub Pages:
 3. Select the main branch as source
 4. Access at: `https://[username].github.io/Nonnetta/`
 
-## 🛠️ Technologies Used
+## 🛠️ Tecnologie Utilizzate
 
-- **HTML5**: Semantic markup
-- **CSS3**: Custom properties and modern layouts
-- **Vanilla JavaScript**: No external dependencies
-- **Web Crypto API**: For password hashing
-- **localStorage**: For persistent data storage
-- **sessionStorage**: For session management
+- **HTML5**: Markup semantico
+- **CSS3**: Proprietà personalizzate e layout moderni
+- **JavaScript ES Modules**: Nessuna dipendenza da build tools
+- **Firebase Authentication**: Autenticazione sicura (email/password, Google)
+- **Firestore**: Database cloud con Security Rules
+- **localStorage**: Solo cache locale non critica e migrazione dati
 
 ## ♿ Accessibility Features
 

@@ -1,6 +1,25 @@
 // ============================================
 // NONNETTA - MAIN APPLICATION JAVASCRIPT
 // ============================================
+import { auth, db } from './firebase-config.js';
+import {
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signOut,
+    updateProfile,
+    sendPasswordResetEmail,
+    GoogleAuthProvider,
+    signInWithPopup
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import {
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    orderBy,
+    serverTimestamp
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 // ========== HAPTIC FEEDBACK ==========
 function hapticFeedback(type = 'light') {
@@ -808,57 +827,84 @@ function updateScriviStats() {
 
 // ========== AUTHENTICATION SYSTEM ==========
 let currentUser = null;
+const googleProvider = new GoogleAuthProvider();
 
 function initializeAuth() {
-    // Check if user is logged in
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-        currentUser = JSON.parse(savedUser);
-        updateAuthUI();
-    }
-    
+    // Observe Firebase Auth state
+    onAuthStateChanged(auth, async (firebaseUser) => {
+        if (firebaseUser) {
+            currentUser = {
+                uid: firebaseUser.uid,
+                name: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+                email: firebaseUser.email
+            };
+            updateAuthUI();
+            await offerLocalDataMigration();
+        } else {
+            currentUser = null;
+            updateAuthUI();
+        }
+    });
+
     // Login form
     document.getElementById('login-form').addEventListener('submit', handleLogin);
-    
+
     // Register button
     document.getElementById('register-btn').addEventListener('click', () => {
         document.getElementById('register-modal').style.display = 'flex';
     });
-    
+
     // Register form
     document.getElementById('register-form').addEventListener('submit', handleRegister);
-    
+
     // Logout button
     document.getElementById('logout-btn').addEventListener('click', handleLogout);
-    
+
+    // Google login button
+    const googleBtn = document.getElementById('google-login-btn');
+    if (googleBtn) {
+        googleBtn.addEventListener('click', handleGoogleLogin);
+    }
+
+    // Forgot password link
+    const forgotLink = document.getElementById('forgot-password-link');
+    if (forgotLink) {
+        forgotLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('forgot-password-modal').style.display = 'flex';
+        });
+    }
+
+    // Forgot password form
+    const forgotForm = document.getElementById('forgot-password-form');
+    if (forgotForm) {
+        forgotForm.addEventListener('submit', handleForgotPassword);
+    }
+
     // Close modals
     document.getElementById('close-register-modal').addEventListener('click', () => {
         document.getElementById('register-modal').style.display = 'none';
     });
+    const closeForgot = document.getElementById('close-forgot-password-modal');
+    if (closeForgot) {
+        closeForgot.addEventListener('click', () => {
+            document.getElementById('forgot-password-modal').style.display = 'none';
+        });
+    }
 }
 
 async function handleLogin(e) {
     e.preventDefault();
-    
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
-    
-    // Get users from localStorage
-    const users = JSON.parse(localStorage.getItem('nonnetta-users') || '[]');
-    
-    // Hash password for comparison
-    const hashedPassword = await hashPassword(password);
-    
-    const user = users.find(u => u.email === email && u.password === hashedPassword);
-    
-    if (user) {
-        currentUser = { name: user.name, email: user.email };
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        updateAuthUI();
+
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        document.getElementById('login-form').reset();
         hapticFeedback('success');
         playSound(800, 100);
         showNotification('Accesso effettuato con successo!');
-    } else {
+    } catch (err) {
         showNotification('Email o password errati');
         hapticFeedback('error');
         playSound(300, 100);
@@ -867,51 +913,60 @@ async function handleLogin(e) {
 
 async function handleRegister(e) {
     e.preventDefault();
-    
-    const name = document.getElementById('register-name').value;
-    const email = document.getElementById('register-email').value;
+    const name = document.getElementById('register-name').value.trim();
+    const email = document.getElementById('register-email').value.trim();
     const password = document.getElementById('register-password').value;
     const confirmPassword = document.getElementById('register-password-confirm').value;
-    
+
     if (password !== confirmPassword) {
         document.getElementById('register-message').textContent = 'Le password non corrispondono';
         return;
     }
-    
-    // Get existing users
-    const users = JSON.parse(localStorage.getItem('nonnetta-users') || '[]');
-    
-    // Check if email already exists
-    if (users.find(u => u.email === email)) {
-        document.getElementById('register-message').textContent = 'Email già registrata';
-        return;
+
+    try {
+        const credential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(credential.user, { displayName: name });
+        document.getElementById('register-modal').style.display = 'none';
+        document.getElementById('register-form').reset();
+        document.getElementById('register-message').textContent = '';
+        hapticFeedback('success');
+        playSound(800, 100);
+        showNotification('Registrazione completata!');
+    } catch (err) {
+        let msg = 'Errore durante la registrazione';
+        if (err.code === 'auth/email-already-in-use') msg = 'Email già registrata';
+        if (err.code === 'auth/weak-password') msg = 'Password troppo debole (minimo 6 caratteri)';
+        document.getElementById('register-message').textContent = msg;
     }
-    
-    // Hash password
-    const hashedPassword = await hashPassword(password);
-    
-    // Add new user
-    users.push({ name, email, password: hashedPassword });
-    localStorage.setItem('nonnetta-users', JSON.stringify(users));
-    
-    // Auto-login
-    currentUser = { name, email };
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    
-    // Close modal and update UI
-    document.getElementById('register-modal').style.display = 'none';
-    document.getElementById('register-form').reset();
-    document.getElementById('register-message').textContent = '';
-    updateAuthUI();
-    
-    hapticFeedback('success');
-    playSound(800, 100);
 }
 
-function handleLogout() {
-    currentUser = null;
-    localStorage.removeItem('currentUser');
-    updateAuthUI();
+async function handleGoogleLogin() {
+    try {
+        await signInWithPopup(auth, googleProvider);
+        hapticFeedback('success');
+        playSound(800, 100);
+        showNotification('Accesso con Google effettuato!');
+    } catch (err) {
+        showNotification('Accesso con Google non riuscito');
+        hapticFeedback('error');
+    }
+}
+
+async function handleForgotPassword(e) {
+    e.preventDefault();
+    const email = document.getElementById('forgot-email').value.trim();
+    try {
+        await sendPasswordResetEmail(auth, email);
+        document.getElementById('forgot-password-modal').style.display = 'none';
+        document.getElementById('forgot-password-form').reset();
+        showNotification('Email di recupero password inviata!');
+    } catch (err) {
+        document.getElementById('forgot-password-message').textContent = 'Indirizzo email non trovato o non valido';
+    }
+}
+
+async function handleLogout() {
+    await signOut(auth);
     hapticFeedback('light');
     playSound(400, 50);
 }
@@ -925,18 +980,42 @@ function updateAuthUI() {
         document.getElementById('auth-logged-out').style.display = 'block';
         document.getElementById('auth-logged-in').style.display = 'none';
     }
-    
     // Re-initialize game selection to update access permissions
     initializeGameSelection();
 }
 
-async function hashPassword(password) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hash = await crypto.subtle.digest('SHA-256', data);
-    return Array.from(new Uint8Array(hash))
-        .map(b => b.toString(16).padStart(2, '0'))
-        .join('');
+// ========== MIGRAZIONE DATI DA LOCALSTORAGE ==========
+async function offerLocalDataMigration() {
+    const migrationKey = `nonnetta-migrated-${currentUser.uid}`;
+    if (localStorage.getItem(migrationKey)) return;
+
+    const localDiary = JSON.parse(localStorage.getItem(`diary-${currentUser.email}`) || '[]');
+    if (localDiary.length === 0) {
+        localStorage.setItem(migrationKey, 'true');
+        return;
+    }
+
+    if (!confirm(`Trovati ${localDiary.length} dati locali dal vecchio sistema. Vuoi importarli nel tuo profilo cloud?`)) {
+        localStorage.setItem(migrationKey, 'true');
+        return;
+    }
+
+    try {
+        const diaryRef = collection(db, 'users', currentUser.uid, 'diary');
+        for (const entry of localDiary) {
+            await addDoc(diaryRef, {
+                date: entry.date,
+                game: entry.game,
+                score: entry.score,
+                importedAt: new Date().toISOString()
+            });
+        }
+        localStorage.setItem(migrationKey, 'true');
+        showNotification(`${localDiary.length} attività importate nel cloud!`);
+    } catch (err) {
+        console.error('Errore migrazione dati:', err);
+        showNotification('Errore durante la migrazione dati locali');
+    }
 }
 
 // ========== DIARY SYSTEM ==========
@@ -947,42 +1026,62 @@ function initializeDiary() {
     document.getElementById('print-diary-btn').addEventListener('click', printDiary);
 }
 
-function logActivity(gameName, score) {
+async function logActivity(gameName, score) {
     if (!currentUser) return;
-    
-    const diary = JSON.parse(localStorage.getItem(`diary-${currentUser.email}`) || '[]');
-    
-    diary.push({
-        date: new Date().toISOString(),
-        game: gameName,
-        score: score
-    });
-    
-    localStorage.setItem(`diary-${currentUser.email}`, JSON.stringify(diary));
+
+    // Cache locale non critica
+    const localKey = `diary-cache-${currentUser.uid}`;
+    const localCache = JSON.parse(localStorage.getItem(localKey) || '[]');
+    const entry = { date: new Date().toISOString(), game: gameName, score };
+    localCache.push(entry);
+    localStorage.setItem(localKey, JSON.stringify(localCache));
+
+    // Persistenza primaria su Firestore
+    try {
+        await addDoc(collection(db, 'users', currentUser.uid, 'diary'), {
+            ...entry,
+            createdAt: serverTimestamp()
+        });
+    } catch (err) {
+        console.error('Errore salvataggio Firestore:', err);
+    }
 }
 
-function openDiary() {
+async function loadDiaryEntries() {
+    if (!currentUser) return [];
+    try {
+        const q = query(
+            collection(db, 'users', currentUser.uid, 'diary'),
+            orderBy('date', 'asc')
+        );
+        const snap = await getDocs(q);
+        return snap.docs.map(d => d.data());
+    } catch (err) {
+        console.error('Errore lettura diario:', err);
+        // Fallback alla cache locale
+        return JSON.parse(localStorage.getItem(`diary-cache-${currentUser.uid}`) || '[]');
+    }
+}
+
+async function openDiary() {
     if (!currentUser) {
         showNotification('Devi essere registrato per vedere il diario');
         return;
     }
-    
-    const diary = JSON.parse(localStorage.getItem(`diary-${currentUser.email}`) || '[]');
+
+    const diary = await loadDiaryEntries();
     const diaryContent = document.getElementById('diary-content');
-    
+
     if (diary.length === 0) {
         diaryContent.innerHTML = '<div class="diary-empty">Nessuna attività registrata ancora. Inizia a giocare!</div>';
     } else {
-        // Group by date
         const groupedByDate = {};
         diary.forEach(entry => {
             const date = new Date(entry.date).toLocaleDateString('it-IT');
-            if (!groupedByDate[date]) {
-                groupedByDate[date] = [];
-            }
+            if (!groupedByDate[date]) groupedByDate[date] = [];
             groupedByDate[date].push(entry);
         });
-        
+
         let html = '';
         Object.keys(groupedByDate).reverse().forEach(date => {
             html += `<div class="diary-entry">`;
@@ -994,7 +1093,6 @@ function openDiary() {
             });
             html += `</div>`;
         });
-        
         diaryContent.innerHTML = html;
     }
     
@@ -1005,26 +1103,23 @@ function closeDiary() {
     document.getElementById('diary-modal').style.display = 'none';
 }
 
-function downloadDiary() {
+async function downloadDiary() {
     if (!currentUser) return;
-    
-    const diary = JSON.parse(localStorage.getItem(`diary-${currentUser.email}`) || '[]');
-    
+
+    const diary = await loadDiaryEntries();
+
     let text = `DIARIO ATTIVITÀ - ${currentUser.name}\n`;
     text += `Email: ${currentUser.email}\n`;
     text += `Generato: ${new Date().toLocaleString('it-IT')}\n`;
     text += `\n${'='.repeat(50)}\n\n`;
-    
-    // Group by date
+
     const groupedByDate = {};
     diary.forEach(entry => {
         const date = new Date(entry.date).toLocaleDateString('it-IT');
-        if (!groupedByDate[date]) {
-            groupedByDate[date] = [];
-        }
+        if (!groupedByDate[date]) groupedByDate[date] = [];
         groupedByDate[date].push(entry);
     });
-    
+
     Object.keys(groupedByDate).reverse().forEach(date => {
         text += `${date}\n`;
         text += `${'-'.repeat(30)}\n`;
@@ -1034,8 +1129,7 @@ function downloadDiary() {
         });
         text += `\n`;
     });
-    
-    // Create download
+
     const blob = new Blob([text], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

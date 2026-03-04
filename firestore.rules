@@ -1,0 +1,46 @@
+// ============================================================
+// FIRESTORE SECURITY RULES - Nonnetta
+// ============================================================
+// Copia queste regole in Firebase Console >
+// Firestore Database > Regole
+//
+// Principi:
+// - Ogni utente può leggere/scrivere SOLO i propri dati
+// - Gli admin possono leggere i dati di tutti gli utenti
+// - Nessuna password nel frontend: il ruolo admin è verificato lato server
+// ============================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Funzione helper: controlla se l'utente richiedente è admin
+    function isAdmin() {
+      return request.auth != null &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Documento utente: users/{uid}
+    match /users/{userId} {
+      // L'utente può leggere/scrivere il proprio documento
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // L'admin può leggere tutti i documenti utente
+      allow read: if isAdmin();
+      // L'admin può eliminare utenti (per funzione deleteUser nel pannello)
+      allow delete: if isAdmin();
+    }
+
+    // Sotto-collection diario: users/{uid}/diary/{entryId}
+    match /users/{userId}/diary/{entryId} {
+      // L'utente può leggere/scrivere solo il proprio diario
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // L'admin può leggere/eliminare diari (per gestione pannello)
+      allow read, delete: if isAdmin();
+    }
+
+    // Blocca tutto il resto per default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

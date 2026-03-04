@@ -13,49 +13,33 @@
             <a href="index.html" class="btn btn-secondary" tabindex="0">← Torna alla Home</a>
         </header>
 
-        <!-- Admin Login Section -->
+        <!-- Admin Login Section (mostrato finché non autenticato via Firebase) -->
         <section id="admin-login-section" class="card">
             <h2>Accesso Amministratore</h2>
-            <p class="help-text">Inserisci le credenziali di amministrazione</p>
-                <em>Si consiglia vivamente di cambiarle dopo il primo accesso.</em>
+            <p class="help-text">
+                Accedi con il tuo account Firebase. Solo gli utenti con ruolo <strong>admin</strong>
+                (assegnato tramite Firestore) possono accedere a questo pannello.
             </p>
-            
-            <form id="adminLoginForm">
-                <label for="admin-username">Nome Utente:</label>
-                <input type="text" id="admin-username" required tabindex="0">
-                
-                <label for="admin-password">Password:</label>
-                <input type="password" id="admin-password" required tabindex="0">
-                
-                <button type="submit" class="btn btn-primary" tabindex="0">Accedi</button>
-            </form>
-            
-            <div id="admin-error" class="error-message" style="display: none;"></div>
+            <p class="help-text">
+                Vai su <a href="index.html">index.html</a> e accedi con il tuo account admin,
+                oppure usa il pulsante Google se configurato.
+            </p>
+            <p>Se sei già autenticato in un'altra scheda, il pannello si aprirà automaticamente.</p>
         </section>
 
-        <!-- Admin Dashboard (shown after login) -->
+        <!-- Accesso negato -->
+        <section id="admin-access-denied" class="card" style="display: none;">
+            <h2>⛔ Accesso Negato</h2>
+            <p class="help-text">Il tuo account non ha i permessi di amministratore.</p>
+            <p>Contatta l'amministratore di sistema per richiedere l'accesso.</p>
+            <a href="index.html" class="btn btn-primary">Torna alla Home</a>
+        </section>
+
+        <!-- Admin Dashboard (shown after login with admin role) -->
         <section id="admin-dashboard" style="display: none;">
             <div class="user-info">
                 <p>Amministratore: <strong id="admin-name"></strong></p>
                 <button id="admin-logout-btn" class="btn btn-secondary" tabindex="0">Esci</button>
-            </div>
-
-            <!-- Change Password Section -->
-            <div class="card">
-                <h2>Cambia Credenziali</h2>
-                <form id="changeCredentialsForm">
-                    <label for="new-username">Nuovo Nome Utente:</label>
-                    <input type="text" id="new-username" tabindex="0">
-                    
-                    <label for="new-password">Nuova Password:</label>
-                    <input type="password" id="new-password" minlength="6" tabindex="0">
-                    
-                    <label for="new-password-confirm">Conferma Nuova Password:</label>
-                    <input type="password" id="new-password-confirm" minlength="6" tabindex="0">
-                    
-                    <button type="submit" class="btn btn-primary" tabindex="0">Aggiorna Credenziali</button>
-                </form>
-                <div id="credentials-message" class="success-message" style="display: none;"></div>
             </div>
 
             <!-- User Management Section -->
@@ -90,6 +74,6 @@
         <p>&copy; 2026 Nonnetta. Conforme al GDPR e alle normative europee.</p>
     </footer>
 
-    <script src="admin.js"></script>
+    <script type="module" src="admin.js"></script>
 </body>
 </html>
