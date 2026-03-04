@@ -16,9 +16,12 @@ import {
     collection,
     addDoc,
     getDocs,
+    getDoc,
     query,
     orderBy,
-    serverTimestamp
+    serverTimestamp,
+    doc,
+    setDoc
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 // ========== HAPTIC FEEDBACK ==========
@@ -101,6 +104,7 @@ function playSound(frequency, duration = 100, type = 'sine') {
 // ========== INITIALIZATION ==========
 // onAuthStateChanged è avviato a livello di modulo per intercettare lo stato
 // di autenticazione il prima possibile, indipendentemente dal caricamento del DOM.
+let isDomReady = false;
 onAuthStateChanged(auth, async (firebaseUser) => {
     if (firebaseUser) {
         currentUser = {
@@ -108,20 +112,22 @@ onAuthStateChanged(auth, async (firebaseUser) => {
             name: firebaseUser.displayName || firebaseUser.email.split('@')[0],
             email: firebaseUser.email
         };
-        updateAuthUI();
+        if (isDomReady) updateAuthUI();
         await offerLocalDataMigration();
     } else {
         currentUser = null;
-        updateAuthUI();
+        if (isDomReady) updateAuthUI();
     }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    isDomReady = true;
     initializeCookieBanner();
     initializeGameSelection();
     initializeAuth();
     initializeDiary();
     initializeNonnettaPlus();
+    updateAuthUI();
 });
 
 // ========== COOKIE BANNER (GDPR COMPLIANCE) ==========
@@ -158,6 +164,7 @@ function initializeGameSelection() {
     gameCards.forEach(card => {
         card.addEventListener('click', () => {
             const game = card.dataset.game;
+            if (!game) return; // Skip non-game cards (e.g. Nonnetta Plus)
             const difficulty = card.dataset.difficulty;
             
             // Check if user needs to be registered for this difficulty
@@ -606,6 +613,7 @@ let binauralState = {
     currentSide: null,
     waitMode: false
 };
+let hasBinauralListeners = false;
 
 function initBinauralGame() {
     document.getElementById('binaural-game').style.display = 'block';
@@ -617,11 +625,14 @@ function initBinauralGame() {
         return;
     }
     
-    document.getElementById('binaural-left').addEventListener('click', () => checkBinauralAnswer('left'));
-    document.getElementById('binaural-right').addEventListener('click', () => checkBinauralAnswer('right'));
-    document.getElementById('binaural-wait-mode').addEventListener('change', (e) => {
-        binauralState.waitMode = e.target.checked;
-    });
+    if (!hasBinauralListeners) {
+        document.getElementById('binaural-left').addEventListener('click', () => checkBinauralAnswer('left'));
+        document.getElementById('binaural-right').addEventListener('click', () => checkBinauralAnswer('right'));
+        document.getElementById('binaural-wait-mode').addEventListener('change', (e) => {
+            binauralState.waitMode = e.target.checked;
+        });
+        hasBinauralListeners = true;
+    }
     
     updateBinauralStats();
     playBinauralSound();
@@ -927,6 +938,15 @@ async function handleRegister(e) {
     try {
         const credential = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(credential.user, { displayName: name });
+        // Create user document in Firestore so admin panel can list this user
+        await setDoc(doc(db, 'users', credential.user.uid), {
+            email: email,
+            displayName: name,
+            createdAt: serverTimestamp()
+        });
+        // Update local user state with the chosen display name
+        currentUser.name = name;
+        document.getElementById('user-display-name').textContent = name;
         document.getElementById('register-modal').style.display = 'none';
         document.getElementById('register-form').reset();
         document.getElementById('register-message').textContent = '';
@@ -937,13 +957,24 @@ async function handleRegister(e) {
         let msg = 'Errore durante la registrazione';
         if (err.code === 'auth/email-already-in-use') msg = 'Email già registrata';
         if (err.code === 'auth/weak-password') msg = 'Password troppo debole (minimo 6 caratteri)';
+        if (err.code === 'auth/invalid-email') msg = 'Indirizzo email non valido';
         document.getElementById('register-message').textContent = msg;
     }
 }
 
 async function handleGoogleLogin() {
     try {
-        await signInWithPopup(auth, googleProvider);
+        const result = await signInWithPopup(auth, googleProvider);
+        // Create user document in Firestore if it doesn't exist yet
+        const userDocRef = doc(db, 'users', result.user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        if (!userDocSnap.exists()) {
+            await setDoc(userDocRef, {
+                email: result.user.email,
+                displayName: result.user.displayName || result.user.email.split('@')[0],
+                createdAt: serverTimestamp()
+            });
+        }
         hapticFeedback('success');
         playSound(800, 100);
         showNotification('Accesso con Google effettuato!');
@@ -973,16 +1004,16 @@ async function handleLogout() {
 }
 
 function updateAuthUI() {
+    const loggedOut = document.getElementById('auth-logged-out');
+    if (!loggedOut) return; // DOM not ready yet
     if (currentUser) {
-        document.getElementById('auth-logged-out').style.display = 'none';
+        loggedOut.style.display = 'none';
         document.getElementById('auth-logged-in').style.display = 'block';
         document.getElementById('user-display-name').textContent = currentUser.name;
     } else {
-        document.getElementById('auth-logged-out').style.display = 'block';
+        loggedOut.style.display = 'block';
         document.getElementById('auth-logged-in').style.display = 'none';
     }
-    // Re-initialize game selection to update access permissions
-    initializeGameSelection();
 }
 
 // ========== MIGRAZIONE DATI DA LOCALSTORAGE ==========
