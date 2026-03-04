@@ -1,244 +1,186 @@
 // ============================================
-// NONNETTA - ADMIN PANEL JAVASCRIPT
+// NONNETTA - PANNELLO AMMINISTRAZIONE
+// Autenticazione tramite Firebase Authentication.
+// L'accesso admin richiede il ruolo "admin" nel documento
+// Firestore: users/{uid}/role == "admin"
+// Il ruolo viene assegnato manualmente tramite Firebase Console
+// o Firebase Admin SDK, MAI tramite password hard-coded nel frontend.
 // ============================================
+import { auth, db } from './firebase-config.js';
+import {
+    onAuthStateChanged,
+    signOut
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import {
+    doc,
+    getDoc,
+    collection,
+    getDocs,
+    deleteDoc,
+    query,
+    collectionGroup,
+    where
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-// Default admin credentials (will be hashed on first initialization)
-const DEFAULT_ADMIN = {
-    username: 'fraverderosa',
-    password: 'Rosa@5791'
-};
-
-// ========== STATE ==========
-let isAdminLoggedIn = false;
+// ========== STATO ==========
 let currentAdmin = null;
 
-// ========== INITIALIZATION ==========
+// ========== INIZIALIZZAZIONE ==========
 document.addEventListener('DOMContentLoaded', () => {
-    initializeAdminCredentials();
-    initializeAdminAuth();
-    loadAdminSession();
+    document.getElementById('admin-logout-btn').addEventListener('click', logoutAdmin);
+    onAuthStateChanged(auth, handleAuthChange);
 });
 
-// Simple hash function for password storage
-async function hashPassword(password) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-// ========== ADMIN CREDENTIALS SETUP ==========
-async function initializeAdminCredentials() {
-    // Set default credentials if not exist
-    if (!localStorage.getItem('adminCredentials')) {
-        const passwordHash = await hashPassword(DEFAULT_ADMIN.password);
-        localStorage.setItem('adminCredentials', JSON.stringify({
-            username: DEFAULT_ADMIN.username,
-            passwordHash: passwordHash
-        }));
+async function handleAuthChange(firebaseUser) {
+    if (!firebaseUser) {
+        showLoginSection();
+        return;
     }
-}
 
-// ========== AUTHENTICATION ==========
-function initializeAdminAuth() {
-    const loginForm = document.getElementById('adminLoginForm');
-    const logoutBtn = document.getElementById('admin-logout-btn');
-    
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const username = document.getElementById('admin-username').value;
-        const password = document.getElementById('admin-password').value;
-        
-        if (await authenticateAdmin(username, password)) {
-            currentAdmin = username;
-            isAdminLoggedIn = true;
+    // Verifica ruolo admin su Firestore
+    try {
+        const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+        if (userDoc.exists() && userDoc.data().role === 'admin') {
+            currentAdmin = { uid: firebaseUser.uid, email: firebaseUser.email };
             showAdminDashboard();
         } else {
-            showError('Credenziali amministratore non valide.');
+            // Utente autenticato ma non admin
+            await signOut(auth);
+            showAccessDenied();
         }
-    });
-    
-    logoutBtn.addEventListener('click', () => {
-        logoutAdmin();
-    });
-    
-    // Initialize credential change form
-    const changeCredsForm = document.getElementById('changeCredentialsForm');
-    changeCredsForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        await changeAdminCredentials();
-    });
-}
-
-async function authenticateAdmin(username, password) {
-    const adminCreds = JSON.parse(localStorage.getItem('adminCredentials'));
-    const passwordHash = await hashPassword(password);
-    return adminCreds.username === username && adminCreds.passwordHash === passwordHash;
-}
-
-function loadAdminSession() {
-    const savedAdmin = sessionStorage.getItem('currentAdmin');
-    if (savedAdmin) {
-        currentAdmin = savedAdmin;
-        isAdminLoggedIn = true;
-        showAdminDashboard();
+    } catch (err) {
+        console.error('Errore verifica ruolo admin:', err);
+        await signOut(auth);
+        showAccessDenied();
     }
+}
+
+function showLoginSection() {
+    document.getElementById('admin-login-section').style.display = 'block';
+    document.getElementById('admin-dashboard').style.display = 'none';
+    document.getElementById('admin-access-denied').style.display = 'none';
 }
 
 function showAdminDashboard() {
-    sessionStorage.setItem('currentAdmin', currentAdmin);
     document.getElementById('admin-login-section').style.display = 'none';
+    document.getElementById('admin-access-denied').style.display = 'none';
     document.getElementById('admin-dashboard').style.display = 'block';
-    document.getElementById('admin-name').textContent = currentAdmin;
-    
+    document.getElementById('admin-name').textContent = currentAdmin.email;
     loadDashboardData();
 }
 
-function logoutAdmin() {
-    currentAdmin = null;
-    isAdminLoggedIn = false;
-    sessionStorage.removeItem('currentAdmin');
-    document.getElementById('admin-login-section').style.display = 'block';
+function showAccessDenied() {
+    document.getElementById('admin-login-section').style.display = 'none';
     document.getElementById('admin-dashboard').style.display = 'none';
-    document.getElementById('adminLoginForm').reset();
+    document.getElementById('admin-access-denied').style.display = 'block';
 }
 
-function showError(message) {
-    const errorDiv = document.getElementById('admin-error');
-    errorDiv.textContent = message;
-    errorDiv.style.display = 'block';
-    
-    setTimeout(() => {
-        errorDiv.style.display = 'none';
-    }, 5000);
-}
-
-function showSuccess(message) {
-    const successDiv = document.getElementById('credentials-message');
-    successDiv.textContent = message;
-    successDiv.style.display = 'block';
-    
-    setTimeout(() => {
-        successDiv.style.display = 'none';
-    }, 5000);
-}
-
-// ========== CREDENTIAL MANAGEMENT ==========
-async function changeAdminCredentials() {
-    const newUsername = document.getElementById('new-username').value;
-    const newPassword = document.getElementById('new-password').value;
-    const newPasswordConfirm = document.getElementById('new-password-confirm').value;
-    
-    if (newPassword && newPassword !== newPasswordConfirm) {
-        alert('Le password non corrispondono.');
-        return;
-    }
-    
-    const adminCreds = JSON.parse(localStorage.getItem('adminCredentials'));
-    
-    if (newUsername) {
-        adminCreds.username = newUsername;
-        currentAdmin = newUsername;
-        sessionStorage.setItem('currentAdmin', currentAdmin);
-        document.getElementById('admin-name').textContent = currentAdmin;
-    }
-    
-    if (newPassword) {
-        const passwordHash = await hashPassword(newPassword);
-        adminCreds.passwordHash = passwordHash;
-    }
-    
-    localStorage.setItem('adminCredentials', JSON.stringify(adminCreds));
-    
-    showSuccess('Credenziali aggiornate con successo!');
-    document.getElementById('changeCredentialsForm').reset();
+async function logoutAdmin() {
+    await signOut(auth);
+    currentAdmin = null;
 }
 
 // ========== DASHBOARD DATA ==========
-function loadDashboardData() {
-    loadUsersList();
-    loadStatistics();
+async function loadDashboardData() {
+    await loadUsersList();
+    await loadStatistics();
 }
 
-function loadUsersList() {
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
+async function loadUsersList() {
     const usersList = document.getElementById('users-list');
-    
-    if (Object.keys(users).length === 0) {
-        usersList.innerHTML = '<p class="help-text">Nessun utente registrato.</p>';
-        return;
-    }
-    
-    let html = '';
-    Object.keys(users).forEach(email => {
-        const user = users[email];
-        const activityCount = user.activities ? user.activities.length : 0;
-        const registeredDate = new Date(user.registeredAt).toLocaleDateString('it-IT');
-        
-        html += `
-            <div class="user-item">
-                <div>
-                    <strong>📧 ${email}</strong><br>
-                    <small>Registrato: ${registeredDate} | Attività: ${activityCount}</small>
-                </div>
-                <button class="btn btn-danger" onclick="deleteUser('${email}')">Elimina</button>
-            </div>
-        `;
-    });
-    
-    usersList.innerHTML = html;
-}
+    usersList.innerHTML = '<p class="help-text">Caricamento...</p>';
 
-function loadStatistics() {
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    const totalUsers = Object.keys(users).length;
-    
-    let totalActivities = 0;
-    let activeToday = 0;
-    const today = new Date().toLocaleDateString('it-IT');
-    
-    Object.keys(users).forEach(email => {
-        const user = users[email];
-        if (user.activities) {
-            totalActivities += user.activities.length;
-            
-            // Check if user was active today
-            const hasActivityToday = user.activities.some(activity => 
-                activity.date === today
-            );
-            if (hasActivityToday) {
-                activeToday++;
-            }
+    try {
+        const usersSnap = await getDocs(collection(db, 'users'));
+        if (usersSnap.empty) {
+            usersList.innerHTML = '<p class="help-text">Nessun utente registrato.</p>';
+            return;
         }
-    });
-    
-    document.getElementById('total-users').textContent = totalUsers;
-    document.getElementById('total-activities').textContent = totalActivities;
-    document.getElementById('active-today').textContent = activeToday;
+
+        let html = '';
+        for (const userDoc of usersSnap.docs) {
+            const data = userDoc.data();
+            const uid = userDoc.id;
+            const email = data.email || uid;
+            const role = data.role || 'utente';
+            const registeredDate = data.createdAt
+                ? new Date(data.createdAt.toDate ? data.createdAt.toDate() : data.createdAt).toLocaleDateString('it-IT')
+                : 'N/D';
+
+            // Conta attività nel sotto-collection diary
+            const diarySnap = await getDocs(collection(db, 'users', uid, 'diary'));
+            const activityCount = diarySnap.size;
+
+            html += `
+                <div class="user-item">
+                    <div>
+                        <strong>📧 ${email}</strong><br>
+                        <small>Ruolo: ${role} | Registrato: ${registeredDate} | Attività: ${activityCount}</small>
+                    </div>
+                    <button class="btn btn-danger" onclick="deleteUser('${uid}', '${email}')">Elimina</button>
+                </div>
+            `;
+        }
+        usersList.innerHTML = html;
+    } catch (err) {
+        console.error('Errore caricamento utenti:', err);
+        usersList.innerHTML = '<p class="help-text">Errore nel caricamento utenti.</p>';
+    }
 }
 
-function deleteUser(email) {
+async function loadStatistics() {
+    try {
+        const usersSnap = await getDocs(collection(db, 'users'));
+        const totalUsers = usersSnap.size;
+
+        let totalActivities = 0;
+        let activeToday = 0;
+        const today = new Date().toLocaleDateString('it-IT');
+
+        for (const userDoc of usersSnap.docs) {
+            const diarySnap = await getDocs(collection(db, 'users', userDoc.id, 'diary'));
+            totalActivities += diarySnap.size;
+            const hasActivityToday = diarySnap.docs.some(d => {
+                const dateStr = d.data().date ? new Date(d.data().date).toLocaleDateString('it-IT') : '';
+                return dateStr === today;
+            });
+            if (hasActivityToday) activeToday++;
+        }
+
+        document.getElementById('total-users').textContent = totalUsers;
+        document.getElementById('total-activities').textContent = totalActivities;
+        document.getElementById('active-today').textContent = activeToday;
+    } catch (err) {
+        console.error('Errore caricamento statistiche:', err);
+    }
+}
+
+window.deleteUser = async function(uid, email) {
     if (!confirm(`Sei sicuro di voler eliminare l'utente ${email}? Questa azione non può essere annullata.`)) {
         return;
     }
-    
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    delete users[email];
-    localStorage.setItem('users', JSON.stringify(users));
-    
-    loadDashboardData();
-    alert('Utente eliminato.');
-}
 
-// ========== KEYBOARD NAVIGATION ==========
+    try {
+        // Elimina la sotto-collection diary
+        const diarySnap = await getDocs(collection(db, 'users', uid, 'diary'));
+        for (const d of diarySnap.docs) {
+            await deleteDoc(d.ref);
+        }
+        // Elimina il documento utente
+        await deleteDoc(doc(db, 'users', uid));
+        await loadDashboardData();
+        alert('Utente eliminato.');
+    } catch (err) {
+        console.error('Errore eliminazione utente:', err);
+        alert('Errore durante l\'eliminazione dell\'utente.');
+    }
+};
+
+// ========== NAVIGAZIONE TASTIERA ==========
 document.addEventListener('keydown', (e) => {
-    // ESC - Logout or go back
-    if (e.key === 'Escape') {
-        if (isAdminLoggedIn) {
-            if (confirm('Vuoi uscire dal pannello amministratore?')) {
-                logoutAdmin();
-            }
+    if (e.key === 'Escape' && currentAdmin) {
+        if (confirm('Vuoi uscire dal pannello amministratore?')) {
+            logoutAdmin();
         }
         e.preventDefault();
     }

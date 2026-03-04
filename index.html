@@ -192,6 +192,10 @@
                         <button type="button" id="register-btn" class="btn btn-secondary">Registrati</button>
                     </div>
                 </form>
+                <div style="margin-top: var(--spacing-sm); display: flex; gap: var(--spacing-sm); flex-wrap: wrap; align-items: center;">
+                    <button type="button" id="google-login-btn" class="btn btn-secondary">🔵 Accedi con Google</button>
+                    <a href="#" id="forgot-password-link" class="help-text" style="text-decoration: underline;">Password dimenticata?</a>
+                </div>
                 <p class="help-text">Gli utenti registrati possono accedere ai livelli intermedio ed esperto</p>
             </div>
             
@@ -317,6 +321,22 @@
         </div>
     </div>
 
+    <!-- Forgot Password Modal -->
+    <div id="forgot-password-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Recupera Password</h2>
+                <button class="modal-close" id="close-forgot-password-modal">✕</button>
+            </div>
+            <form id="forgot-password-form">
+                <label for="forgot-email">Email:</label>
+                <input type="email" id="forgot-email" required>
+                <button type="submit" class="btn btn-primary">Invia email di recupero</button>
+            </form>
+            <div id="forgot-password-message" class="help-text"></div>
+        </div>
+    </div>
+
     <!-- Notification Toast -->
     <div id="notification-toast" class="notification-toast" role="alert" aria-live="polite" style="display: none;">
         <span id="notification-message"></span>
@@ -327,6 +347,6 @@
         <p><a href="privacy.html">Privacy Policy</a> | <a href="accessibility.html">Accessibilità</a></p>
     </footer>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>
