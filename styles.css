@@ -528,6 +528,83 @@ input[type="checkbox"] {
     100% { transform: rotateY(0deg); }
 }
 
+/* ========== MOTIVATIONAL POPUP ========== */
+.motivational-card {
+    background: linear-gradient(145deg, #fffdf5, #fff8e1, #fef3d0);
+    border: 3px solid #d4a843;
+    border-radius: 16px;
+    padding: var(--spacing-xl);
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(180, 140, 40, 0.25), 0 2px 8px rgba(0,0,0,0.12);
+    position: relative;
+    animation: motivational-appear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes motivational-appear {
+    from { opacity: 0; transform: scale(0.85) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .motivational-card {
+        animation: none;
+    }
+}
+
+.motivational-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.motivational-card-header h2 {
+    font-size: var(--font-lg);
+    color: #7a5a10;
+    font-style: italic;
+    margin: 0;
+}
+
+.motivational-icon {
+    font-size: var(--font-lg);
+}
+
+.motivational-card-body {
+    background: rgba(255, 255, 255, 0.65);
+    border-left: 4px solid #d4a843;
+    border-right: 4px solid #d4a843;
+    border-radius: 8px;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    margin: var(--spacing-lg) 0;
+}
+
+.motivational-phrase {
+    font-size: var(--font-md);
+    color: #3a2a00;
+    line-height: 1.9;
+    font-style: italic;
+    margin: 0;
+}
+
+.motivational-card-footer {
+    margin-top: var(--spacing-lg);
+}
+
+.motivational-congrats {
+    font-size: var(--font-sm);
+    color: #5a4000;
+    margin-bottom: var(--spacing-md);
+    font-weight: bold;
+}
+
+.motivational-close-btn {
+    min-width: 140px;
+    font-size: var(--font-md);
+}
+
 /* ========== MATH GAME ========== */
 .math-content {
     max-width: 600px;

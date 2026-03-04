@@ -24,6 +24,164 @@ import {
     setDoc
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
+// ========== MOTIVATIONAL PHRASES ==========
+const motivationalPhrases = [
+    "Ogni piccolo passo avanti è una vittoria che vale un mondo intero.",
+    "La gentilezza è il sole che fa fiorire anche i giorni più grigi.",
+    "Dentro ogni momento di silenzio c'è la forza di mille parole.",
+    "La curiosità è il filo d'oro che tesse la trama della vita.",
+    "Anche il viaggio più lungo inizia con un singolo respiro di coraggio.",
+    "Le stelle non smettono di brillare solo perché non le vediamo.",
+    "Ogni giorno porta in dono qualcosa di nuovo da scoprire.",
+    "La resilienza è il fiore che sboccia tra le crepe delle pietre.",
+    "Un sorriso sincero è il regalo più prezioso che possiamo offrire.",
+    "Il tempo è un pittore che colora ogni stagione in modo unico.",
+    "La gratitudine trasforma ciò che abbiamo in abbastanza.",
+    "Ogni nuvola porta con sé la promessa della pioggia che nutre.",
+    "La saggezza nasce dall'ascolto attento del mondo intorno a noi.",
+    "Come il bambù, pieghiamoci al vento senza mai spezzarci.",
+    "Il coraggio non è l'assenza di paura, ma il danzarci insieme.",
+    "La luce più bella è quella che accende il cuore degli altri.",
+    "Ogni incontro è un universo che si apre per un istante.",
+    "La memoria è il giardino dove crescono i fiori del passato.",
+    "Anche i giorni difficili hanno qualcosa da insegnare.",
+    "La semplicità è l'arte più raffinata che esista.",
+    "Chi cammina con leggerezza lascia impronte più durature.",
+    "La vita è un racconto che scriviamo un giorno alla volta.",
+    "Ogni alba è una pagina bianca che aspetta di essere riempita.",
+    "La pace interiore è il tesoro che nessuno può toglierci.",
+    "Come le radici dell'albero, la forza sta nel profondo.",
+    "La gentilezza è una lingua che tutti capiscono senza traduzione.",
+    "Ogni piccola gioia è un faro nella nebbia dei giorni difficili.",
+    "Il respiro è il ritmo segreto che ci connette all'universo.",
+    "La creatività è l'aquilone che vola più in alto con il vento contrario.",
+    "Chi semina parole buone raccoglie fiori di speranza.",
+    "La vita fiorisce là dove c'è cura e attenzione.",
+    "Ogni tramonto porta con sé la promessa di un nuovo domani.",
+    "La fortezza più solida è costruita con mattoni di perseveranza.",
+    "Come l'acqua trova sempre la sua strada, così fa la speranza.",
+    "Il silenzio è la musica più profonda dell'anima.",
+    "Ogni gesto di bontà risuona nel tempo come campane al vento.",
+    "La mente che impara non invecchia mai davvero.",
+    "Il cielo non finisce dove si vede, ma dove l'immaginazione arriva.",
+    "Ogni sfida superata aggiunge un anello alla catena della saggezza.",
+    "La serenità è il porto sicuro che costruiamo dentro di noi.",
+    "Come la luna riflette la luce del sole, noi riflettiamo la cura altrui.",
+    "Il presente è il dono più prezioso che il tempo ci offre.",
+    "Ogni parola gentile è un seme che germoglia nel cuore di chi ascolta.",
+    "La forza non si misura in peso, ma in quanto si è capaci di sollevare gli altri.",
+    "Come la quercia cresce lentamente, la saggezza matura nel tempo.",
+    "La gioia condivisa si moltiplica; il dolore condiviso si dimezza.",
+    "Ogni momento di quiete è un'oasi nell'oceano del quotidiano.",
+    "La vita è un mosaico fatto di mille piccoli momenti colorati.",
+    "Chi guarda le stelle non teme l'oscurità.",
+    "La determinazione è il vento che gonfia le vele del cambiamento.",
+    "Ogni esperienza è un maestro che ci accompagna nel cammino.",
+    "La bellezza sta negli occhi di chi sa guardare con il cuore.",
+    "Come le onde del mare, ogni difficoltà alla fine si ritrae.",
+    "Il pensiero positivo è il seme da cui nasce il frutto della felicità.",
+    "Ogni piccolo traguardo merita di essere celebrato con gioia.",
+    "La montagna non si sposta, ma il camminatore trova sempre il sentiero.",
+    "Chi porta luce nella vita degli altri illumina anche il proprio cammino.",
+    "La saggezza è il fiume che scorre tranquillo tra le rive dell'esperienza.",
+    "Ogni momento di gratitudine è una porta che si apre sulla felicità.",
+    "La mente aperta è la casa in cui il mondo intero può entrare.",
+    "Come la primavera segue l'inverno, la gioia segue ogni difficoltà.",
+    "Il valore di una giornata si misura in quanto abbiamo amato il mondo.",
+    "Ogni respiro profondo è un abbraccio che ci diamo da soli.",
+    "La tenacia è il fuoco che arde anche sotto la pioggia più fredda.",
+    "Chi ascolta con il cuore sente ciò che le parole non dicono.",
+    "La vita è troppo bella per essere vissuta in fretta.",
+    "Ogni piccola vittoria è il gradino su cui costruire i sogni futuri.",
+    "Come il faro guida le navi, la speranza guida i cuori.",
+    "La cura di sé è il fondamento su cui costruire tutto il resto.",
+    "Ogni giorno vissuto con intenzione è un dono a noi stessi.",
+    "La magia non è nei grandi gesti, ma nei piccoli momenti quotidiani.",
+    "Chi coltiva la pazienza raccoglie frutti dolcissimi.",
+    "La verità più profonda si trova spesso nel silenzio tra le parole.",
+    "Ogni ostacolo è un punto di forza che aspetta di essere scoperto.",
+    "Come il cristallo che brilla di più quando la luce lo attraversa.",
+    "La vita è un campo di possibilità: sta a noi scegliere cosa seminare.",
+    "Ogni momento di connessione con gli altri ci rende più umani.",
+    "La leggerezza non è superficialità, ma libertà interiore.",
+    "Chi non smette di imparare non smette di vivere davvero.",
+    "La compassione è il ponte che collega le isole solitarie dei cuori.",
+    "Ogni alba porta con sé nuove possibilità nascoste nell'attimo.",
+    "Come la radice dell'albero sostiene il cielo senza vederlo, così la forza silenziosa ci sostiene.",
+    "Il ritmo del cuore è la musica più vera che possiamo ascoltare.",
+    "Ogni goccia di impegno forma l'oceano del successo.",
+    "La creatività è il modo in cui l'anima si racconta al mondo.",
+    "Chi impara a cadere impara anche a volare.",
+    "La saggezza è sapere quando camminare e quando fermarsi ad ammirare.",
+    "Ogni parola è un mondo: scegliamo quelle che costruiscono ponti.",
+    "Come il diamante, la forza più grande si forma sotto pressione.",
+    "La vita si misura non in anni, ma in momenti di vera presenza.",
+    "Ogni sfida è un invito a scoprire forze che non sapevamo di avere.",
+    "Il sorriso è la curva che mette tutto a posto.",
+    "Chi costruisce con le mani del cuore crea cose che durano.",
+    "La leggerezza del pensiero è il volo libero dell'immaginazione.",
+    "Ogni piccolo atto di cura è una preghiera silenziosa al mondo.",
+    "Come la luna illumina la notte, ogni gesto buono illumina il buio.",
+    "La vita è fatta di capitoli: ogni pagina ha il suo valore.",
+    "Chi ha imparato ad aspettare ha imparato l'arte più preziosa.",
+    "La gioia più grande nasce spesso dalle cose più semplici.",
+    "Ogni cuore che batte è un universo che merita di essere esplorato.",
+    "Come i petali cadono per nutrire la terra, ogni esperienza nutre la nostra crescita.",
+    "La strada non si percorre da soli: anche le impronte solitarie tracciano un cammino.",
+    "Ogni momento è unico e irripetibile: viviamolo con piena presenza.",
+    "La meraviglia è lo stato d'animo di chi sa ancora stupirsi.",
+    "Chi porta pace nel cuore porta pace nel mondo."
+];
+
+const PHRASES_STORAGE_KEY = 'nonnetta_phrases_queue';
+
+function getNextMotivationalPhrase() {
+    let queue;
+    try {
+        queue = JSON.parse(localStorage.getItem(PHRASES_STORAGE_KEY) || '[]');
+    } catch (e) {
+        queue = [];
+    }
+    if (!Array.isArray(queue) || queue.length === 0) {
+        // Build a fresh shuffled queue of indices
+        queue = motivationalPhrases.map((_, i) => i);
+        for (let i = queue.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [queue[i], queue[j]] = [queue[j], queue[i]];
+        }
+    }
+    const idx = queue.pop();
+    localStorage.setItem(PHRASES_STORAGE_KEY, JSON.stringify(queue));
+    return motivationalPhrases[idx];
+}
+
+function showMotivationalPopup(moves) {
+    const phrase = getNextMotivationalPhrase();
+    const phraseEl = document.getElementById('motivational-phrase');
+    const popup = document.getElementById('motivational-popup');
+    if (!phraseEl || !popup) return;
+    const congrats = popup.querySelector('.motivational-congrats');
+    phraseEl.textContent = `"${phrase}"`;
+    if (congrats) congrats.textContent = `🎉 Complimenti! Hai completato il gioco in ${moves} mosse!`;
+    popup.style.display = 'flex';
+    const closeBtn = document.getElementById('close-motivational-popup');
+
+    function closePopup() {
+        popup.style.display = 'none';
+        document.removeEventListener('keydown', onKeyDown);
+    }
+    function onKeyDown(e) {
+        if (e.key === 'Escape') closePopup();
+    }
+
+    if (closeBtn) {
+        closeBtn.focus();
+        closeBtn.onclick = closePopup;
+    }
+    popup.onclick = (e) => { if (e.target === popup) closePopup(); };
+    document.addEventListener('keydown', onKeyDown);
+}
+
 // ========== HAPTIC FEEDBACK ==========
 function hapticFeedback(type = 'light') {
     // Vibration API for mobile devices
@@ -354,9 +512,7 @@ function claimPrize() {
     playSound(1000, 150);
     setTimeout(() => playSound(1200, 150), 180);
     setTimeout(() => playSound(1400, 200), 360);
-    setTimeout(() => {
-        alert(`🎉 Complimenti! Hai completato il gioco in ${memoryState.moves} mosse!\n🏆 Hai vinto il tuo premio speciale!`);
-    }, 700);
+    setTimeout(() => showMotivationalPopup(memoryState.moves), 700);
 }
 
 // ========== MATH GAME ==========
