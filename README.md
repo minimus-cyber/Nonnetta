@@ -105,6 +105,53 @@ This repository contains an accessible web application for elderly users, hosted
 
 Consulta [SECURITY.md](SECURITY.md) e [DEPLOYMENT.md](DEPLOYMENT.md) per la configurazione completa.
 
+## 🔥 Configurazione Firebase
+
+Il file `firebase-config.js` contiene la configurazione del progetto Firebase e va **personalizzato una sola volta** con i valori del tuo progetto.
+
+### Come configurare Firebase
+
+1. Vai su [https://console.firebase.google.com/](https://console.firebase.google.com/)
+2. Seleziona (o crea) il tuo progetto Firebase
+3. Vai su **Impostazioni progetto** (icona ingranaggio) → scheda **Generale**
+4. Nella sezione **"Le tue app"**, clicca sull'icona **</>** (Web) per registrare l'app
+5. Copia l'oggetto `firebaseConfig` mostrato
+6. Apri `firebase-config.js` e sostituisci i valori segnaposto:
+
+```javascript
+const firebaseConfig = {
+  apiKey: "IL-TUO-API-KEY",
+  authDomain: "il-tuo-progetto.firebaseapp.com",
+  projectId: "il-tuo-progetto",
+  storageBucket: "il-tuo-progetto.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcdef"
+};
+```
+
+> ⚠️ **Nota**: `firebaseConfig` **non è un segreto**. È progettata per essere pubblica e visibile nel codice frontend. La sicurezza è garantita dalle **Firestore Security Rules** configurate lato server. Non committare mai Service Account Keys o chiavi private.
+
+### Dove si trova la configurazione
+
+La configurazione Firebase è centralizzata in **un solo file**: `firebase-config.js`.  
+Sia `app.js` che `admin.js` la importano da lì:
+
+```javascript
+import { auth, db } from './firebase-config.js';
+```
+
+### Cosa toccare se i parametri Firebase vengono ruotati
+
+Se le credenziali Firebase vengono rinnovate (es. rotazione `apiKey`):
+
+1. Apri **`firebase-config.js`** (unico file da modificare)
+2. Sostituisci i valori aggiornati nell'oggetto `firebaseConfig`
+3. Salva il file e fai un commit/push
+
+Nessun altro file deve essere modificato.
+
+---
+
 ## 📁 Project Structure
 
 ```

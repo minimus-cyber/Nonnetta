@@ -99,6 +99,23 @@ function playSound(frequency, duration = 100, type = 'sine') {
 }
 
 // ========== INITIALIZATION ==========
+// onAuthStateChanged è avviato a livello di modulo per intercettare lo stato
+// di autenticazione il prima possibile, indipendentemente dal caricamento del DOM.
+onAuthStateChanged(auth, async (firebaseUser) => {
+    if (firebaseUser) {
+        currentUser = {
+            uid: firebaseUser.uid,
+            name: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+            email: firebaseUser.email
+        };
+        updateAuthUI();
+        await offerLocalDataMigration();
+    } else {
+        currentUser = null;
+        updateAuthUI();
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     initializeCookieBanner();
     initializeGameSelection();
@@ -830,22 +847,6 @@ let currentUser = null;
 const googleProvider = new GoogleAuthProvider();
 
 function initializeAuth() {
-    // Observe Firebase Auth state
-    onAuthStateChanged(auth, async (firebaseUser) => {
-        if (firebaseUser) {
-            currentUser = {
-                uid: firebaseUser.uid,
-                name: firebaseUser.displayName || firebaseUser.email.split('@')[0],
-                email: firebaseUser.email
-            };
-            updateAuthUI();
-            await offerLocalDataMigration();
-        } else {
-            currentUser = null;
-            updateAuthUI();
-        }
-    });
-
     // Login form
     document.getElementById('login-form').addEventListener('submit', handleLogin);
 
