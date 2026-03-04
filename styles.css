@@ -117,6 +117,31 @@ header .subtitle {
 }
 
 /* ========== NAVIGATION ========== */
+.heading-with-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.heading-with-action h2 {
+    margin-bottom: 0;
+}
+
+.heading-with-action .btn {
+    white-space: nowrap;
+}
+
+.link-emphasized {
+    color: var(--accent-secondary);
+    font-weight: bold;
+}
+
+.contact-link {
+    color: var(--accent-secondary);
+}
 
 /* ========== CARDS ========== */
 .card {
