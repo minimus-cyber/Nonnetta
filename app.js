@@ -1,7 +1,7 @@
 // ============================================
 // NONNETTA - MAIN APPLICATION JAVASCRIPT
 // ============================================
-import { auth, db } from './firebase-config.js';
+import { auth, db } from './firebase-init.js';
 import {
     onAuthStateChanged,
     signInWithEmailAndPassword,
