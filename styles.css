@@ -553,23 +553,30 @@ input[type="checkbox"] {
     }
 }
 
-.motivational-card-header {
+.motivational-close-x {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background: none;
+    border: 2px solid #d4a843;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+    color: #7a5a10;
+    cursor: pointer;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-lg);
+    line-height: 1;
 }
 
-.motivational-card-header h2 {
-    font-size: var(--font-lg);
-    color: #7a5a10;
-    font-style: italic;
-    margin: 0;
-}
-
-.motivational-icon {
-    font-size: var(--font-lg);
+.motivational-close-x:hover,
+.motivational-close-x:focus {
+    background-color: #ffc107;
+    color: #3a2a00;
+    transform: scale(1.1);
 }
 
 .motivational-card-body {
@@ -591,13 +598,6 @@ input[type="checkbox"] {
 
 .motivational-card-footer {
     margin-top: var(--spacing-lg);
-}
-
-.motivational-congrats {
-    font-size: var(--font-sm);
-    color: #5a4000;
-    margin-bottom: var(--spacing-md);
-    font-weight: bold;
 }
 
 .motivational-close-btn {

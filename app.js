@@ -155,16 +155,15 @@ function getNextMotivationalPhrase() {
     return motivationalPhrases[idx];
 }
 
-function showMotivationalPopup(moves) {
+function showMotivationalPopup() {
     const phrase = getNextMotivationalPhrase();
     const phraseEl = document.getElementById('motivational-phrase');
     const popup = document.getElementById('motivational-popup');
     if (!phraseEl || !popup) return;
-    const congrats = popup.querySelector('.motivational-congrats');
     phraseEl.textContent = `"${phrase}"`;
-    if (congrats) congrats.textContent = `🎉 Complimenti! Hai completato il gioco in ${moves} mosse!`;
     popup.style.display = 'flex';
     const closeBtn = document.getElementById('close-motivational-popup');
+    const closeXBtn = document.getElementById('close-motivational-popup-x');
 
     function closePopup() {
         popup.style.display = 'none';
@@ -177,6 +176,9 @@ function showMotivationalPopup(moves) {
     if (closeBtn) {
         closeBtn.focus();
         closeBtn.onclick = closePopup;
+    }
+    if (closeXBtn) {
+        closeXBtn.onclick = closePopup;
     }
     popup.onclick = (e) => { if (e.target === popup) closePopup(); };
     document.addEventListener('keydown', onKeyDown);
@@ -498,21 +500,19 @@ function unlockPrizeCard() {
     if (!prizeCard) return;
 
     prizeCard.classList.add('unlocked');
-    prizeCard.disabled = false;
-    prizeCard.setAttribute('aria-label', 'Carta premio sbloccata - clicca per scoprire il tuo premio!');
-    prizeCard.addEventListener('click', claimPrize, { once: true });
+    prizeCard.setAttribute('aria-label', 'Carta premio sbloccata!');
 
     hapticFeedback('success');
     playSound(880, 300);
     setTimeout(() => playSound(1100, 200), 350);
-}
-
-function claimPrize() {
-    hapticFeedback('success');
-    playSound(1000, 150);
-    setTimeout(() => playSound(1200, 150), 180);
-    setTimeout(() => playSound(1400, 200), 360);
-    setTimeout(() => showMotivationalPopup(memoryState.moves), 700);
+    // After the flip animation completes (600ms), play victory sounds then auto-show popup
+    setTimeout(() => {
+        hapticFeedback('success');
+        playSound(1000, 150);
+        setTimeout(() => playSound(1200, 150), 180);
+        setTimeout(() => playSound(1400, 200), 360);
+        setTimeout(() => showMotivationalPopup(), 700);
+    }, 600);
 }
 
 // ========== MATH GAME ==========
