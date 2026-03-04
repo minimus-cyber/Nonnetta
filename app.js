@@ -239,29 +239,38 @@ function initMemoryGame() {
     // Reset state
     memoryState = { cards: [], flipped: [], moves: 0, found: 0 };
     
-    // Create card pairs - 4 pairs = 8 cards for 3x3 grid (9 spaces with 1 empty)
+    // Create card pairs - 4 pairs = 8 cards arranged around center prize card
     const symbols = ['🌸', '🌺', '🌻', '🌷'];
     const cardPairs = [...symbols, ...symbols];
     memoryState.cards = cardPairs.sort(() => Math.random() - 0.5);
     
-    // Render board
+    // Render board - 3x3 grid with prize card locked at center (position 4)
     const board = document.getElementById('memory-board');
     board.innerHTML = '';
     
-    memoryState.cards.forEach((symbol, index) => {
-        const card = document.createElement('button');
-        card.className = 'memory-card';
-        card.dataset.index = index;
-        card.textContent = '?';
-        card.tabIndex = 0;
-        card.addEventListener('click', () => flipCard(index));
-        board.appendChild(card);
-    });
-    
-    // Add one empty space to make it 9 slots
-    const emptySpace = document.createElement('div');
-    emptySpace.className = 'memory-card-empty';
-    board.appendChild(emptySpace);
+    let cardIndex = 0;
+    for (let position = 0; position < 9; position++) {
+        if (position === 4) {
+            // Central prize card - visible but locked
+            const prizeCard = document.createElement('button');
+            prizeCard.className = 'memory-prize-card';
+            prizeCard.id = 'memory-prize-card';
+            prizeCard.disabled = true;
+            prizeCard.setAttribute('aria-label', 'Carta premio - bloccata, si sblocca quando trovi tutte le coppie');
+            prizeCard.innerHTML = '<div class="card-inner"><div class="card-front">🎁</div><div class="card-back">🏆</div></div>';
+            board.appendChild(prizeCard);
+        } else {
+            const idx = cardIndex;
+            const card = document.createElement('button');
+            card.className = 'memory-card';
+            card.dataset.index = idx;
+            card.textContent = '?';
+            card.tabIndex = 0;
+            card.addEventListener('click', () => flipCard(idx));
+            board.appendChild(card);
+            cardIndex++;
+        }
+    }
     
     updateMemoryStats();
 }
@@ -304,10 +313,7 @@ function checkMemoryMatch() {
         playSound(800, 100);
         
         if (memoryState.found === 4) {
-            setTimeout(() => {
-                alert(`🎉 Complimenti! Hai completato il gioco in ${memoryState.moves} mosse!`);
-                hapticFeedback('success');
-            }, 500);
+            setTimeout(() => unlockPrizeCard(), 500);
         }
     } else {
         // No match
@@ -327,6 +333,30 @@ function checkMemoryMatch() {
 function updateMemoryStats() {
     document.getElementById('memory-moves').textContent = memoryState.moves;
     document.getElementById('memory-found').textContent = memoryState.found;
+}
+
+function unlockPrizeCard() {
+    const prizeCard = document.getElementById('memory-prize-card');
+    if (!prizeCard) return;
+
+    prizeCard.classList.add('unlocked');
+    prizeCard.disabled = false;
+    prizeCard.setAttribute('aria-label', 'Carta premio sbloccata - clicca per scoprire il tuo premio!');
+    prizeCard.addEventListener('click', claimPrize, { once: true });
+
+    hapticFeedback('success');
+    playSound(880, 300);
+    setTimeout(() => playSound(1100, 200), 350);
+}
+
+function claimPrize() {
+    hapticFeedback('success');
+    playSound(1000, 150);
+    setTimeout(() => playSound(1200, 150), 180);
+    setTimeout(() => playSound(1400, 200), 360);
+    setTimeout(() => {
+        alert(`🎉 Complimenti! Hai completato il gioco in ${memoryState.moves} mosse!\n🏆 Hai vinto il tuo premio speciale!`);
+    }, 700);
 }
 
 // ========== MATH GAME ==========
