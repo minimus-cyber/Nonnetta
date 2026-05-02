@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nonnetta - Piattaforma Professionale di Stimolazione Neurocognitiva</title>
+    <title>Nonnetta - Stimolazione Neurocognitiva Accessibile</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="landing-styles.css">
 </head>
-<body class="landing-page">
+<body>
     <!-- Cookie Consent Banner (GDPR Compliance) -->
     <div id="cookie-banner" class="cookie-banner" role="alert" aria-live="polite">
         <div class="cookie-content">
@@ -19,258 +18,351 @@
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="landing-nav">
-        <div class="container">
-            <div class="nav-content">
-                <h1 class="logo">Nonnetta</h1>
-                <div class="nav-links">
-                    <a href="#features">Funzionalità</a>
-                    <a href="#pricing">Prezzi</a>
-                    <a href="#testimonials">Testimonianze</a>
-                    <button id="login-btn" class="btn btn-primary">Accedi</button>
+    <div class="container">
+        <!-- Main Content -->
+        <section id="main-content">
+            <!-- Game Selection -->
+            <div id="game-selection" class="card">
+                <div class="heading-with-action">
+                    <h2>Gioca e allena la mente</h2>
+                    <a href="guida.html" class="btn btn-secondary">📖 Guida</a>
+                </div>
+                
+                <div class="games-grid">
+                    <button class="game-card" data-game="memory" data-difficulty="principiante" tabindex="0">
+                        <div class="game-icon">🧠</div>
+                        <h3>Memory</h3>
+                        <p>Trova le coppie</p>
+                        <span class="difficulty-badge principiante">⭐ Principiante</span>
+                    </button>
+                    
+                    <button class="game-card" data-game="math" data-difficulty="principiante" tabindex="0">
+                        <div class="game-icon">🔢</div>
+                        <h3>Calcoli</h3>
+                        <p>Risolvi le operazioni</p>
+                        <span class="difficulty-badge principiante">⭐ Principiante</span>
+                    </button>
+                    
+                    <button class="game-card" data-game="words" data-difficulty="intermedio" tabindex="0">
+                        <div class="game-icon">📝</div>
+                        <h3>Parole</h3>
+                        <p>Indovina la parola</p>
+                        <span class="difficulty-badge intermedio">⭐⭐ Intermedio</span>
+                    </button>
+                    
+                    <button class="game-card" data-game="sequence" data-difficulty="intermedio" tabindex="0">
+                        <div class="game-icon">🎯</div>
+                        <h3>Sequenze</h3>
+                        <p>Ricorda l'ordine</p>
+                        <span class="difficulty-badge intermedio">⭐⭐ Intermedio</span>
+                    </button>
+                    
+                    <button class="game-card" data-game="scrivi" data-difficulty="intermedio" tabindex="0">
+                        <div class="game-icon">✍️</div>
+                        <h3>Scrivi</h3>
+                        <p>Scrivi la parola</p>
+                        <span class="difficulty-badge intermedio">⭐⭐ Intermedio</span>
+                    </button>
+                    
+                    <button class="game-card" data-game="binaural" data-difficulty="esperto" tabindex="0">
+                        <div class="game-icon">🎧</div>
+                        <h3>Audio</h3>
+                        <p>Indovina il lato</p>
+                        <span class="difficulty-badge esperto">⭐⭐⭐ Esperto</span>
+                    </button>
                 </div>
             </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Mantieni la Tua Mente Attiva e in Salute</h1>
-                <p class="hero-subtitle">Piattaforma professionale di stimolazione neurocognitiva basata su evidenze scientifiche. Allena memoria, attenzione, linguaggio e funzioni esecutive con esercizi personalizzati.</p>
-                <div class="hero-buttons">
-                    <button id="start-trial-btn" class="btn btn-large btn-primary">Inizia Prova Gratuita 7 Giorni</button>
-                    <button id="register-btn" class="btn btn-large btn-secondary">Registrati Gratis</button>
-                </div>
-                <p class="hero-note">✓ Senza carta di credito  ✓ Annulla quando vuoi  ✓ GDPR Compliant</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <h2 class="section-title">Perché Scegliere Nonnetta?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>Scientificamente Validato</h3>
-                    <p>Esercizi basati su ricerche neuroscientifiche per stimolare efficacemente le funzioni cognitive</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Tracciamento Progressi</h3>
-                    <p>Monitora i tuoi miglioramenti con statistiche dettagliate e grafici delle performance</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Personalizzato</h3>
-                    <p>Programmi adattivi che si calibrano automaticamente al tuo livello di abilità</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">♿</div>
-                    <h3>Accessibile</h3>
-                    <p>Interfaccia ottimizzata per anziani: font grandi, alto contrasto, facile da usare</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🏆</div>
-                    <h3>Gamification</h3>
-                    <p>Trofei, streak giornalieri e obiettivi per mantenere alta la motivazione</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Privacy Garantita</h3>
-                    <p>I tuoi dati rimangono sul tuo dispositivo. Conformità totale GDPR e normative EU</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing">
-        <div class="container">
-            <h2 class="section-title">Scegli il Piano Perfetto per Te</h2>
-            <div class="pricing-grid">
-                <!-- Free Plan -->
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Gratuito</h3>
-                        <div class="price">
-                            <span class="price-amount">€0</span>
-                            <span class="price-period">/mese</span>
-                        </div>
+            <!-- Game Containers (hidden by default) -->
+            <div id="memory-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🧠 Memory</h2>
+                    <div class="game-stats">
+                        <span>Mosse: <strong id="memory-moves">0</strong></span>
+                        <span>Trovate: <strong id="memory-found">0</strong>/4</span>
                     </div>
-                    <ul class="pricing-features">
-                        <li>✓ 2 giochi base (Memory, Calcoli)</li>
-                        <li>✓ Tracciamento progressi limitato</li>
-                        <li>✓ Statistiche basilari</li>
-                        <li>✗ Giochi avanzati</li>
-                        <li>✗ Report dettagliati</li>
-                        <li>✗ Supporto prioritario</li>
-                    </ul>
-                    <button class="btn btn-secondary pricing-btn" data-plan="free">Inizia Gratis</button>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
                 </div>
+                <div id="memory-board" class="memory-board"></div>
+            </div>
 
-                <!-- Trial Plan -->
-                <div class="pricing-card pricing-featured">
-                    <div class="pricing-badge">Più Popolare</div>
-                    <div class="pricing-header">
-                        <h3>Prova 7 Giorni</h3>
-                        <div class="price">
-                            <span class="price-amount">€0</span>
-                            <span class="price-period">/7 giorni</span>
-                        </div>
+            <div id="math-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🔢 Calcoli</h2>
+                    <div class="game-stats">
+                        <span>Punteggio: <strong id="math-score">0</strong></span>
                     </div>
-                    <ul class="pricing-features">
-                        <li>✓ Accesso completo per 7 giorni</li>
-                        <li>✓ Tutti i 5 giochi</li>
-                        <li>✓ Report dettagliati</li>
-                        <li>✓ Tutte le statistiche</li>
-                        <li>✓ Supporto email</li>
-                        <li>✓ Senza impegno</li>
-                    </ul>
-                    <button class="btn btn-primary pricing-btn" data-plan="trial">Prova Gratis 7 Giorni</button>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
                 </div>
+                <div class="math-content">
+                    <div id="math-question" class="math-question"></div>
+                    <div id="math-options" class="math-options"></div>
+                    <div id="math-feedback" class="math-feedback"></div>
+                </div>
+            </div>
 
-                <!-- Premium Plan -->
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Premium</h3>
-                        <div class="price">
-                            <span class="price-amount">€9.99</span>
-                            <span class="price-period">/mese</span>
-                        </div>
+            <div id="words-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>📝 Parole</h2>
+                    <div class="game-stats">
+                        <span>Punteggio: <strong id="words-score">0</strong></span>
                     </div>
-                    <ul class="pricing-features">
-                        <li>✓ Accesso illimitato a tutti i giochi</li>
-                        <li>✓ Nuovi esercizi ogni mese</li>
-                        <li>✓ Report PDF scaricabili</li>
-                        <li>✓ Analisi avanzate con grafici</li>
-                        <li>✓ Supporto prioritario</li>
-                        <li>✓ Nessuna pubblicità</li>
-                    </ul>
-                    <button class="btn btn-primary pricing-btn" data-plan="premium">Abbonati Ora</button>
-                    <p class="pricing-note">Oppure €99/anno (risparmi 17%)</p>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div class="words-content">
+                    <div id="words-hint" class="words-hint"></div>
+                    <div id="words-display" class="words-display"></div>
+                    <div id="words-keyboard" class="words-keyboard"></div>
+                    <div id="words-feedback" class="words-feedback"></div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Cosa Dicono i Nostri Utenti</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"Uso Nonnetta da 3 mesi e ho notato un netto miglioramento nella memoria. I giochi sono divertenti e stimolanti!"</p>
-                    <p class="testimonial-author">- Maria R., 68 anni</p>
+            <div id="sequence-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🎯 Sequenze</h2>
+                    <div class="game-stats">
+                        <span>Livello: <strong id="sequence-level">1</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"Mia madre adora questi esercizi. Facile da usare anche per chi non è esperto di tecnologia. Ottimo investimento!"</p>
-                    <p class="testimonial-author">- Giuseppe L., figlio di utente</p>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"Come neuropsicologa, consiglio Nonnetta ai miei pazienti. Gli esercizi sono validati scientificamente e i risultati si vedono."</p>
-                    <p class="testimonial-author">- Dott.ssa Anna P., Neuropsicologa</p>
+                <div class="sequence-content">
+                    <div id="sequence-board" class="sequence-board"></div>
+                    <div id="sequence-feedback" class="sequence-feedback"></div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <h2>Inizia Oggi il Tuo Percorso di Benessere Cognitivo</h2>
-            <p>Unisciti a migliaia di utenti che ogni giorno allenano la mente con Nonnetta</p>
-            <button class="btn btn-large btn-primary" id="cta-trial-btn">Prova Gratis 7 Giorni</button>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="landing-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Nonnetta</h4>
-                    <p>Piattaforma professionale per la stimolazione neurocognitiva</p>
+            <div id="binaural-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>🎧 Audio Binaurale</h2>
+                    <div class="game-stats">
+                        <span>Punteggio: <strong id="binaural-score">0</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
                 </div>
-                <div class="footer-section">
-                    <h4>Link Utili</h4>
-                    <ul>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="accessibility.html">Accessibilità</a></li>
-                        <li><a href="terms.html">Termini di Servizio</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contatti</h4>
-                    <ul>
-                        <li>Email: info@nonnetta.eu</li>
-                        <li>Supporto: support@nonnetta.eu</li>
-                        <li>Privacy: privacy@nonnetta.eu</li>
-                    </ul>
+                <div class="binaural-content">
+                    <p class="binaural-instructions">Indossa le cuffie. Il suono arriverà da sinistra o destra. Clicca il pulsante corrispondente!</p>
+                    <div class="binaural-controls">
+                        <button id="binaural-left" class="binaural-btn" tabindex="0">
+                            <span class="binaural-arrow">←</span>
+                            Sinistra
+                        </button>
+                        <button id="binaural-right" class="binaural-btn" tabindex="0">
+                            Destra
+                            <span class="binaural-arrow">→</span>
+                        </button>
+                    </div>
+                    <div id="binaural-feedback" class="binaural-feedback"></div>
+                    <div class="binaural-options">
+                        <label class="binaural-option">
+                            <input type="checkbox" id="binaural-wait-mode" tabindex="0">
+                            <span>Modalità attesa: il suono cambia solo quando rispondi correttamente</span>
+                        </label>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Nonnetta. Tutti i diritti riservati. Conforme GDPR e normative EU.</p>
-            </div>
-        </div>
-    </footer>
 
-    <!-- Auth Modal -->
-    <div id="auth-modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
+            <div id="scrivi-game" class="game-container" style="display: none;">
+                <div class="game-header">
+                    <h2>✍️ Scrivi</h2>
+                    <div class="game-stats">
+                        <span>Punteggio: <strong id="scrivi-score">0</strong></span>
+                    </div>
+                    <button class="btn-back" tabindex="0">← Indietro</button>
+                </div>
+                <div class="scrivi-content">
+                    <div id="scrivi-hint" class="scrivi-hint"></div>
+                    <div id="scrivi-input-display" class="scrivi-input-display"></div>
+                    <div id="scrivi-keyboard" class="scrivi-keyboard"></div>
+                    <div id="scrivi-feedback" class="scrivi-feedback"></div>
+                    <p class="scrivi-help">Usa la tastiera o clicca le lettere</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Authentication Section -->
+        <section id="auth-section" class="card compact-auth-form">
+            <div id="auth-logged-out" style="display: block;">
+                <h3>👤 Registrazione / Accesso</h3>
+                <form id="login-form">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" required>
+                    
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" required>
+                    
+                    <div style="display: flex; gap: var(--spacing-sm); flex-wrap: wrap;">
+                        <button type="submit" class="btn btn-primary">Accedi</button>
+                        <button type="button" id="register-btn" class="btn btn-secondary">Registrati</button>
+                    </div>
+                </form>
+                <div style="margin-top: var(--spacing-sm); display: flex; gap: var(--spacing-sm); flex-wrap: wrap; align-items: center;">
+                    <button type="button" id="google-login-btn" class="btn btn-secondary">🔵 Accedi con Google</button>
+                    <a href="#" id="forgot-password-link" class="help-text" style="text-decoration: underline;">Password dimenticata?</a>
+                </div>
+                <p class="help-text">Gli utenti registrati possono accedere ai livelli intermedio ed esperto</p>
+            </div>
             
-            <!-- Login Form -->
-            <div id="login-form" class="auth-form">
-                <h2>Accedi al Tuo Account</h2>
-                <form id="login-form-elem">
-                    <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <input type="email" id="login-email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <input type="password" id="login-password" required>
-                    </div>
-                    <div id="login-error" class="error-message"></div>
-                    <button type="submit" class="btn btn-primary btn-block">Accedi</button>
-                </form>
-                <p class="auth-switch">Non hai un account? <a href="#" id="show-register">Registrati</a></p>
+            <div id="auth-logged-in" class="user-info-compact" style="display: none;">
+                <p>Benvenuto, <strong id="user-display-name"></strong>!</p>
+                <button id="logout-btn" class="btn btn-secondary">Esci</button>
+                <button id="view-diary-btn" class="btn btn-primary">📔 Diario</button>
             </div>
+        </section>
 
-            <!-- Register Form -->
-            <div id="register-form" class="auth-form" style="display: none;">
-                <h2>Crea il Tuo Account</h2>
-                <form id="register-form-elem">
-                    <div class="form-group">
-                        <label for="register-email">Email</label>
-                        <input type="email" id="register-email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-password">Password (minimo 6 caratteri)</label>
-                        <input type="password" id="register-password" required minlength="6">
-                    </div>
-                    <div class="form-group">
-                        <label for="register-password-confirm">Conferma Password</label>
-                        <input type="password" id="register-password-confirm" required>
-                    </div>
-                    <input type="hidden" id="register-plan" value="free">
-                    <div id="register-error" class="error-message"></div>
-                    <button type="submit" class="btn btn-primary btn-block">Registrati</button>
-                </form>
-                <p class="auth-switch">Hai già un account? <a href="#" id="show-login">Accedi</a></p>
+        <!-- Nonnetta Plus Section -->
+        <section id="nonnetta-plus-section">
+            <div class="card">
+                <h2>Nonnetta Plus</h2>
+                <div class="games-grid">
+                    <button class="game-card" id="nonnetta-plus-card" tabindex="0">
+                        <div class="game-icon">⭐</div>
+                        <h3>Nonnetta Plus</h3>
+                        <p>Percorso di stimolazione cognitiva avanzata</p>
+                        <p class="help-text">Solo per utenti registrati</p>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Diary Modal -->
+    <div id="diary-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📔 Il Mio Diario</h2>
+                <button class="modal-close" id="close-diary-modal">✕</button>
+            </div>
+            <div id="diary-content" class="diary-content"></div>
+            <div class="diary-actions">
+                <button id="download-diary-btn" class="btn btn-primary">📥 Scarica TXT</button>
+                <button id="print-diary-btn" class="btn btn-secondary">🖨️ Stampa</button>
             </div>
         </div>
     </div>
 
-    <script src="auth.js"></script>
-    <script src="landing.js"></script>
+    <!-- Registration Modal -->
+    <div id="register-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Registrazione Nuovo Utente</h2>
+                <button class="modal-close" id="close-register-modal">✕</button>
+            </div>
+            <form id="register-form">
+                <label for="register-name">Nome:</label>
+                <input type="text" id="register-name" required>
+                
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" required>
+                
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" required minlength="6">
+                
+                <label for="register-password-confirm">Conferma Password:</label>
+                <input type="password" id="register-password-confirm" required minlength="6">
+                
+                <button type="submit" class="btn btn-primary">Registrati</button>
+            </form>
+            <div id="register-message" class="help-text"></div>
+        </div>
+    </div>
+
+    <!-- Nonnetta Plus Page Modal -->
+    <div id="nonnetta-plus-modal" class="modal" style="display: none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>⭐ Nonnetta Plus</h2>
+                <button class="modal-close" id="close-nonnetta-plus-modal">✕</button>
+            </div>
+            <div class="nonnetta-plus-content">
+                <h3>Percorso di Stimolazione Cognitiva Avanzata</h3>
+                <p>Benvenuto nel percorso Nonnetta Plus, un programma strutturato di stimolazione cognitiva basato su metodologie validate.</p>
+                
+                <div class="plus-modules">
+                    <div class="plus-module">
+                        <h4>📚 Modulo 1: Memoria e Attenzione</h4>
+                        <p>Esercizi progressivi per migliorare la memoria di lavoro e l'attenzione sostenuta.</p>
+                        <ul>
+                            <li>Riconoscimento di pattern</li>
+                            <li>Memorizzazione di sequenze</li>
+                            <li>Esercizi di attenzione selettiva</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plus-module">
+                        <h4>🧮 Modulo 2: Calcolo e Logica</h4>
+                        <p>Attività per stimolare il ragionamento logico e le capacità di calcolo.</p>
+                        <ul>
+                            <li>Problemi aritmetici progressivi</li>
+                            <li>Sequenze numeriche</li>
+                            <li>Puzzle logici</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plus-module">
+                        <h4>💬 Modulo 3: Linguaggio e Comunicazione</h4>
+                        <p>Esercizi per mantenere e migliorare le competenze linguistiche.</p>
+                        <ul>
+                            <li>Arricchimento lessicale</li>
+                            <li>Comprensione verbale</li>
+                            <li>Produzione linguistica</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plus-module">
+                        <h4>🎯 Modulo 4: Funzioni Esecutive</h4>
+                        <p>Attività per potenziare pianificazione, organizzazione e problem-solving.</p>
+                        <ul>
+                            <li>Pianificazione di attività</li>
+                            <li>Risoluzione di problemi complessi</li>
+                            <li>Flessibilità cognitiva</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p class="help-text">Il percorso è in fase di sviluppo. Nuovi contenuti saranno aggiunti progressivamente.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-password-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Recupera Password</h2>
+                <button class="modal-close" id="close-forgot-password-modal">✕</button>
+            </div>
+            <form id="forgot-password-form">
+                <label for="forgot-email">Email:</label>
+                <input type="email" id="forgot-email" required>
+                <button type="submit" class="btn btn-primary">Invia email di recupero</button>
+            </form>
+            <div id="forgot-password-message" class="help-text"></div>
+        </div>
+    </div>
+
+    <!-- Motivational Popup (Prize) -->
+    <div id="motivational-popup" class="modal" style="display: none;" role="dialog" aria-modal="true" aria-label="Frase motivazionale" aria-describedby="motivational-phrase">
+        <div class="motivational-card">
+            <button id="close-motivational-popup-x" class="motivational-close-x" aria-label="Chiudi">✕</button>
+            <div class="motivational-card-body">
+                <p id="motivational-phrase" class="motivational-phrase"></p>
+            </div>
+            <div class="motivational-card-footer">
+                <button id="close-motivational-popup" class="btn btn-primary motivational-close-btn" aria-label="Chiudi">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="notification-toast" role="alert" aria-live="polite" style="display: none;">
+        <span id="notification-message"></span>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Nonnetta. Conforme al GDPR e alle normative europee.</p>
+        <p><a href="privacy.html">Privacy Policy</a> | <a href="accessibility.html">Accessibilità</a></p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>
